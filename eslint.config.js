@@ -53,7 +53,8 @@ export default antfu(
             "unicorn/filename-case": [
                 "error",
                 {
-                    case: "kebabCase"
+                    case: "kebabCase",
+                    ignore: ["^README\\.md$"]
                 }
             ]
         }

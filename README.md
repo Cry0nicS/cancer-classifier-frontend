@@ -12,6 +12,27 @@ To install npm packages run the following commands
 -   Run `npm run dev` or `nuxt dev` to start the development server.
     -   Open http://localhost:3000/
 
+## How to update dependencies
+
+### Minor version updates
+
+Update packages to the latest safe version as follows:
+
+1. Run `npm outdated` to check for outdated packages.
+2. Run `npm update` to update _all_ the outdated packages.
+    - If you want to update _only_ a specific package, run `npm update <package-name>`.
+3. Run `npm outdated` again to check if there are still outdated packages.
+
+### Major version updates
+
+Major version updates should be done with caution, as they may introduce breaking changes.
+
+You can do so by using the `@latest`. e.g. `npm install <packagename>@latest`
+
+### Alternative
+
+As an alternative, you can also use [npm-check-updates](https://github.com/raineorshine/npm-check-updates).
+
 ## Linting
 
 -   `npm run format-check` - checks for formatting errors.

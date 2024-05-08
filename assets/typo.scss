@@ -1,0 +1,69 @@
+@layer base {
+    h1,
+    h2,
+    h3,
+    .heading-1,
+    .heading-2,
+    .heading-3 {
+        @apply font-serif;
+
+        line-height: 110%;
+        font-weight: 400;
+    }
+
+    h4,
+    h5,
+    .heading-4,
+    .heading-5,
+    body {
+        @apply font-sans text-lg;
+    }
+
+    h4,
+    h5,
+    .heading-4,
+    .heading-5 {
+        line-height: 110%;
+    }
+
+    h1 {
+        @apply text-3xl font-normal md:text-4xl lg:text-5xl 2xl:text-6xl;
+    }
+
+    h2 {
+        @apply text-2xl font-normal md:text-3xl lg:text-4xl 2xl:text-5xl;
+    }
+
+    h3 {
+        @apply text-xl font-normal md:text-2xl lg:text-3xl 2xl:text-4xl;
+    }
+
+    h4,
+    .heading-4 {
+        @apply text-base font-normal md:text-xl lg:text-2xl;
+    }
+
+    h5,
+    .heading-5 {
+        @apply text-md font-normal md:text-base lg:text-xl;
+    }
+
+    p {
+        @apply text-md font-normal lg:text-base;
+    }
+
+    small {
+        @apply text-sm font-normal lg:text-md;
+    }
+
+    ul,
+    ol {
+        list-style: revert;
+        padding: revert;
+        margin: revert;
+
+        li {
+            @apply text-md lg:text-base;
+        }
+    }
+}

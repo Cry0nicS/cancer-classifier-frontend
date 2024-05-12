@@ -28,10 +28,7 @@ export const LoginSchema = (translate: ComposerTranslation) =>
             .required(translate("validation.name.required"))
             .label("Email")
             .email(translate("validation.email.invalid")),
-        password: string()
-            .required(translate("validation.password.required"))
-            .label("Password")
-            .min(8, translate("validation.password.short"))
+        password: string().required(translate("validation.password.required")).label("Password")
     });
 
 export const ForgotPasswordSchema = (translate: ComposerTranslation) =>

@@ -19,12 +19,33 @@ export default {
     "language.de": "German",
     "language.en": "English",
 
+    // General keywords
+    "or": "or",
+
+    // Account
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+
+    // Login
+    "login": {
+        title: "Continue with your Account",
+        login: "Log in"
+    },
+
+    // Errors
+    "errors": {
+        "user-not-found": "No user found with this email. Please register first.",
+        "wrong-password": "Incorrect password. Please try again.",
+        "too-many-requests": "Too many attempts. Please try again later.",
+        "invalid-email": "Invalid email format.",
+        "default-error": "Login failed with error code: {code}",
+        "unexpected-error": "An unexpected error occurred. Please try again."
+    },
+
     // Register
     "register": {
         title: "Create an Account",
-        name: "Name",
-        email: "Email",
-        password: "Password",
         register: "Register"
     },
     "validation": {

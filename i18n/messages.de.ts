@@ -19,12 +19,35 @@ export default {
     "language.de": "Deutsch",
     "language.en": "Englisch",
 
+    // General keywords
+    "or": "oder",
+
+    // Account
+    "name": "Name",
+    "email": "E-Mail",
+    "password": "Passwort",
+
+    // Login
+    "login": {
+        title: "Mit Ihrem Konto fortfahren",
+        login: "Anmelden"
+    },
+
+    // Errors
+    "errors": {
+        "user-not-found":
+            "Kein Benutzer mit dieser E-Mail gefunden. Bitte registrieren Sie sich zuerst.",
+        "wrong-password": "Falsches Passwort. Bitte versuchen Sie es erneut.",
+        "too-many-requests": "Zu viele Versuche. Bitte versuchen Sie es später noch einmal.",
+        "invalid-email": "Ungültiges E-Mail-Format.",
+        "default-error": "Anmeldung fehlgeschlagen mit Fehlercode: {code}",
+        "unexpected-error":
+            "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    },
+
     // Register
     "register": {
-        title: "Ein Konto erstellen",
-        name: "Name",
-        email: "E-Mail",
-        password: "Passwort",
+        title: "Konto erstellen",
         register: "Registrieren"
     },
     "validation": {

@@ -20,6 +20,7 @@ useSeo(
 
 <template>
     <div class="lg:container xl:mx-auto 2xl:max-w-[1280px]">
+        <ModulesLogin />
         <ModulesFaq
             :title="$t('faq.header')"
             :background-color="Color.Scale"

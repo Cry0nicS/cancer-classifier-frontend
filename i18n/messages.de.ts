@@ -48,7 +48,8 @@ export default {
     // Register
     "register": {
         title: "Konto erstellen",
-        register: "Registrieren"
+        register: "Registrieren",
+        signIn: "Einloggen"
     },
     "validation": {
         name: {

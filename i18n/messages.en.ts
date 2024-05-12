@@ -29,7 +29,7 @@ export default {
 
     // Login
     "login": {
-        title: "Continue with your Account",
+        title: "Log in with an existing account",
         login: "Log in"
     },
 
@@ -46,7 +46,8 @@ export default {
     // Register
     "register": {
         title: "Create an Account",
-        register: "Register"
+        register: "Register",
+        signIn: "Sign in"
     },
     "validation": {
         name: {

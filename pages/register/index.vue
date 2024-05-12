@@ -7,6 +7,7 @@ import {useFirebaseAuth} from "#imports";
 
 // Import the useI18n composable to access the translation function.
 const {t} = useI18n();
+const localePath = useLocalePath();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
@@ -53,7 +54,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                         <label
                             for="name"
                             class="block text-sm font-medium text-gray-700">
-                            {{ $t(`register.name`) }}
+                            {{ $t(`name`) }}
                         </label>
                         <input
                             id="name"
@@ -67,7 +68,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                         <label
                             for="email"
                             class="block text-sm font-medium text-gray-700">
-                            {{ $t(`register.email`) }}
+                            {{ $t(`email`) }}
                         </label>
                         <input
                             id="email"
@@ -81,7 +82,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                         <label
                             for="password"
                             class="block text-sm font-medium text-gray-700">
-                            {{ $t(`register.password`) }}
+                            {{ $t(`password`) }}
                         </label>
                         <input
                             id="password"
@@ -96,8 +97,41 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                         class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none">
                         {{ $t(`register.register`) }}
                     </button>
+                    <div class="divider-container">
+                        <hr class="divider-line" />
+                        <span class="divider-text">
+                            {{ $t(`or`) }}
+                        </span>
+                        <hr class="divider-line" />
+                    </div>
+                    <NuxtLink
+                        :to="localePath('/')"
+                        class="inline-block w-full rounded bg-main-azure px-4 py-2 text-center text-white hover:bg-main-lavender focus:outline-none">
+                        {{ $t(`register.signIn`) }}
+                    </NuxtLink>
                 </fieldset>
             </form>
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.divider-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.divider-line {
+    flex: 1;
+    border-top: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.divider-text {
+    padding: 0 10px;
+    color: #666;
+    font-size: 16px;
+}
+</style>

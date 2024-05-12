@@ -19,6 +19,31 @@ export default {
     "language.de": "German",
     "language.en": "English",
 
+    // Register
+    "register": {
+        title: "Create an Account",
+        name: "Name",
+        email: "Email",
+        password: "Password",
+        register: "Register"
+    },
+    "validation": {
+        name: {
+            required: "Please enter your name.",
+            short: "Your name is too short. It should be at least 3 characters.",
+            long: "Your name is too long. It should be no more than 50 characters."
+        },
+        email: {
+            required: "Please enter your email address.",
+            invalid: "The email address you entered is invalid. Please check it and try again."
+        },
+        password: {
+            required: "Please enter a password.",
+            short: "Your password is too short. It should be at least 8 characters.",
+            weak: "Your password is too weak. Please use a stronger password that includes a mix of letters, numbers, and symbols."
+        }
+    },
+
     // FAQ.
     "faq.header": "FAQ",
     "faq.description": "Important Questions and Answers",

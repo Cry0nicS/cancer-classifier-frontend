@@ -19,6 +19,32 @@ export default {
     "language.de": "Deutsch",
     "language.en": "Englisch",
 
+    // Register
+    "register": {
+        title: "Ein Konto erstellen",
+        name: "Name",
+        email: "E-Mail",
+        password: "Passwort",
+        register: "Registrieren"
+    },
+    "validation": {
+        name: {
+            required: "Bitte geben Sie Ihren Namen ein.",
+            short: "Ihr Name ist zu kurz. Er sollte mindestens 3 Zeichen haben.",
+            long: "Ihr Name ist zu lang. Er sollte nicht mehr als 50 Zeichen haben."
+        },
+        email: {
+            required: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+            invalid:
+                "Die eingegebene E-Mail-Adresse ist ungültig. Bitte überprüfen Sie sie und versuchen Sie es erneut."
+        },
+        password: {
+            required: "Bitte geben Sie ein Passwort ein.",
+            short: "Ihr Passwort ist zu kurz. Es sollte mindestens 8 Zeichen haben.",
+            weak: "Ihr Passwort ist zu schwach. Bitte verwenden Sie ein stärkeres Passwort, das eine Kombination aus Buchstaben, Zahlen und Symbolen enthält."
+        }
+    },
+
     // FAQ.
     "faq.header": "FAQ",
     "faq.description": "German FAQ description",

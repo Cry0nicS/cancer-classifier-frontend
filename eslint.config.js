@@ -20,6 +20,7 @@ export default antfu(
                     multiline: "never"
                 }
             ],
+            "vue/html-self-closing": "off",
             // Does not work with Prettier.
             // See: https://prettier.io/blog/2018/11/07/1.15.0#whitespace-sensitive-formatting.
             "vue/singleline-html-element-content-newline": "off",

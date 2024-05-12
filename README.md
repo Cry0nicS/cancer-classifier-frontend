@@ -6,6 +6,11 @@ To install npm packages run the following commands
 
 -   Run `npm install` to install the project dependencies.
 -   Run `cp .env.dist .env`, and update the `.env` file as necessary.
+-   Download Firebase Admin SDK credentials from the Firebase console:
+    -   Login to the Firebase console and navigate to the project settings.
+    -   Select "Service accounts" and click on "Generate new private key" for "Node.js.
+    -   Save it as `firebase-admin.json` in the root of the project.
+        -   Note: You might have to run `git rm --cached firebase-admin.json` to remove it from the git history.
 
 ### Run the development server:
 

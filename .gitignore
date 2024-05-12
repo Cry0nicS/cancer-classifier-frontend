@@ -21,6 +21,7 @@ logs
 .env
 .env.*
 !.env.dist
+firebase-admin.json
 
 # Vercel
 .vercel

@@ -4,7 +4,7 @@ module.exports = {
     bracketSameLine: true,
     bracketSpacing: false,
     endOfLine: "lf",
-    htmlWhitespaceSensitivity: "css",
+    htmlWhitespaceSensitivity: "ignore",
     insertPragma: false,
     jsxSingleQuote: false,
     printWidth: 100,

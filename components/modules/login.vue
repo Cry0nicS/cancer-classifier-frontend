@@ -84,7 +84,7 @@ function handleLoginError(error: FirebaseError) {
                             required />
                         <span class="text-red-500 text-sm">{{ emailError }}</span>
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <label
                             for="password"
                             class="block text-sm font-medium text-gray-700">
@@ -98,18 +98,18 @@ function handleLoginError(error: FirebaseError) {
                             required />
                         <span class="text-red-500 text-sm">{{ passwordError }}</span>
                     </div>
-                    <div class="flex flex-col lg:flex-row">
-                        <button
-                            type="submit"
-                            class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none lg:flex-1">
-                            {{ $t(`login.login`) }}
-                        </button>
+                    <div class="pb-4 text-right">
                         <NuxtLink
-                            :to="localePath({name: 'forgot-password'})"
-                            class="mt-2 w-full rounded bg-main-azure px-4 py-2 text-center text-white hover:bg-main-lavender focus:outline-none lg:ml-2 lg:mt-0 lg:flex-1">
+                            class="text-sm font-semibold text-primary hover:underline"
+                            :to="localePath({name: 'forgot-password'})">
                             {{ $t(`forgot-password.title`) }}
                         </NuxtLink>
                     </div>
+                    <button
+                        type="submit"
+                        class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none">
+                        {{ $t(`login.login`) }}
+                    </button>
                     <div class="divider-container">
                         <hr class="divider-line" />
                         <span class="divider-text">

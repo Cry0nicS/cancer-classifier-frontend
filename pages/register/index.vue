@@ -5,6 +5,10 @@ import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {RegisterSchema} from "~/utils/validations";
 import {useFirebaseAuth} from "#imports";
 
+definePageMeta({
+    middleware: ["already-logged-in"]
+});
+
 // Import the useI18n composable to access the translation function.
 const {t} = useI18n();
 const localePath = useLocalePath();

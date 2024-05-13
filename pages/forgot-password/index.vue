@@ -3,6 +3,10 @@ import {useField, useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/yup";
 import {sendPasswordResetEmail} from "@firebase/auth";
 
+definePageMeta({
+    middleware: ["already-logged-in"]
+});
+
 interface FirebaseError {
     code: string;
     message: string;

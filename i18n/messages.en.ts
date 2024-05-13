@@ -30,7 +30,8 @@ export default {
     // Login
     "login": {
         title: "Log in with an existing account",
-        login: "Log in"
+        login: "Log in",
+        logout: "Log out"
     },
 
     //Forgot Password

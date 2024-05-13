@@ -2,7 +2,8 @@
 import {useSeo} from "~/composables/use-seo";
 
 definePageMeta({
-    showHeader: true
+    showHeader: true,
+    middleware: ["auth"]
 });
 
 const {t} = useI18n();

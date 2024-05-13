@@ -30,7 +30,8 @@ export default {
     // Login
     "login": {
         title: "Mit Ihrem Konto fortfahren",
-        login: "Anmelden"
+        login: "Anmelden",
+        logout: "Abmelden"
     },
 
     //Forgot Password

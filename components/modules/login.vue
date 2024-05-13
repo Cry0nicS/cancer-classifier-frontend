@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// Import the useI18n composable to access the translation function.
 import {useField, useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/yup";
 import {signInWithEmailAndPassword} from "@firebase/auth";
@@ -11,6 +10,9 @@ interface FirebaseError {
 
 const {t} = useI18n();
 const localePath = useLocalePath();
+
+// Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
+const user = await getCurrentUser();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
@@ -62,6 +64,7 @@ function handleLoginError(error: FirebaseError) {
 
 <template>
     <div
+        v-if="!user"
         class="flex min-h-[550px] items-center justify-center bg-gray-100 md:min-h-[700px] lg:min-h-[900px]">
         <div class="w-full max-w-md rounded bg-white p-6 shadow-md">
             <h1 class="mb-4 text-xl font-bold">{{ $t(`login.title`) }}</h1>

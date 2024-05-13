@@ -45,7 +45,8 @@ const registerUser = handleSubmit(async (values, _ctx) => {
 </script>
 
 <template>
-    <div class="flex min-h-[900px] items-center justify-center bg-gray-100">
+    <div
+        class="flex min-h-[550px] items-center justify-center bg-gray-100 md:min-h-[700px] lg:min-h-[900px]">
         <div class="w-full max-w-md rounded bg-white p-6 shadow-md">
             <h1 class="mb-4 text-xl font-bold">{{ $t(`register.title`) }}</h1>
             <form @submit.prevent="registerUser">

@@ -33,6 +33,12 @@ export default {
         login: "Anmelden"
     },
 
+    //Forgot Password
+    "forgot-password": {
+        title: "Passwort vergessen?",
+        submit: "Passwort zurücksetzen"
+    },
+
     // Errors
     "errors": {
         "user-not-found":

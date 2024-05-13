@@ -1,8 +1,7 @@
 <script setup lang="ts">
-// Import the useI18n composable to access the translation function.
 import {useField, useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/yup";
-import {signInWithEmailAndPassword} from "@firebase/auth";
+import {sendPasswordResetEmail} from "@firebase/auth";
 
 interface FirebaseError {
     code: string;
@@ -20,21 +19,23 @@ const errorMessage = ref("");
 
 // Initialize and configured form validation based on Yup validation schema.
 const {handleSubmit, isSubmitting} = useForm({
-    validationSchema: toTypedSchema(LoginSchema(t))
+    validationSchema: toTypedSchema(ForgotPasswordSchema(t))
 });
 
 // Initializes reactive form fields using "useField" from vee-validate. Each call handles a specific form field.
 const {value: email, errorMessage: emailError} = useField("email");
-const {value: password, errorMessage: passwordError} = useField("password");
 
 // Handle the form validation and submission.
-const loginUser = handleSubmit(async (values, _ctx) => {
+const resetPassword = handleSubmit(async (values, _ctx) => {
     try {
         // Authenticate the user with email and password.
-        await signInWithEmailAndPassword(auth!, values.email, values.password);
+        await sendPasswordResetEmail(auth!, values.email, {
+            // TODO: Implement a proper URL.
+            url: "http://localhost:3000/"
+        });
 
         // Redirect to a dedicated page.
-        return await navigateTo("/new-page", {replace: true});
+        return await navigateTo({path: localePath("/"), replace: true});
     } catch (error) {
         // TODO: implement a proper error handling.
         errorMessage.value = handleLoginError(error as FirebaseError);
@@ -64,8 +65,8 @@ function handleLoginError(error: FirebaseError) {
     <div
         class="flex min-h-[550px] items-center justify-center bg-gray-100 md:min-h-[700px] lg:min-h-[900px]">
         <div class="w-full max-w-md rounded bg-white p-6 shadow-md">
-            <h1 class="mb-4 text-xl font-bold">{{ $t(`login.title`) }}</h1>
-            <form @submit.prevent="loginUser">
+            <h1 class="mb-4 text-xl font-bold">{{ $t(`forgot-password.title`) }}</h1>
+            <form @submit.prevent="resetPassword">
                 <fieldset :disabled="isSubmitting">
                     <div class="mb-4">
                         <label
@@ -81,32 +82,11 @@ function handleLoginError(error: FirebaseError) {
                             required />
                         <span class="text-red-500 text-sm">{{ emailError }}</span>
                     </div>
-                    <div class="mb-6">
-                        <label
-                            for="password"
-                            class="block text-sm font-medium text-gray-700">
-                            {{ $t(`password`) }}
-                        </label>
-                        <input
-                            id="password"
-                            v-model="password"
-                            type="password"
-                            class="mt-1 block w-full rounded-md border px-3 py-2"
-                            required />
-                        <span class="text-red-500 text-sm">{{ passwordError }}</span>
-                    </div>
-                    <div class="flex flex-col lg:flex-row">
-                        <button
-                            type="submit"
-                            class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none lg:flex-1">
-                            {{ $t(`login.login`) }}
-                        </button>
-                        <NuxtLink
-                            :to="localePath({name: 'forgot-password'})"
-                            class="mt-2 w-full rounded bg-main-azure px-4 py-2 text-center text-white hover:bg-main-lavender focus:outline-none lg:ml-2 lg:mt-0 lg:flex-1">
-                            {{ $t(`forgot-password.title`) }}
-                        </NuxtLink>
-                    </div>
+                    <button
+                        type="submit"
+                        class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none">
+                        {{ $t(`forgot-password.submit`) }}
+                    </button>
                     <div class="divider-container">
                         <hr class="divider-line" />
                         <span class="divider-text">
@@ -115,9 +95,9 @@ function handleLoginError(error: FirebaseError) {
                         <hr class="divider-line" />
                     </div>
                     <NuxtLink
-                        :to="localePath({name: 'register'})"
+                        :to="localePath('/')"
                         class="inline-block w-full rounded bg-main-azure px-4 py-2 text-center text-white hover:bg-main-lavender focus:outline-none">
-                        {{ $t(`register.title`) }}
+                        {{ $t(`register.signIn`) }}
                     </NuxtLink>
                 </fieldset>
             </form>

@@ -33,6 +33,12 @@ export default {
         login: "Log in"
     },
 
+    //Forgot Password
+    "forgot-password": {
+        title: "Forgot your password?",
+        submit: "Reset password"
+    },
+
     // Errors
     "errors": {
         "user-not-found": "No user found with this email. Please register first.",

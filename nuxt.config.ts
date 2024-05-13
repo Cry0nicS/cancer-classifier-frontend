@@ -75,6 +75,10 @@ export default defineNuxtConfig({
             "register/index": {
                 de: "/registrieren",
                 en: "/register"
+            },
+            "forgot-password/index": {
+                de: "/passwort-vergessen",
+                en: "/forgot-password"
             }
         }
     },

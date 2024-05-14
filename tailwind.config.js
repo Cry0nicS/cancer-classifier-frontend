@@ -1,7 +1,8 @@
-const {fontFamily} = require("tailwindcss/defaultTheme");
+import defaultTheme from "tailwindcss/defaultTheme";
+import animatePlugin from "tailwindcss-animate";
 
-/**@type {import('tailwindcss').Config} */
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
     darkMode: "class",
     content: [
         "./components/**/*.{js,vue,ts}",
@@ -30,7 +31,7 @@ module.exports = {
                 }
             },
             fontFamily: {
-                sans: ["Inter var", "Inter", ...fontFamily.sans]
+                sans: ["Inter var", "Inter", ...defaultTheme.fontFamily.sans]
             },
             borderRadius: {
                 lg: "var(--radius)",
@@ -108,5 +109,5 @@ module.exports = {
             }
         }
     },
-    plugins: [require("tailwindcss-animate")]
+    plugins: [animatePlugin]
 };

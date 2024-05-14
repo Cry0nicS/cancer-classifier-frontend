@@ -42,8 +42,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         // Redirect to a dedicated page.
         return await navigateTo("/new-page", {replace: true});
     } catch (error) {
-        // TODO: implement a proper error handling.
-        console.error(error);
+        showError("Your account could not be created. Please try again or contact us.");
     }
 });
 </script>

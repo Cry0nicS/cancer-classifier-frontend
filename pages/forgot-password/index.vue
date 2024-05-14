@@ -7,11 +7,6 @@ definePageMeta({
     middleware: ["already-logged-in"]
 });
 
-interface FirebaseError {
-    code: string;
-    message: string;
-}
-
 const {t} = useI18n();
 const localePath = useLocalePath();
 
@@ -41,28 +36,9 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
         // Redirect to a dedicated page.
         return await navigateTo({path: localePath("/"), replace: true});
     } catch (error) {
-        // TODO: implement a proper error handling.
-        errorMessage.value = handleLoginError(error as FirebaseError);
+        showError("An unexpected error occurred. Please try again.");
     }
 });
-
-// Function to handle login errors with specific messages for each error type
-function handleLoginError(error: FirebaseError) {
-    if (error.code) {
-        switch (error.code) {
-            case "auth/user-not-found":
-                return t("errors.user-not-found");
-            case "auth/too-many-requests":
-                return t("errors.too-many-requests");
-            case "auth/invalid-email":
-                return t("errors.invalid-email");
-            default:
-                return t("errors.default-error", {code: error.code});
-        }
-    }
-
-    return t("errors.unexpected-error");
-}
 </script>
 
 <template>

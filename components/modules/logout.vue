@@ -18,8 +18,7 @@ const logoutUser = async () => {
         // Redirect to a dedicated page.
         return await navigateTo({path: localePath("/"), replace: true});
     } catch (error) {
-        // TODO: implement a proper error handling.
-        console.error(error);
+        showError("An unexpected error occurred. Please try again.");
     }
 };
 </script>

@@ -52,15 +52,7 @@ export default defineNuxtConfig({
         typeCheck: true
     },
     image: {
-        formats: ["avif", "webp", "gif"],
-        screens: {
-            "placeholder": 10,
-            "icon-sm": 16,
-            "icon": 32,
-            "logo": 96,
-            "xs": 160,
-            "hero": 475
-        }
+        formats: ["avif", "webp", "gif"]
     },
     i18n: {
         locales: ["de", "en"],

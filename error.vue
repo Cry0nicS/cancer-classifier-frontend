@@ -9,14 +9,14 @@ const handleError = () => clearError({redirect: localePath({name: "index"})});
 <template>
     <div class="error-page">
         <NuxtImg
-            class="mb-4 h-[498px]"
+            class="mb-4 w-[300px] md:w-[400px]"
             preload
             src="/assets/images/404.gif"
-            alt="Cute bug"
-            sizes="498px" />
-        <h1>Oops... you shouldn't be here, should you?</h1>
-        <h3>You've been slapped with a {{ error!.statusCode }} error.</h3>
-        <p>
+            alt="Penguin slap"
+            sizes="300px md:400px" />
+        <h1 class="text-5xl">Oops... you shouldn't be here, should you?</h1>
+        <h3 class="text-3xl">You've been slapped with a {{ error!.statusCode }} error.</h3>
+        <p class="text-lg">
             {{ error!.message }}
         </p>
         <button
@@ -38,10 +38,6 @@ const handleError = () => clearError({redirect: localePath({name: "index"})});
     background: #fde68a;
     color: #333;
 
-    img {
-        width: 400px;
-    }
-
     h1 {
         margin-top: 20px;
         color: #ff6347;
@@ -54,7 +50,6 @@ const handleError = () => clearError({redirect: localePath({name: "index"})});
 
     p {
         margin-top: 10px;
-        font-size: 18px;
     }
 
     .redirect {

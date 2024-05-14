@@ -43,7 +43,7 @@ const onClick = () => {
         <button
             :id="`accordion-collapse-heading-${uid}`"
             type="button"
-            class="flex w-full items-center justify-between gap-10 py-4 text-left font-bold focus:outline-none focus:ring-4 focus:ring-main-azure/40 lg:p-4"
+            class="flex w-full items-center justify-between gap-10 py-4 text-left font-bold focus:outline-none focus:ring-4 lg:p-4"
             :class="{}"
             :aria-expanded="expanded"
             :aria-controls="`accordion-collapse-body-${uid}`"

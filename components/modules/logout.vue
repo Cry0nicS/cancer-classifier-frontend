@@ -28,7 +28,7 @@ const logoutUser = async () => {
         <form @submit.prevent="logoutUser">
             <button
                 type="submit"
-                class="rounded bg-main-teal px-4 py-2 text-white hover:bg-main-lavender focus:outline-none">
+                class="rounded bg-secondary px-4 py-2 text-white hover:bg-primary focus:outline-none">
                 {{ $t(`login.logout`) }}
             </button>
         </form>

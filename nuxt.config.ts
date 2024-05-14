@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import {from} from "env-var";
-import {Breakpoints} from "./constants/breakpoints";
 
 const envVars = from({
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
@@ -34,7 +33,10 @@ export default defineNuxtConfig({
         "@nuxtjs/i18n",
         "@nuxtjs/stylelint-module",
         "@vueuse/nuxt",
-        "nuxt-vuefire"
+        "nuxt-vuefire",
+        "@nuxtjs/tailwindcss",
+        "@nuxtjs/color-mode",
+        "nuxt-icon"
     ],
     postcss: {
         plugins: {
@@ -45,6 +47,7 @@ export default defineNuxtConfig({
         }
     },
     typescript: {
+        shim: false,
         strict: true,
         typeCheck: true
     },
@@ -56,8 +59,7 @@ export default defineNuxtConfig({
             "icon": 32,
             "logo": 96,
             "xs": 160,
-            "hero": 475,
-            ...Breakpoints
+            "hero": 475
         }
     },
     i18n: {
@@ -97,5 +99,24 @@ export default defineNuxtConfig({
             appId: envVarsConfig.firebaseAppId,
             measurementId: envVarsConfig.firebaseMeasurementId
         }
+    },
+    tailwindcss: {
+        exposeConfig: true
+    },
+    colorMode: {
+        classSuffix: ""
+    },
+    imports: {
+        imports: [
+            {
+                from: "tailwind-variants",
+                name: "tv"
+            },
+            {
+                from: "tailwind-variants",
+                name: "VariantProps",
+                type: true
+            }
+        ]
     }
 });

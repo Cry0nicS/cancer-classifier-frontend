@@ -21,7 +21,5 @@ const user = useCurrentUser();
 </script>
 
 <template>
-    <div class="bg-main-scale lg:container xl:mx-auto 2xl:max-w-[1280px]">
-        Hello {{ user?.displayName }}
-    </div>
+    <div class="lg:container xl:mx-auto 2xl:max-w-[1280px]">Hello {{ user?.displayName }}</div>
 </template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {range} from "@antfu/utils";
-import {Color} from "~/constants/color";
 import {useSeo} from "~/composables/use-seo";
 
 definePageMeta({
@@ -23,8 +22,7 @@ useSeo(
         <ModulesLogin />
         <ModulesFaq
             :title="$t('faq.header')"
-            :background-color="Color.Scale"
-            class="text-main-azure">
+            background-color="red-200">
             <template #content>
                 <span>{{ $t(`faq.description`) }}</span>
             </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {useField, useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/yup";
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
-import {RegisterSchema} from "~/utils/validations";
+import {useField, useForm} from "vee-validate";
 import {useFirebaseAuth} from "#imports";
+import {RegisterSchema} from "~/utils/validations";
 
 definePageMeta({
     middleware: ["already-logged-in"]
@@ -66,7 +66,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                             type="text"
                             class="mt-1 block w-full rounded-md border px-3 py-2"
                             required />
-                        <span class="text-red-500 text-sm">{{ nameError }}</span>
+                        <span class="text-sm text-red-500">{{ nameError }}</span>
                     </div>
                     <div class="mb-4">
                         <label
@@ -80,7 +80,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                             type="email"
                             class="mt-1 block w-full rounded-md border px-3 py-2"
                             required />
-                        <span class="text-red-500 text-sm">{{ emailError }}</span>
+                        <span class="text-sm text-red-500">{{ emailError }}</span>
                     </div>
                     <div class="mb-6">
                         <label
@@ -94,11 +94,11 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                             type="password"
                             class="mt-1 block w-full rounded-md border px-3 py-2"
                             required />
-                        <span class="text-red-500 text-sm">{{ passwordError }}</span>
+                        <span class="text-sm text-red-500">{{ passwordError }}</span>
                     </div>
                     <button
                         type="submit"
-                        class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none">
+                        class="w-full rounded bg-primary px-4 py-2 text-white hover:bg-primary focus:outline-none">
                         {{ $t(`register.register`) }}
                     </button>
                     <div class="divider-container">
@@ -110,7 +110,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                     </div>
                     <NuxtLink
                         :to="localePath('/')"
-                        class="inline-block w-full rounded bg-main-azure px-4 py-2 text-center text-white hover:bg-main-lavender focus:outline-none">
+                        class="inline-block w-full rounded bg-secondary px-4 py-2 text-center text-white hover:bg-primary focus:outline-none">
                         {{ $t(`register.signIn`) }}
                     </NuxtLink>
                 </fieldset>

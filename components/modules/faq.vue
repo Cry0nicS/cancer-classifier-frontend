@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type {Color} from "~/constants/color";
-
 interface FaqProps {
     title: string;
-    backgroundColor: Color;
+    backgroundColor: string;
 }
 
 const faq = defineProps<FaqProps>();

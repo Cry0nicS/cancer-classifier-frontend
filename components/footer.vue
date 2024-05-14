@@ -5,7 +5,7 @@ const year = ref(new Date().getFullYear());
 
 <template>
     <div
-        class="flex flex-col justify-around gap-6 bg-main-azure px-4 py-6 pb-10 text-white xl:flex-row xl:items-center xl:gap-0">
+        class="flex flex-col justify-around gap-6 bg-primary px-4 py-6 pb-10 text-white xl:flex-row xl:items-center xl:gap-0">
         <span class="text-xl font-bold">{{ year }}</span>
 
         <nav

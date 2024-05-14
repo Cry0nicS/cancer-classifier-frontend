@@ -58,7 +58,7 @@ const loginUser = handleSubmit(async (values, _ctx) => {
                             type="email"
                             class="mt-1 block w-full rounded-md border px-3 py-2"
                             required />
-                        <span class="text-red-500 text-sm">{{ emailError }}</span>
+                        <span class="text-sm text-red-500">{{ emailError }}</span>
                     </div>
                     <div class="mb-4">
                         <label
@@ -72,7 +72,7 @@ const loginUser = handleSubmit(async (values, _ctx) => {
                             type="password"
                             class="mt-1 block w-full rounded-md border px-3 py-2"
                             required />
-                        <span class="text-red-500 text-sm">{{ passwordError }}</span>
+                        <span class="text-sm text-red-500">{{ passwordError }}</span>
                     </div>
                     <div class="pb-4 text-right">
                         <NuxtLink
@@ -83,7 +83,7 @@ const loginUser = handleSubmit(async (values, _ctx) => {
                     </div>
                     <button
                         type="submit"
-                        class="w-full rounded bg-main-azure px-4 py-2 text-white hover:bg-main-lavender focus:outline-none">
+                        class="w-full rounded bg-primary px-4 py-2 text-white hover:bg-secondary focus:outline-none">
                         {{ $t(`login.login`) }}
                     </button>
                     <div class="divider-container">
@@ -95,14 +95,14 @@ const loginUser = handleSubmit(async (values, _ctx) => {
                     </div>
                     <NuxtLink
                         :to="localePath({name: 'register'})"
-                        class="inline-block w-full rounded bg-main-azure px-4 py-2 text-center text-white hover:bg-main-lavender focus:outline-none">
+                        class="inline-block w-full rounded bg-primary px-4 py-2 text-center text-white hover:bg-secondary focus:outline-none">
                         {{ $t(`register.title`) }}
                     </NuxtLink>
                 </fieldset>
             </form>
             <div
                 v-if="errorMessage"
-                class="bg-red-100 text-red-700 border-red-700 mt-4 block rounded border p-3">
+                class="mt-4 block rounded border border-red-700 bg-red-100 p-3 text-red-700">
                 {{ errorMessage }}
             </div>
         </div>

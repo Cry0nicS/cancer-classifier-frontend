@@ -16,11 +16,14 @@
         "spell-check": "cspell --no-progress",
         "style-check": "stylelint \"**/*.{scss,vue}\"",
         "style-fix": "stylelint --fix \"**/*.{scss,vue}\"",
-        "type-check": "vue-tsc --noEmit"
+        "type-check": "vue-tsc --noEmit",
+        "ui": "npx --yes ui-thing@latest add"
     },
     "dependencies": {
         "@firebase/app-types": "^0.9.1",
+        "@morev/vue-transitions": "^3.0.2",
         "@nuxt/image": "^1.7.0",
+        "@vee-validate/nuxt": "^4.12.8",
         "@vee-validate/yup": "^4.12.8",
         "env-var": "^7.4.2",
         "firebase": "^10.11.1",
@@ -28,9 +31,11 @@
         "firebase-functions": "^4.9.0",
         "radix-vue": "^1.7.4",
         "sass": "^1.77.0",
+        "tailwind-variants": "^0.2.1",
         "typescript": "^5.4.5",
         "ufo": "^1.5.3",
         "uuid": "^9.0.1",
+        "vue-sonner": "^1.1.2",
         "yup": "^1.4.0"
     },
     "devDependencies": {

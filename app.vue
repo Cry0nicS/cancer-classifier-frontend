@@ -14,6 +14,8 @@ useFavicon(favicon);
     <Html :lang="locale" />
 
     <NuxtLayout>
+        <NuxtLoadingIndicator />
         <NuxtPage />
+        <UiVueSonner />
     </NuxtLayout>
 </template>

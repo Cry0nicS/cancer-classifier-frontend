@@ -36,7 +36,9 @@ export default defineNuxtConfig({
         "nuxt-vuefire",
         "@nuxtjs/tailwindcss",
         "@nuxtjs/color-mode",
-        "nuxt-icon"
+        "nuxt-icon",
+        "@vee-validate/nuxt",
+        "@morev/vue-transitions/nuxt"
     ],
     postcss: {
         plugins: {
@@ -108,7 +110,15 @@ export default defineNuxtConfig({
                 from: "tailwind-variants",
                 name: "VariantProps",
                 type: true
+            },
+            {
+                from: "vue-sonner",
+                name: "toast",
+                as: "useSonner"
             }
         ]
+    },
+    build: {
+        transpile: ["vue-sonner"]
     }
 });

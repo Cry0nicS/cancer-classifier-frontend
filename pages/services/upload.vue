@@ -21,5 +21,10 @@ const user = useCurrentUser();
 </script>
 
 <template>
-    <div class="lg:container xl:mx-auto 2xl:max-w-[1280px]">Hello {{ user?.displayName }}</div>
+    <UiContainer class="flex min-h-screen flex-col items-center justify-center">
+        <div class="w-full text-center">
+            <h1 class="text-3xl font-semibold lg:text-4xl">Hello, {{ user?.displayName }}</h1>
+            <p class="mt-10">Let's start uploading stuff</p>
+        </div>
+    </UiContainer>
 </template>

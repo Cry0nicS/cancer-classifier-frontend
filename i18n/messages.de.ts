@@ -22,6 +22,8 @@ export default {
     // General keywords
     "or": "oder",
     "loading": "Wird geladen",
+    "toggleTheme": "Thema wechseln",
+    "toggleLocale": "Sprache wechseln",
 
     // Account
     "name": "Name",
@@ -36,6 +38,12 @@ export default {
         loading: "Anmeldung läuft...",
         loadingSuccess: "Sie wurden erfolgreich angemeldet.",
         register: "Konto erstellen"
+    },
+
+    "logout": {
+        title: "Abmelden",
+        loading: "Abmeldung läuft...",
+        loadingSuccess: "Sie wurden erfolgreich abgemeldet."
     },
 
     //Forgot Password

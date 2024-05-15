@@ -22,6 +22,8 @@ export default {
     // General keywords
     "or": "or",
     "loading": "Loading",
+    "toggleTheme": "Toggle theme",
+    "toggleLocale": "Toggle language",
 
     // Account
     "name": "Name",
@@ -36,6 +38,12 @@ export default {
         loading: "Signing in...",
         loadingSuccess: "You have been signed in successfully.",
         register: "Create an account"
+    },
+
+    "logout": {
+        title: "Log out",
+        loading: "Signing out...",
+        loadingSuccess: "You have been signed out successfully."
     },
 
     //Forgot Password

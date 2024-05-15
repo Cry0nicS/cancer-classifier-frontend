@@ -10,7 +10,7 @@ const {t} = useI18n();
 const localePath = useLocalePath();
 
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
-const user = await getCurrentUser();
+const user = useCurrentUser();
 
 useSeo(
     t("seo.title"),

@@ -11,29 +11,27 @@
  * @displayName logo
  */
 interface LogoProps {
-    height?: number;
+    size?: number;
     color?: string;
 }
 
-const props = withDefaults(defineProps<LogoProps>(), {
-    height: 85,
-    color: "red-200"
+const {size, color} = withDefaults(defineProps<LogoProps>(), {
+    size: 85,
+    color: "transparent"
 });
 
-const logoWidth = Math.floor((32 / 17) * props.height);
+const localePath = useLocalePath();
 </script>
 
 <template>
-    <a
-        href="https://google.com"
-        class="block self-start">
+    <NuxtLink :to="localePath('/')">
         <NuxtImg
-            :height="height"
-            :width="logoWidth"
+            :height="size"
+            :width="size"
             :class="`fill-${color}`"
-            src="/logo.svg"
+            src="/logo.webp"
             loading="lazy" />
 
         <span class="sr-only">{{ $t("logo.alt_text") }}</span>
-    </a>
+    </NuxtLink>
 </template>

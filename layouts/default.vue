@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import LanguageSwitch from "~/components/language-switch.vue";
-
-const route = useRoute();
 </script>
 
 <template>
-    <Header v-if="route.meta.showHeader" />
+    <Header />
 
     <slot />
 

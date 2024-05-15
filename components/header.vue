@@ -1,13 +1,54 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import {Locale} from "~/constants/locale";
+const {t, locale} = useI18n();
+const switchLocalePath = useSwitchLocalePath();
+
+// Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
+const user = useCurrentUser();
+</script>
 
 <template>
-    <header
-        class="flex flex-row items-center justify-between border-b border-gray-200 px-6 py-6 lg:container md:px-9 md:py-7 lg:px-0 xl:mx-auto 2xl:max-w-[1280px]">
-        <Logo
-            :height="50"
-            color="red-600" />
-        <div class="text-right">
-            <ModulesLogout />
-        </div>
-    </header>
+    <UiNavbar class="border-0">
+        <UiContainer class="flex h-[70px] items-center justify-between border-b-2">
+            <div>
+                <Logo :size="56" />
+            </div>
+            <div class="flex items-center gap-2">
+                <div v-if="user">
+                    <ModulesLogout />
+                </div>
+                <UiButton
+                    size="icon-sm"
+                    variant="ghost"
+                    :title="t('toggleTheme')"
+                    @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'">
+                    <span class="sr-only">{{ t("toggleTheme") }}</span>
+                    <Icon
+                        v-show="$colorMode.preference === 'dark'"
+                        class="size-4"
+                        name="lucide:sun" />
+                    <Icon
+                        v-show="$colorMode.preference === 'light'"
+                        class="size-4"
+                        name="lucide:moon" />
+                </UiButton>
+                <nuxt-link
+                    v-if="locale !== Locale.German"
+                    title="Deutsch"
+                    :to="switchLocalePath(Locale.German)">
+                    <Icon
+                        class="size-4"
+                        name="lucide:languages" />
+                </nuxt-link>
+                <nuxt-link
+                    v-if="locale !== Locale.English"
+                    title="English"
+                    :to="switchLocalePath(Locale.English)">
+                    <Icon
+                        class="size-4"
+                        name="lucide:languages" />
+                </nuxt-link>
+            </div>
+        </UiContainer>
+    </UiNavbar>
 </template>

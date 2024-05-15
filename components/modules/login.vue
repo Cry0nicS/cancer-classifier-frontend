@@ -41,7 +41,7 @@ const loginUser = handleSubmit(async (values, _ctx) => {
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col items-center justify-center">
         <div class="w-full max-w-[340px] text-center">
             <Icon
                 class="size-10"
@@ -68,6 +68,13 @@ const loginUser = handleSubmit(async (values, _ctx) => {
                 type="password"
                 name="password"
                 :label="$t(`password`)" />
+            <p class="text-right">
+                <NuxtLink
+                    class="text-sm font-semibold text-primary hover:underline"
+                    :to="localePath('/forgot-password')">
+                    {{ $t(`forgot-password.title`) }}
+                </NuxtLink>
+            </p>
             <UiButton
                 type="submit"
                 class="w-full">

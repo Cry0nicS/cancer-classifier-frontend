@@ -94,7 +94,7 @@ export default {
             button: "Get started"
         },
         noUser: {
-            title: "Welcome to Cancer Classifier",
+            title: "Welcome to our lil' project",
             description: "Please sign in or create an account to be able to user our services."
         },
         faq: {

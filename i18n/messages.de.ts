@@ -96,7 +96,7 @@ export default {
             button: "Jetzt starten"
         },
         noUser: {
-            title: "Willkommen beim Cancer Classifier",
+            title: "Willkommen",
             description:
                 "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienste nutzen zu können."
         },

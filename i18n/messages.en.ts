@@ -32,7 +32,10 @@ export default {
     "login": {
         title: "Log in with an existing account",
         login: "Log in",
-        logout: "Log out"
+        logout: "Log out",
+        loading: "Signing in...",
+        loadingSuccess: "You have been signed in successfully.",
+        register: "Create an account"
     },
 
     //Forgot Password
@@ -82,7 +85,21 @@ export default {
         }
     },
 
-    // FAQ.
+    // Homepage
+
+    "home": {
+        user: {
+            title: "Welcome back, {name}",
+            description: "You can upload your files and use our services here.",
+            button: "Get started"
+        },
+        noUser: {
+            title: "Welcome to Cancer Classifier",
+            description: "Please sign in or create an account to be able to user our services."
+        }
+    },
+
+    // -- FAQ.
     "faq.header": "FAQ",
     "faq.description": "Important Questions and Answers",
     "faq.item1.title": "Why are we here?",

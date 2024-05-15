@@ -66,7 +66,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         </div>
         <form
             class="mt-10 sm:w-[400px] md:w-[470px]"
-            @submit.prevent="registerUser">
+            @submit="registerUser">
             <fieldset
                 class="grid gap-5"
                 :disabled="isSubmitting">

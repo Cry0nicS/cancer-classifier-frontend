@@ -32,7 +32,10 @@ export default {
     "login": {
         title: "Mit Ihrem Konto fortfahren",
         login: "Anmelden",
-        logout: "Abmelden"
+        logout: "Abmelden",
+        loading: "Anmeldung läuft...",
+        loadingSuccess: "Sie wurden erfolgreich angemeldet.",
+        register: "Konto erstellen"
     },
 
     //Forgot Password
@@ -85,7 +88,21 @@ export default {
         }
     },
 
-    // FAQ.
+    // Homepage
+    "home": {
+        user: {
+            title: "Willkommen zurück, {name}",
+            description: "Hier können Sie Ihre Dateien hochladen und unsere Dienste nutzen.",
+            button: "Jetzt starten"
+        },
+        noUser: {
+            title: "Willkommen beim Cancer Classifier",
+            description:
+                "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienste nutzen zu können."
+        }
+    },
+
+    // -- FAQ.
     "faq.header": "FAQ",
     "faq.description": "German FAQ description",
     "faq.item1.title": "German title?",

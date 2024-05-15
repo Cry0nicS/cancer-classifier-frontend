@@ -8,6 +8,9 @@ definePageMeta({
 
 const {t} = useI18n();
 
+// Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
+const user = await getCurrentUser();
+
 useSeo(
     t("seo.title"),
     t("seo.description"),
@@ -18,8 +21,46 @@ useSeo(
 </script>
 
 <template>
-    <div class="lg:container xl:mx-auto 2xl:max-w-[1280px]">
-        <ModulesLogin />
+    <UiContainer class="flex min-h-screen flex-col">
+        <div
+            v-if="!user"
+            class="grid w-screen grid-cols-1 items-center justify-center py-16 xl:w-auto xl:grid-cols-12">
+            <div class="col-span-5 flex items-center justify-center text-center">
+                <div class="w-full max-w-[340px]">
+                    <h1 class="text-3xl font-semibold lg:text-4xl">
+                        {{ $t("home.noUser.title") }}
+                    </h1>
+                    <p class="mt-5 text-muted-foreground">
+                        {{ $t("home.noUser.description") }}
+                    </p>
+                </div>
+            </div>
+            <div class="col-span-7">
+                <div class="my-10">
+                    <ModulesLogin />
+                </div>
+            </div>
+        </div>
+        <div
+            v-if="user"
+            class="flex min-h-[300px] flex-col items-center justify-center lg:min-h-[600px]">
+            <div class="w-full max-w-[340px] text-center">
+                <Icon
+                    class="size-10"
+                    name="lucide:key-round" />
+                <h1 class="mt-10 text-3xl font-semibold lg:text-4xl">
+                    {{ $t("home.user.title", {name: user.displayName}) }}
+                </h1>
+                <h3 class="mt-10 text-xl text-muted-foreground lg:text-2xl">
+                    {{ $t("home.user.description") }}
+                </h3>
+                <NuxtLink
+                    to="/new-page"
+                    class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                    {{ $t(`home.user.button`) }}
+                </NuxtLink>
+            </div>
+        </div>
         <ModulesFaq
             :title="$t('faq.header')"
             background-color="red-200">
@@ -37,5 +78,5 @@ useSeo(
                 </template>
             </Accordion>
         </ModulesFaq>
-    </div>
+    </UiContainer>
 </template>

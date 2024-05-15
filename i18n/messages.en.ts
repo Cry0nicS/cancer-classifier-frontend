@@ -21,6 +21,7 @@ export default {
 
     // General keywords
     "or": "or",
+    "loading": "Loading",
 
     // Account
     "name": "Name",
@@ -37,7 +38,11 @@ export default {
     //Forgot Password
     "forgot-password": {
         title: "Forgot your password?",
-        submit: "Reset password"
+        submit: "Reset password",
+        loading: "Sending instructions...",
+        loadingSuccess: "Instructions sent!",
+        emailSent: "Check your inbox.",
+        instructions: "An email with instructions has been sent to your email address."
     },
 
     // Errors
@@ -52,10 +57,14 @@ export default {
 
     // Register
     "register": {
-        title: "Create an Account",
+        title: "Create an account",
         register: "Register",
-        signIn: "Sign in"
+        signIn: "Sign in",
+        loading: "Creating your account...",
+        loadingSuccess: "Your account has been created successfully."
     },
+
+    // Validation messages.
     "validation": {
         name: {
             required: "Please enter your name.",

@@ -21,6 +21,7 @@ export default {
 
     // General keywords
     "or": "oder",
+    "loading": "Wird geladen",
 
     // Account
     "name": "Name",
@@ -37,7 +38,11 @@ export default {
     //Forgot Password
     "forgot-password": {
         title: "Passwort vergessen?",
-        submit: "Passwort zurücksetzen"
+        submit: "Passwort zurücksetzen",
+        loading: "Anweisungen werden gesendet...",
+        loadingSuccess: "Anweisungen gesendet!",
+        emailSent: "Überprüfen Sie Ihren Posteingang.",
+        instructions: "Eine E-Mail mit Anweisungen wurde an Ihre E-Mail-Adresse gesendet."
     },
 
     // Errors
@@ -56,8 +61,12 @@ export default {
     "register": {
         title: "Konto erstellen",
         register: "Registrieren",
-        signIn: "Einloggen"
+        signIn: "Einloggen",
+        loading: "Ihr Konto wird erstellt...",
+        loadingSuccess: "Ihr Konto wurde erfolgreich erstellt."
     },
+
+    // Validation messages.
     "validation": {
         name: {
             required: "Bitte geben Sie Ihren Namen ein.",

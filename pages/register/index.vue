@@ -23,7 +23,9 @@ const {handleSubmit, isSubmitting} = useForm({
 
 // Handle the form validation and submission.
 const registerUser = handleSubmit(async (values, _ctx) => {
-    const loading = useSonner.loading("Loading...", {description: "Creating your account..."});
+    const loading = useSonner.loading(`${t("loading")}...`, {
+        description: t(`register.loading`)
+    });
 
     try {
         // Create a user with the provided email and password.
@@ -36,7 +38,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         // Update the user profile to set the display name.
         await updateProfile(userCredential.user, {displayName: values.name});
 
-        useSonner.success("Your account has been created successfully.", {
+        useSonner.success(t(`register.loadingSuccess`), {
             id: loading
         });
 
@@ -55,12 +57,15 @@ const registerUser = handleSubmit(async (values, _ctx) => {
 <template>
     <UiContainer class="flex min-h-screen flex-col items-center justify-center">
         <div class="w-full max-w-[340px] text-center">
+            <Icon
+                class="size-10"
+                name="lucide:circle-user-round" />
             <h1 class="text-3xl font-semibold lg:text-4xl">
                 {{ $t(`register.title`) }}
             </h1>
         </div>
         <form
-            class="mt-10"
+            class="mt-10 sm:w-[400px] md:w-[470px]"
             @submit.prevent="registerUser">
             <fieldset
                 class="grid gap-5"
@@ -84,7 +89,6 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                     hint="Min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit" />
                 <UiButton
                     type="submit"
-                    :disabled="isSubmitting"
                     class="w-full">
                     {{ $t(`register.register`) }}
                 </UiButton>
@@ -98,24 +102,3 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         </form>
     </UiContainer>
 </template>
-
-<style lang="scss" scoped>
-.divider-container {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 20px 0;
-}
-
-.divider-line {
-    flex: 1;
-    border-top: 1px solid #ccc;
-    margin: 0 10px;
-}
-
-.divider-text {
-    padding: 0 10px;
-    color: #666;
-    font-size: 16px;
-}
-</style>

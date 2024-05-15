@@ -99,14 +99,26 @@ export default {
             title: "Willkommen beim Cancer Classifier",
             description:
                 "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienste nutzen zu können."
+        },
+        faq: {
+            title: "Häufig gestellte Fragen",
+            description: "Hier sind einige häufig gestellte Fragen und Antworten.",
+            item1: {
+                title: "Frage 1",
+                content: "Antwort auf Frage 1."
+            },
+            item2: {
+                title: "Frage 2",
+                content: "Antwort auf Frage 2."
+            },
+            item3: {
+                title: "Frage 3",
+                content: "Antwort auf Frage 3."
+            },
+            item4: {
+                title: "Frage 4",
+                content: "Antwort auf Frage 4."
+            }
         }
-    },
-
-    // -- FAQ.
-    "faq.header": "FAQ",
-    "faq.description": "German FAQ description",
-    "faq.item1.title": "German title?",
-    "faq.item1.description": "German answer  1",
-    "faq.item2.title": "German title 2",
-    "faq.item2.description": "German answer 2"
+    }
 };

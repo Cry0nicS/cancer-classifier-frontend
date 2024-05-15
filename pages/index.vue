@@ -19,6 +19,13 @@ useSeo(
     t("seo.image.alt"),
     "summary_large_image"
 );
+
+// Fetch the FAQ items from translations.
+const accordionItems = range(1, 5).map((index) => ({
+    value: `item-${index}`,
+    title: t(`home.faq.item${index}.title`),
+    content: t(`home.faq.item${index}.content`)
+}));
 </script>
 
 <template>
@@ -36,7 +43,7 @@ useSeo(
                     </p>
                 </div>
             </div>
-            <div class="col-span-7">
+            <div class="col-span-7 flex items-center justify-center">
                 <div class="my-10">
                     <ModulesLogin />
                 </div>
@@ -44,7 +51,7 @@ useSeo(
         </div>
         <div
             v-if="user"
-            class="flex min-h-[300px] flex-col items-center justify-center lg:min-h-[600px]">
+            class="flex min-h-[400px] flex-col items-center justify-center lg:min-h-[600px]">
             <div class="w-full max-w-[340px] text-center">
                 <Icon
                     class="size-10"
@@ -63,21 +70,13 @@ useSeo(
             </div>
         </div>
         <ModulesFaq
-            :title="$t('faq.header')"
-            background-color="red-200">
+            :title="$t('home.faq.title')"
+            background-color="transparent"
+            class="my-10 border-2"
+            :accordion-items="accordionItems">
             <template #content>
-                <span>{{ $t(`faq.description`) }}</span>
+                <p class="mt-6 text-muted-foreground">{{ $t(`home.faq.description`) }}</p>
             </template>
-            <Accordion>
-                <template v-for="i of range(16)">
-                    <AccordionPanel
-                        v-if="$te([`faq.item${i + 1}.title`] as unknown as string)"
-                        :key="i">
-                        <template #title>{{ $t(`faq.item${i + 1}.title`) }}</template>
-                        <p>{{ $t(`faq.item${i + 1}.description`) }}</p>
-                    </AccordionPanel>
-                </template>
-            </Accordion>
         </ModulesFaq>
     </UiContainer>
 </template>

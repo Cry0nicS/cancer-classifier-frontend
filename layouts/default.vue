@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import Facebook from "~/components/icons/facebook.vue";
-import Instagram from "~/components/icons/instagram.vue";
-import Youtube from "~/components/icons/youtube.vue";
 import LanguageSwitch from "~/components/language-switch.vue";
 
 const route = useRoute();
@@ -24,23 +21,23 @@ const route = useRoute();
             <a
                 href="https://www.facebook.com"
                 title="Facebook">
-                <Facebook
-                    alt="Facebook"
-                    width="32" />
+                <Icon
+                    class="size-8"
+                    name="mdi:facebook" />
             </a>
             <a
                 href="https://www.instagram.com"
                 title="Instagram">
-                <Instagram
-                    alt="Instagram"
-                    width="32" />
+                <Icon
+                    class="size-8"
+                    name="mdi:instagram" />
             </a>
             <a
                 href="https://www.youtube.com/"
                 title="Youtube">
-                <Youtube
-                    alt="Youtube"
-                    width="32" />
+                <Icon
+                    class="size-8"
+                    name="mdi:youtube" />
             </a>
         </template>
     </Footer>

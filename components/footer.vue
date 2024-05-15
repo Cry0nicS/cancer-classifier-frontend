@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const slots = useSlots();
-const year = ref(new Date().getFullYear());
 </script>
 
 <template>
-    <div
-        class="flex flex-col justify-around gap-6 bg-primary px-4 py-6 pb-10 text-white xl:flex-row xl:items-center xl:gap-0">
-        <span class="text-xl font-bold">{{ year }}</span>
+    <UiContainer
+        as="footer"
+        class="flex flex-col items-center justify-between gap-7 border-t-2 py-12 lg:flex-row">
+        <p class="text-muted-foreground">&copy; {{ new Date().getFullYear() }}</p>
 
         <nav
             v-if="slots.links"
@@ -19,5 +19,5 @@ const year = ref(new Date().getFullYear());
             class="flex flex-row gap-3">
             <slot name="social" />
         </div>
-    </div>
+    </UiContainer>
 </template>

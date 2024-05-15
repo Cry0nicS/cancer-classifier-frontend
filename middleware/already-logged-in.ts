@@ -5,9 +5,10 @@
 export default defineNuxtRouteMiddleware(async (_to, _from) => {
     // Get the (authenticated) user from Firebase.
     const user = await getCurrentUser();
+    const localePath = useLocalePath();
 
     // Redirect the user to a dedicated page if they are authenticated.
     if (user) {
-        return navigateTo("/new-page", {replace: true});
+        return navigateTo({path: localePath("/services/upload"), replace: true});
     }
 });

@@ -4,6 +4,7 @@ import {toTypedSchema} from "@vee-validate/yup";
 import {signInWithEmailAndPassword} from "@firebase/auth";
 
 const {t} = useI18n();
+const localePath = useLocalePath();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
@@ -27,8 +28,8 @@ const loginUser = handleSubmit(async (values, _ctx) => {
             id: loading
         });
 
-        // Redirect to a dedicated page.
-        return await navigateTo("/new-page", {replace: true});
+        // Redirect to the upload page.
+        return navigateTo({path: localePath("/services/upload"), replace: true});
     } catch (error) {
         const {message} = error as Error;
 
@@ -74,7 +75,7 @@ const loginUser = handleSubmit(async (values, _ctx) => {
             </UiButton>
             <UiDivider :label="$t(`or`)" />
             <NuxtLink
-                to="/"
+                :to="localePath('/register')"
                 class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 {{ $t(`login.register`) }}
             </NuxtLink>

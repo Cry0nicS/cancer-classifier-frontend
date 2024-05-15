@@ -43,7 +43,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         });
 
         // Redirect to a dedicated page.
-        return await navigateTo({path: localePath("/new-page"), replace: true});
+        return navigateTo({path: localePath("/services/upload"), replace: true});
     } catch (error) {
         const {message} = error as Error;
 
@@ -94,7 +94,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                 </UiButton>
                 <UiDivider :label="$t(`or`)" />
                 <NuxtLink
-                    to="/"
+                    :to="localePath('/')"
                     class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     {{ $t(`register.signIn`) }}
                 </NuxtLink>

@@ -8,6 +8,7 @@ definePageMeta({
 });
 
 const {t} = useI18n();
+const localePath = useLocalePath();
 const emailSent = ref(false);
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
@@ -76,7 +77,7 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
                     </UiButton>
                     <UiDivider :label="$t(`or`)" />
                     <NuxtLink
-                        to="/"
+                        :to="localePath('/')"
                         class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                         {{ $t(`register.signIn`) }}
                     </NuxtLink>
@@ -95,7 +96,7 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
                     {{ $t(`forgot-password.instructions`) }}
                 </p>
                 <NuxtLink
-                    to="/"
+                    :to="localePath('/register')"
                     class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     {{ $t(`register.signIn`) }}
                 </NuxtLink>

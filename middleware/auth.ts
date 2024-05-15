@@ -6,10 +6,12 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     // Get the (authenticated) user from Firebase.
     const user = await getCurrentUser();
 
+    const localePath = useLocalePath();
+
     // Redirect the user to the home (login) page if they are not authenticated.
-    if (!user && to.path !== "/") {
+    if (!user && to.path !== localePath("/")) {
         return navigateTo({
-            path: "/",
+            path: localePath("/"),
             query: {
                 redirect: to.fullPath
             }

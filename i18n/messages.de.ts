@@ -145,7 +145,7 @@ export default {
         loading: "Wird hochgeladen...",
         loadingSuccess: "Dateien erfolgreich hochgeladen.",
         dropzone: {
-            title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie Dateien hierher.",
+            title: "Klick um Dateien hochzuladen oder ziehen Sie Dateien hierher.",
             subtext: "Nur Bild/WebP erlaubt. Maximal 2 Dateien.",
             submit: "Dateien hochladen"
         }

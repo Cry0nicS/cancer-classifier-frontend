@@ -109,8 +109,8 @@ const uploadFiles = async () => {
                     :disabled="isSubmitting">
                     <UiDropfile
                         :on-drop-validation="areFilesValid"
-                        :title="t('upload.dropfile.title')"
-                        :subtext="t('upload.dropfile.subtext')"
+                        :title="t('upload.dropzone.title')"
+                        :subtext="t('upload.dropzone.subtext')"
                         @dropped="files = $event" />
                     <div
                         v-if="files && files.length"

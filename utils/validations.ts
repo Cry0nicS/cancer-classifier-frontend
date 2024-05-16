@@ -1,4 +1,4 @@
-import {object, string} from "yup";
+import {array, mixed, object, string} from "yup";
 import type {ComposerTranslation} from "vue-i18n";
 
 // Rules: min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
@@ -37,4 +37,25 @@ export const ForgotPasswordSchema = (translate: ComposerTranslation) =>
             .required(translate("validation.name.required"))
             .label("Email")
             .email(translate("validation.email.invalid"))
+    });
+
+export const DropFileSchema = (translate: ComposerTranslation) =>
+    object().shape({
+        files: array()
+            .of(
+                mixed()
+                    .test({
+                        name: "fileType",
+                        message: translate("validation.file.type"),
+                        test: (value) =>
+                            value && value instanceof File && value.type === "image/webp"
+                    })
+                    .test({
+                        name: "fileSize",
+                        message: translate("validation.file.size"),
+                        test: (value) =>
+                            value && value instanceof File && value.size <= 5 * 1024 * 1024 // 5MB
+                    })
+            )
+            .max(2, translate("validation.file.maxFiles"))
     });

@@ -93,6 +93,13 @@ export default {
             required: "Bitte geben Sie ein Passwort ein.",
             short: "Ihr Passwort ist zu kurz. Es sollte mindestens 8 Zeichen haben.",
             weak: "Ihr Passwort ist zu schwach. Bitte verwenden Sie ein stärkeres Passwort, das eine Kombination aus Buchstaben, Zahlen und Symbolen enthält."
+        },
+        file: {
+            required: "Bitte laden Sie eine Datei hoch.",
+            type: "Ungültiger Dateityp. Bitte laden Sie ein WebP-Bild hoch.",
+            size: "Dateigröße ist zu groß. Bitte laden Sie eine Datei kleiner als 5MB hoch.",
+            maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
+            failure: "Die ausgewählten Dateien konnten nicht hinzugefügt werden."
         }
     },
 
@@ -127,6 +134,20 @@ export default {
                 title: "Frage 4",
                 content: "Antwort auf Frage 4."
             }
+        }
+    },
+
+    // Upload
+    "upload": {
+        title: "Hallo, {name}",
+        description: "Laden Sie Ihre Dateien hier hoch.",
+        button: "Hochladen",
+        loading: "Wird hochgeladen...",
+        loadingSuccess: "Dateien erfolgreich hochgeladen.",
+        dropzone: {
+            title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie Dateien hierher.",
+            subtext: "Nur Bild/WebP erlaubt. Maximal 2 Dateien.",
+            submit: "Dateien hochladen"
         }
     }
 };

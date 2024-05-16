@@ -90,6 +90,13 @@ export default {
             required: "Please enter a password.",
             short: "Your password is too short. It should be at least 8 characters.",
             weak: "Your password is too weak. Please use a stronger password that includes a mix of letters, numbers, and symbols."
+        },
+        file: {
+            required: "Please upload a file.",
+            type: "Invalid file type. Please upload a webp image.",
+            size: "File size is too large. Please upload a file smaller than 5MB.",
+            maxFiles: "You can only upload two file at a time.",
+            failure: "Selected files could not be added"
         }
     },
 
@@ -124,6 +131,20 @@ export default {
                 title: "Question 4",
                 content: "Answer to question 4."
             }
+        }
+    },
+
+    // Upload
+    "upload": {
+        title: "Hello, {name}",
+        description: "Upload your files here.",
+        button: "Upload",
+        loading: "Uploading...",
+        loadingSuccess: "Files uploaded successfully.",
+        dropzone: {
+            title: "Click to upload or drag & drop files.",
+            subtext: "Only image/webp allowed. Maximum 2 files",
+            submit: "Upload files"
         }
     }
 };

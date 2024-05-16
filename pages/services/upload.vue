@@ -100,17 +100,18 @@ const uploadFiles = async () => {
             <p class="mt-10">{{ $t("upload.description") }}</p>
         </div>
 
-        <div class="mt-14 w-[600px]">
+        <div class="mt-14 w-full max-w-[600px]">
             <form
-                class="mx-auto max-w-md"
+                class="mx-auto w-full"
                 @submit.prevent="uploadFiles">
                 <fieldset
                     class="grid gap-5"
                     :disabled="isSubmitting">
                     <UiDropfile
                         :on-drop-validation="areFilesValid"
-                        :title="t('upload.dropzone.title')"
+                        icon="lucide:files"
                         :subtext="t('upload.dropzone.subtext')"
+                        :title="t('upload.dropzone.title')"
                         @dropped="files = $event" />
                     <div
                         v-if="files && files.length"
@@ -125,12 +126,12 @@ const uploadFiles = async () => {
                                     class="mr-3 h-5 w-5 opacity-60" />
                                 <p class="w-[80%] truncate text-sm">{{ file.name }}</p>
                                 <p
-                                    class="ml-auto whitespace-nowrap text-xs text-muted-foreground/60 transition group-hover:hidden">
+                                    class="ml-auto whitespace-nowrap text-xs text-muted-foreground/60">
                                     {{ formatFileSize(file.size) }}
                                 </p>
                             </div>
 
-                            <div class="hidden transition group-hover:block">
+                            <div class="ml-3">
                                 <UiButton
                                     size="icon-sm"
                                     variant="outline"
@@ -145,6 +146,9 @@ const uploadFiles = async () => {
                     <UiButton
                         class="mt-10 w-full"
                         type="submit">
+                        <Icon
+                            name="lucide:cloud-upload"
+                            class="size-4" />
                         {{ $t("upload.dropzone.submit") }}
                     </UiButton>
                 </fieldset>

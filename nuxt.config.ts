@@ -8,7 +8,8 @@ const envVars = from({
     FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID
+    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
+    API_URL: process.env.API_URL
 });
 
 const envVarsConfig = {
@@ -18,7 +19,8 @@ const envVarsConfig = {
     firebaseStorageBucket: envVars.get("FIREBASE_STORAGE_BUCKET").required().asString(),
     firebaseMessagingSenderId: envVars.get("FIREBASE_MESSAGING_SENDER_ID").required().asString(),
     firebaseAppId: envVars.get("FIREBASE_APP_ID").required().asString(),
-    firebaseMeasurementId: envVars.get("FIREBASE_MEASUREMENT_ID").required().asString()
+    firebaseMeasurementId: envVars.get("FIREBASE_MEASUREMENT_ID").required().asString(),
+    apiUrl: envVars.get("API_URL").required().asUrlString()
 };
 
 export default defineNuxtConfig({
@@ -117,6 +119,9 @@ export default defineNuxtConfig({
                 as: "useSonner"
             }
         ]
+    },
+    runtimeConfig: {
+        apiUrl: envVarsConfig.apiUrl
     },
     build: {
         transpile: ["vue-sonner"]

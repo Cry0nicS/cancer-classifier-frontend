@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {FetchError} from "ofetch";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 
@@ -40,15 +41,22 @@ const removeFile = (index: number) => {
     files.value.splice(index, 1);
 };
 
+const validateFiles = async (selectedFiles: File[]): Promise<void> => {
+    // Validate the selected files.
+    await DropFileSchema(t).validate({files: selectedFiles}, {abortEarly: false});
+};
+
+const checkFileLimit = (selectedFiles: File[]): void => {
+    // Check if the total number of existing files and newly selected files is not more than 2.
+    if (files.value.length + selectedFiles.length > 2) {
+        throw new Error(t("validation.file.maxFiles"));
+    }
+};
+
 const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
     try {
-        // Validated the selected files.
-        await DropFileSchema(t).validate({files: selectedFiles}, {abortEarly: false});
-
-        // Check if the total number of existing files and newly selected files is not more than 2.
-        if (files.value.length + selectedFiles.length > 2) {
-            throw new Error(t("validation.file.maxFiles"));
-        }
+        await validateFiles(selectedFiles);
+        checkFileLimit(selectedFiles);
 
         return true;
     } catch (error) {
@@ -67,11 +75,27 @@ const uploadFiles = async () => {
         description: `${t("upload.loading")}...`
     });
 
-    // TODO: Decide if validation is necessary here as well.
-
     try {
-        // Proceed with file upload
-        // TODO: Send the files to the server.
+        const formData = new FormData();
+        /**
+         * The append method of FormData cannot take an array as its second argument.
+         * It requires a Blob (which includes File objects).
+         * Therefore, each file must be appended to the formData object individually.
+         */
+        files.value.forEach((file) => {
+            formData.append("files", file);
+        });
+
+        const idToken = await user.value!.getIdToken();
+
+        // TODO: Use the response to fetch the results of the uploaded files.
+        const _data = await $fetch("/api/upload-files", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            },
+            body: formData
+        });
 
         useSonner.success(t("upload.loadingSuccess"), {
             id: loading
@@ -80,14 +104,22 @@ const uploadFiles = async () => {
         // Reset the files after successful upload
         files.value = [];
     } catch (error) {
-        const {message} = error as Error;
+        let message = t("errors.unexpected-error");
+
+        if (error instanceof FetchError) {
+            const {data} = error as FetchError;
+
+            if (data.detail) message = data.detail;
+        } else if (error instanceof Error) {
+            message = error.message;
+        }
 
         useSonner.error(message, {
             id: loading
         });
-    } finally {
-        isSubmitting.value = false;
     }
+
+    isSubmitting.value = false;
 };
 </script>
 
@@ -144,6 +176,7 @@ const uploadFiles = async () => {
                         </div>
                     </div>
                     <UiButton
+                        :disabled="!files.length"
                         class="mt-10 w-full"
                         type="submit">
                         <Icon
@@ -169,7 +202,7 @@ fieldset {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgb(255 0 0 / 50%); // Red color with 50% transparency
+            background-color: rgb(34 34 34 / 50%); // Medium grey with transparency
             pointer-events: none; // Ensure the overlay doesn't interfere with pointer events
         }
     }

@@ -44,17 +44,24 @@ export const DropFileSchema = (translate: ComposerTranslation) =>
         files: array()
             .of(
                 mixed()
+                    // Validate file type (.idat).
                     .test({
                         name: "fileType",
                         message: translate("validation.file.type"),
-                        test: (value) =>
-                            value && value instanceof File && value.type === "image/webp"
+                        test: (value: unknown) => {
+                            if (!value || !(value instanceof File)) {
+                                return false;
+                            }
+                            const fileExtension = value.name.split(".").pop()?.toLowerCase();
+                            return fileExtension === "idat";
+                        }
                     })
+                    // Validate file size.
                     .test({
                         name: "fileSize",
                         message: translate("validation.file.size"),
                         test: (value) =>
-                            value && value instanceof File && value.size <= 5 * 1024 * 1024 // 5MB
+                            value && value instanceof File && value.size <= 30 * 1024 * 1024 // 30 MB
                     })
             )
             .max(2, translate("validation.file.maxFiles"))

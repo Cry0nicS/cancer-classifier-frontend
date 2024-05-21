@@ -22,6 +22,7 @@ logs
 .env.*
 !.env.dist
 firebase-admin.json
+nuxt.run.xml
 
 # Vercel
 .vercel

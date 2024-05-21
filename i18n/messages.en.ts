@@ -93,8 +93,8 @@ export default {
         },
         file: {
             required: "Please upload a file.",
-            type: "Invalid file type. Please upload a webp image.",
-            size: "File size is too large. Please upload a file smaller than 5MB.",
+            type: 'Invalid file type. Please upload only ".idat" files.',
+            size: "File size is too large. Please upload a file smaller than 30 MB.",
             maxFiles: "You can only upload two file at a time.",
             failure: "Selected files could not be added"
         }
@@ -143,7 +143,7 @@ export default {
         loadingSuccess: "Files uploaded successfully.",
         dropzone: {
             title: "Click to upload or drag & drop files.",
-            subtext: "Only image/webp allowed. Maximum 2 files",
+            subtext: 'Only ".idat" files allowed. Maximum 2 files',
             submit: "Upload files"
         }
     }

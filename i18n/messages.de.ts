@@ -96,8 +96,8 @@ export default {
         },
         file: {
             required: "Bitte laden Sie eine Datei hoch.",
-            type: "Ungültiger Dateityp. Bitte laden Sie ein WebP-Bild hoch.",
-            size: "Dateigröße ist zu groß. Bitte laden Sie eine Datei kleiner als 5MB hoch.",
+            type: 'Ungültiger Dateityp. Bitte laden Sie ein ".idat" hoch.',
+            size: "Dateigröße ist zu groß. Bitte laden Sie eine Datei kleiner als 30 MB hoch.",
             maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
             failure: "Die ausgewählten Dateien konnten nicht hinzugefügt werden."
         }
@@ -146,7 +146,7 @@ export default {
         loadingSuccess: "Dateien erfolgreich hochgeladen.",
         dropzone: {
             title: "Klick um Dateien hochzuladen oder ziehen Sie Dateien hierher.",
-            subtext: "Nur Bild/WebP erlaubt. Maximal 2 Dateien.",
+            subtext: 'Nur ".idat" erlaubt. Maximal 2 Dateien.',
             submit: "Dateien hochladen"
         }
     }

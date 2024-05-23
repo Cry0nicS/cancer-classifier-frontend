@@ -146,5 +146,24 @@ export default {
             subtext: 'Only ".idat" files allowed. Maximum 2 files',
             submit: "Upload files"
         }
+    },
+
+    // Dashboard
+    "dashboard": {
+        title: "Hello, {name}",
+        buttons: {
+            upload: "Upload more files",
+            refresh: "Refresh document status"
+        },
+        table: {
+            title: "List of recent documents",
+            caption: "A list of your recent documents",
+            columns: {
+                name: "Files pair",
+                status: "Status",
+                date: "Date",
+                method: "Method"
+            }
+        }
     }
 };

@@ -149,5 +149,24 @@ export default {
             subtext: 'Nur ".idat" erlaubt. Maximal 2 Dateien.',
             submit: "Dateien hochladen"
         }
+    },
+
+    // Dashboard
+    "dashboard": {
+        title: "Hallo, {name}",
+        buttons: {
+            upload: "Mehr Dateien hochladen",
+            refresh: "Dokumentstatus aktualisieren"
+        },
+        table: {
+            title: "Liste der letzten Dokumente",
+            caption: "Eine Liste Ihrer letzten Dokumente",
+            columns: {
+                name: "Dateipaar",
+                status: "Status",
+                date: "Datum",
+                method: "Methode"
+            }
+        }
     }
 };

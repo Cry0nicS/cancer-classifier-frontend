@@ -9,6 +9,7 @@ definePageMeta({
 });
 
 const {t} = useI18n();
+const localePath = useLocalePath();
 
 useSeo(
     t("seo.title"),
@@ -88,8 +89,7 @@ const uploadFiles = async () => {
 
         const idToken = await user.value!.getIdToken();
 
-        // TODO: Use the response to fetch the results of the uploaded files.
-        const _data = await $fetch("/api/upload-files", {
+        await $fetch("/api/upload-files", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${idToken}`
@@ -101,8 +101,8 @@ const uploadFiles = async () => {
             id: loading
         });
 
-        // Reset the files after successful upload
-        files.value = [];
+        // Redirect to the dashboard page.
+        return navigateTo({path: localePath("/services/dashboard"), replace: true});
     } catch (error) {
         let message = t("errors.unexpected-error");
 

@@ -77,6 +77,14 @@ export default defineNuxtConfig({
             "forgot-password/index": {
                 de: "/passwort-vergessen",
                 en: "/forgot-password"
+            },
+            "services/dashboard": {
+                de: "/dienstleistungen/dashboard",
+                en: "/services/dashboard"
+            },
+            "services/upload": {
+                de: "/dienstleistungen/upload",
+                en: "/services/upload"
             }
         }
     },

@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import type {DateTimeFormatOptions} from "@intlify/core-base";
 import {collection, getDocs, query, where} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
-import type {DateTimeFormatOptions} from "@intlify/core-base";
-import {LocaleIsoMap} from "~/constants/locale";
-import {useSeo} from "~/composables/use-seo";
+import type {StorageMethod} from "~/types/enums";
 import type {Upload, UploadDocument} from "~/types/firebase";
+import {LocaleIsoMap} from "~/constants/locale";
+import {storageMethodNames} from "~/utils/helpers";
+import {StorageMethodSchema} from "~/utils/validations";
+import {useSeo} from "~/composables/use-seo";
+
+type UploadData = {
+    base_name: string;
+    material: StorageMethod;
+};
 
 definePageMeta({
     showHeader: true,
@@ -57,12 +65,22 @@ const fetchDocuments = async () => {
         data: doc.data() as Upload
     }));
 
-    useSonner.success(t("Data refresh"));
+    useSonner.success("Data refresh");
     isRefreshing.value = false;
 };
 
 // Initial fetch of documents.
 await fetchDocuments();
+
+const {handleSubmit, isSubmitting} = useForm({
+    validationSchema: toTypedSchema(StorageMethodSchema(t))
+});
+
+const formData = ref<UploadData[]>([]);
+
+const onSubmit = handleSubmit(async (_values) => {
+    // TODO: Implement submit.
+});
 </script>
 
 <template>
@@ -103,93 +121,76 @@ await fetchDocuments();
             <div class="mt-8 w-full">
                 <span>{{ $t("dashboard.table.title") }}</span>
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
-                    <UiTable>
-                        <UiTableCaption>{{ $t("dashboard.table.caption") }}</UiTableCaption>
-                        <UiTableHeader>
-                            <UiTableRow>
-                                <UiTableHead>{{ $t("dashboard.table.columns.name") }}</UiTableHead>
-                                <UiTableHead>
-                                    {{ $t("dashboard.table.columns.status") }}
-                                </UiTableHead>
-                                <UiTableHead>{{ $t("dashboard.table.columns.date") }}</UiTableHead>
-                                <UiTableHead>
-                                    {{ $t("dashboard.table.columns.method") }}
-                                </UiTableHead>
-                            </UiTableRow>
-                        </UiTableHeader>
-                        <UiTableBody class="last:border-b">
-                            <template
-                                v-for="doc in documents"
-                                :key="doc.id[0]">
+                    <form @submit.prevent="onSubmit">
+                        <UiTable>
+                            <UiTableCaption>
+                                {{ $t("dashboard.table.caption") }}
+                            </UiTableCaption>
+                            <UiTableHeader>
                                 <UiTableRow>
-                                    <UiTableCell class="font-medium">
-                                        <div
-                                            v-for="file in doc.data.paired_files"
-                                            :key="file">
+                                    <UiTableHead>
+                                        {{ $t("dashboard.table.columns.name") }}
+                                    </UiTableHead>
+                                    <UiTableHead>
+                                        {{ $t("dashboard.table.columns.status") }}
+                                    </UiTableHead>
+                                    <UiTableHead>
+                                        {{ $t("dashboard.table.columns.date") }}
+                                    </UiTableHead>
+                                    <UiTableHead>
+                                        {{ $t("dashboard.table.columns.method") }}
+                                    </UiTableHead>
+                                </UiTableRow>
+                            </UiTableHeader>
+                            <UiTableBody class="last:border-b">
+                                <template
+                                    v-for="doc in documents"
+                                    :key="doc.id[0]">
+                                    <UiTableRow
+                                        v-for="(file, index) in doc.data.paired_files"
+                                        :key="file">
+                                        <UiTableCell class="font-medium">
                                             <span>{{ file }}</span>
-                                        </div>
-                                    </UiTableCell>
-                                    <UiTableCell>{{ doc.data.status }}</UiTableCell>
-                                    <UiTableCell>{{ today }}</UiTableCell>
-                                    <UiTableCell>
-                                        <div class="flex gap-0.5">
-                                            <UiTooltip disable-closing-trigger>
-                                                <template #trigger>
-                                                    <UiTooltipTrigger as-child>
-                                                        <UiButton variant="ghost">
-                                                            <Icon
-                                                                name="lucide:microscope"
-                                                                size="20px" />
-                                                        </UiButton>
-                                                    </UiTooltipTrigger>
-                                                </template>
-                                                <template #content>
-                                                    <UiTooltipContent>
-                                                        <p>
-                                                            FFPE (Formalin-Fixed,
-                                                            Paraffin-Embedded):
-                                                        </p>
-                                                    </UiTooltipContent>
-                                                </template>
-                                            </UiTooltip>
-                                            <UiTooltip disable-closing-trigger>
-                                                <template #trigger>
-                                                    <UiTooltipTrigger as-child>
-                                                        <UiButton variant="ghost">
-                                                            <Icon
-                                                                name="lucide:thermometer-snowflake"
-                                                                size="20px" />
-                                                        </UiButton>
-                                                    </UiTooltipTrigger>
-                                                </template>
-                                                <template #content>
-                                                    <UiTooltipContent>
-                                                        <p>Fresh Frozen</p>
-                                                    </UiTooltipContent>
-                                                </template>
-                                            </UiTooltip>
-                                            <UiTooltip disable-closing-trigger>
-                                                <template #trigger>
-                                                    <UiTooltipTrigger as-child>
-                                                        <UiButton variant="ghost">
-                                                            <Icon
-                                                                name="lucide:test-tube"
-                                                                size="20px" />
-                                                        </UiButton>
-                                                    </UiTooltipTrigger>
-                                                </template>
-                                                <template #content>
-                                                    <UiTooltipContent>
-                                                        <p>Other</p>
-                                                    </UiTooltipContent>
-                                                </template>
-                                            </UiTooltip>
-                                        </div>
+                                        </UiTableCell>
+                                        <UiTableCell>{{ doc.data.status }}</UiTableCell>
+                                        <UiTableCell>{{ today }}</UiTableCell>
+                                        <UiTableCell>
+                                            <fieldset
+                                                :disabled="isSubmitting"
+                                                class="space-y-5">
+                                                <input
+                                                    v-model="formData[index].base_name"
+                                                    type="hidden"
+                                                    :name="`baseName-${file}`" />
+                                                <UiVeeSelect
+                                                    v-model="formData[index].material"
+                                                    :name="`storageMethod-${file}`"
+                                                    type="text">
+                                                    <option
+                                                        disabled
+                                                        value="">
+                                                        Select a storage method
+                                                    </option>
+                                                    <option
+                                                        v-for="(name, value) in storageMethodNames"
+                                                        :key="value"
+                                                        :value="value">
+                                                        {{ name }}
+                                                    </option>
+                                                </UiVeeSelect>
+                                            </fieldset>
+                                        </UiTableCell>
+                                    </UiTableRow>
+                                </template>
+                                <UiTableRow>
+                                    <!-- eslint-disable-next-line vue/attribute-hyphenation -->
+                                    <UiTableCell colSpan="4">
+                                        <UiButton type="submit">Submit</UiButton>
                                     </UiTableCell>
                                 </UiTableRow>
-                            </template>
-                        </UiTableBody>
-                    </UiTable>
+                            </UiTableBody>
+                        </UiTable>
+                    </form>
                 </div>
             </div>
         </div>

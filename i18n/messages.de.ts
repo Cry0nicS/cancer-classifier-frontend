@@ -100,6 +100,10 @@ export default {
             size: "Dateigröße ist zu groß. Bitte laden Sie eine Datei kleiner als 30 MB hoch.",
             maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
             failure: "Die ausgewählten Dateien konnten nicht hinzugefügt werden."
+        },
+        storageMethod: {
+            required: "Bitte wählen Sie eine Speichermethode.",
+            invalid: "Ungültige Speichermethode."
         }
     },
 
@@ -168,5 +172,12 @@ export default {
                 method: "Methode"
             }
         }
+    },
+
+    // Uncategorized
+    "material": {
+        ffpe: "Formalin-fixiert, Paraffin-eingebettet",
+        freshFrozen: "Frisch gefroren",
+        other: "Andere"
     }
 };

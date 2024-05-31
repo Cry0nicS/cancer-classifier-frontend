@@ -97,6 +97,10 @@ export default {
             size: "File size is too large. Please upload a file smaller than 30 MB.",
             maxFiles: "You can only upload two file at a time.",
             failure: "Selected files could not be added"
+        },
+        storageMethod: {
+            required: "Please select a storage method.",
+            invalid: "Invalid storage method. Please select one of the allowed options."
         }
     },
 
@@ -165,5 +169,12 @@ export default {
                 method: "Method"
             }
         }
+    },
+
+    // Uncategorized
+    "material": {
+        ffpe: "Formalin-Fixed, Paraffin-Embedded",
+        freshFrozen: "Fresh Frozen",
+        other: "Other"
     }
 };

@@ -8,7 +8,7 @@ To install npm packages run the following commands
 -   Run `cp .env.dist .env`, and update the `.env` file as necessary.
 -   Download Firebase Admin SDK credentials from the Firebase console:
     -   Login to the Firebase console and navigate to the project settings.
-    -   Select "Service accounts" and click on "Generate new private key" for "Node.js.
+    -   Select "Service accounts" and click on "Generate new private key" for "Node.js".
     -   Save it as `firebase-admin.json` in the root of the project.
         -   Note: You might have to run `git rm --cached firebase-admin.json` to remove it from the git history.
 
@@ -47,6 +47,13 @@ Please keep all words in the `custom.dic` file sorted in alphabetical order, low
 
 There is a "linter" check running before each commit. All the above standards must be respected, in order to commit.
 
+## CodeRabbit.ai
+
+Current GitHub repository has an integration with [CodeRabbit.ai](https://coderabbit.ai).
+This integration allows for the automatic deployment of the project to the CodeRabbit.ai platform.
+
+The configuration is stored in the `.coderabbit.yaml` file. While currently most of the presets are left to default, the configuration is set to ignore the `components/Ui/**` folder as this is coming directly from UI-Thing library with little to no custom changes.
+
 ## Troubleshooting
 
 On rare occasions, you might encounter an error related to `.nuxt` folder. <br />
@@ -58,9 +65,9 @@ To fix this, manually run:
 nuxt prepare
 ```
 
-Although this should not be necessary, because `nuxt prepare` is run automatically after `npm install` (see `postinstall` script)
+Although this should not be necessary because `nuxt prepare` is run automatically after `npm install` (see `postinstall` script)
 
-#### Auto-imports
+### Auto-imports
 
 This project uses the [auto-imports](https://nuxt.com/docs/guide/concepts/auto-imports) functionality provided by Nuxt3.
 

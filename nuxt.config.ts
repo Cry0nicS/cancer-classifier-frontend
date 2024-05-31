@@ -86,6 +86,8 @@ export default defineNuxtConfig({
             sessionCookie: true
         },
         // TODO: Consider enabling AppCheck.
+        // API keys for Firebase are not private.
+        // See https://firebase.google.com/support/guides/security-checklist#api-keys-not-secret
         config: {
             apiKey: envVarsConfig.firebaseApiKey,
             authDomain: envVarsConfig.firebaseAuthDomain,

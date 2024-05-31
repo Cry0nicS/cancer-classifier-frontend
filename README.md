@@ -8,7 +8,7 @@ To install npm packages run the following commands
 -   Run `cp .env.dist .env`, and update the `.env` file as necessary.
 -   Download Firebase Admin SDK credentials from the Firebase console:
     -   Login to the Firebase console and navigate to the project settings.
-    -   Select "Service accounts" and click on "Generate new private key" for "Node.js.
+    -   Select "Service accounts" and click on "Generate new private key" for "Node.js".
     -   Save it as `firebase-admin.json` in the root of the project.
         -   Note: You might have to run `git rm --cached firebase-admin.json` to remove it from the git history.
 
@@ -65,9 +65,9 @@ To fix this, manually run:
 nuxt prepare
 ```
 
-Although this should not be necessary, because `nuxt prepare` is run automatically after `npm install` (see `postinstall` script)
+Although this should not be necessary because `nuxt prepare` is run automatically after `npm install` (see `postinstall` script)
 
-#### Auto-imports
+### Auto-imports
 
 This project uses the [auto-imports](https://nuxt.com/docs/guide/concepts/auto-imports) functionality provided by Nuxt3.
 

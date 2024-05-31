@@ -47,6 +47,13 @@ Please keep all words in the `custom.dic` file sorted in alphabetical order, low
 
 There is a "linter" check running before each commit. All the above standards must be respected, in order to commit.
 
+## CodeRabbit.ai
+
+Current GitHub repository has an integration with [CodeRabbit.ai](https://coderabbit.ai).
+This integration allows for the automatic deployment of the project to the CodeRabbit.ai platform.
+
+The configuration is stored in the `.coderabbit.yaml` file. While currently most of the presets are left to default, the configuration is set to ignore the `components/Ui/**` folder as this is coming directly from UI-Thing library with little to no custom changes.
+
 ## Troubleshooting
 
 On rare occasions, you might encounter an error related to `.nuxt` folder. <br />

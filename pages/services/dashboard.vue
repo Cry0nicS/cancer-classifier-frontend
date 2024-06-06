@@ -5,7 +5,6 @@ import {useDocument, useFirebaseAuth} from "vuefire";
 import {FetchError} from "ofetch";
 import {useSessionStorage} from "@vueuse/core";
 import type {Platform, StorageMethod} from "~/types/enums";
-import {UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
 import {LocaleIsoMap} from "~/constants/locale";
 import {PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
@@ -58,51 +57,23 @@ useSeo(
 useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
-const collectionName = user.value?.uid as string;
-const userCollection = ref<UserCollection>({
-    id: "",
-    file_list: [],
-    user_id: "",
-    status: UploadStatus.Pending
-});
-const fetchingData = ref(true);
-
-const isRefreshing = ref(false);
 const fileList = ref<FileList[]>([]);
 
-function parseFileList() {
+// Fetch the data from Firebase in real-time for the active session.
+const {data: userCollection} = useDocument<UserCollection>(() =>
+    user.value ? doc(db, user.value.uid as string, uploadSessionId.value) : null
+);
+
+// Create a list of files to be used in the form.
+if (userCollection.value) {
     fileList.value = userCollection.value.file_list.map((file) => ({
         baseName: file.baseName,
         platform: file.platform,
         material: file.material ?? null
     }));
+} else {
+    navigateTo({path: localePath("/services/upload"), replace: true});
 }
-
-// Fetch documents from Firestore that include the current user's uploads and the identifiable string (ID),
-const fetchUserCollection = async () => {
-    isRefreshing.value = true;
-
-    const configRef = doc(db, collectionName, uploadSessionId.value as string);
-
-    const {data, pending} = useDocument(configRef);
-
-    watch([data, pending], ([newData, newPending]) => {
-        if (newData) {
-            userCollection.value = newData as UserCollection;
-            parseFileList();
-        }
-
-        if (newPending !== undefined) {
-            fetchingData.value = newPending;
-        }
-    });
-
-    useSonner.success("Data refresh");
-    isRefreshing.value = false;
-};
-
-// Initial fetch of documents.
-await fetchUserCollection();
 
 const triggerProcess = async () => {
     const loading = useSonner.loading(`${t("loading")}...`, {
@@ -134,8 +105,6 @@ const triggerProcess = async () => {
         );
 
         if (apiCallsStatus.value === "success") {
-            await fetchUserCollection();
-
             useSonner.success(t("upload.loadingSuccess"), {
                 id: loading
             });
@@ -160,7 +129,7 @@ const triggerProcess = async () => {
 
 <template>
     <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[800px] flex-col justify-between gap-5">
+        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
                     {{ $t("dashboard.title", {name: user?.displayName}) }}
@@ -171,27 +140,6 @@ const triggerProcess = async () => {
                         :to="localePath('/services/upload')">
                         {{ $t(`dashboard.buttons.upload`) }}
                     </NuxtLink>
-                    <UiTooltip disable-closing-trigger>
-                        <template #trigger>
-                            <UiTooltipTrigger as-child>
-                                <UiButton
-                                    type="button"
-                                    variant="secondary"
-                                    class="h-11 gap-0"
-                                    :disabled="isRefreshing"
-                                    @click.prevent="fetchUserCollection">
-                                    <Icon
-                                        name="lucide:refresh-ccw-dot"
-                                        size="30px" />
-                                </UiButton>
-                            </UiTooltipTrigger>
-                        </template>
-                        <template #content>
-                            <UiTooltipContent>
-                                <p>{{ $t("dashboard.buttons.refresh") }}</p>
-                            </UiTooltipContent>
-                        </template>
-                    </UiTooltip>
                     <UiTooltip disable-closing-trigger>
                         <template #trigger>
                             <UiTooltipTrigger as-child>
@@ -241,13 +189,13 @@ const triggerProcess = async () => {
                             </UiTableHeader>
                             <UiTableBody class="last:border-b">
                                 <UiTableRow
-                                    v-for="(file, index) in userCollection.file_list"
+                                    v-for="(file, index) in userCollection!.file_list"
                                     :key="index">
                                     <UiTableCell class="font-medium">
                                         <span>{{ file.baseName }}</span>
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{ getEnumName(UploadStatusNames, userCollection.status) }}
+                                        {{ getEnumName(UploadStatusNames, userCollection!.status) }}
                                     </UiTableCell>
                                     <UiTableCell>{{ today }}</UiTableCell>
                                     <UiTableCell>
@@ -277,10 +225,10 @@ const triggerProcess = async () => {
                                         </fieldset>
                                     </UiTableCell>
                                 </UiTableRow>
-                                <UiTableRow v-if="!userCollection.sample_sheet_EPIC">
+                                <UiTableRow v-if="!userCollection!.sample_sheet_EPIC">
                                     <!-- eslint-disable vue/attribute-hyphenation -->
                                     <UiTableCell
-                                        colSpan="4"
+                                        colSpan="5"
                                         class="text-right">
                                         <UiButton type="submit">Submit</UiButton>
                                     </UiTableCell>

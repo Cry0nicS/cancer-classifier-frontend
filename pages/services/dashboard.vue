@@ -114,26 +114,32 @@ const triggerProcess = async () => {
 
         const idToken = await user.value!.getIdToken();
 
-        await $fetch(`/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${idToken}`
-            },
-            body: fileList.value
-        });
+        const {status: apiCallsStatus} = await useAsyncData(() =>
+            Promise.all([
+                $fetch(`/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${idToken}`
+                    },
+                    body: fileList.value
+                }),
 
-        await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${idToken}`
-            }
-        });
+                $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${idToken}`
+                    }
+                })
+            ])
+        );
 
-        await fetchUserCollection();
+        if (apiCallsStatus.value === "success") {
+            await fetchUserCollection();
 
-        useSonner.success(t("upload.loadingSuccess"), {
-            id: loading
-        });
+            useSonner.success(t("upload.loadingSuccess"), {
+                id: loading
+            });
+        }
     } catch (error) {
         let message = t("errors.unexpected-error");
 

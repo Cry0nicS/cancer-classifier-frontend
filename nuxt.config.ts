@@ -85,6 +85,10 @@ export default defineNuxtConfig({
             "services/upload": {
                 de: "/dienstleistungen/upload",
                 en: "/services/upload"
+            },
+            "services/history": {
+                de: "/dienstleistungen/verlauf",
+                en: "/services/history"
             }
         }
     },

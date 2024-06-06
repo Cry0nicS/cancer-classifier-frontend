@@ -41,27 +41,10 @@ useSeo(
 useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
-const collectionName = user.value?.uid as string;
 
-const isRefreshing = ref(false);
-const userCollections = ref<UserCollection[]>([]);
-
-// Fetch documents from Firestore that include the current user's uploads and the identifiable string (ID),
-const fetchUserCollection = async () => {
-    isRefreshing.value = true;
-
-    const {data: fetchedCollections} = useCollection<UserCollection>(
-        collection(db, collectionName)
-    );
-
-    userCollections.value = (fetchedCollections.value as UserCollection[]) ?? [];
-
-    useSonner.success("Data refresh");
-    isRefreshing.value = false;
-};
-
-// Initial fetch of documents.
-await fetchUserCollection();
+const {data: userCollections} = useCollection<UserCollection>(() =>
+    user.value ? collection(db, user.value.uid as string) : null
+);
 </script>
 
 <template>
@@ -77,26 +60,6 @@ await fetchUserCollection();
                         :to="localePath('/services/upload')">
                         {{ $t(`history.buttons.upload`) }}
                     </NuxtLink>
-                    <UiTooltip disable-closing-trigger>
-                        <template #trigger>
-                            <UiTooltipTrigger as-child>
-                                <UiButton
-                                    type="button"
-                                    variant="secondary"
-                                    :disabled="isRefreshing"
-                                    @click.prevent="fetchUserCollection">
-                                    <Icon
-                                        name="lucide:refresh-ccw-dot"
-                                        size="30px" />
-                                </UiButton>
-                            </UiTooltipTrigger>
-                        </template>
-                        <template #content>
-                            <UiTooltipContent>
-                                <p>{{ $t("history.buttons.refresh") }}</p>
-                            </UiTooltipContent>
-                        </template>
-                    </UiTooltip>
                 </div>
             </div>
             <div class="mt-12">
@@ -137,7 +100,9 @@ await fetchUserCollection();
                                 <UiTableCell class="font-medium">
                                     <span>{{ file.baseName }}</span>
                                 </UiTableCell>
-                                <UiTableCell>{{ userCollection.status }}</UiTableCell>
+                                <UiTableCell>
+                                    {{ getEnumName(UploadStatusNames, userCollection.status) }}
+                                </UiTableCell>
                                 <UiTableCell>{{ today }}</UiTableCell>
                                 <UiTableCell>
                                     {{ getEnumName(PlatformNames, file.platform) }}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {FetchError} from "ofetch";
+import {useSessionStorage} from "@vueuse/core";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 
@@ -89,13 +90,18 @@ const uploadFiles = async () => {
 
         const idToken = await user.value!.getIdToken();
 
-        await $fetch("/api/upload-files", {
+        const uploadSessionId = await $fetch("/api/upload-files", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${idToken}`
             },
             body: formData
         });
+
+        // Store the upload session ID in the session storage to be used on the dashboard page.
+        const storedSession = useSessionStorage("uploadSessionId", uploadSessionId);
+        // Make sure the session ID is stored in the session storage for multiple tried.
+        storedSession.value = uploadSessionId;
 
         useSonner.success(t("upload.loadingSuccess"), {
             id: loading

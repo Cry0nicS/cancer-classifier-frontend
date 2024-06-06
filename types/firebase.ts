@@ -1,10 +1,15 @@
-export type Upload = {
-    status: "upload-pending" | "finished" | "uploaded" | "error";
+import type {Platform, StorageMethod, UploadStatus} from "~/types/enums";
+
+export type UserCollection = {
+    id: string;
+    file_list: FileList[];
+    status: UploadStatus;
     user_id: string;
-    paired_files: string[];
+    sample_sheet_EPIC?: string;
 };
 
-export type UploadDocument = {
-    id: string;
-    data: Upload;
+export type FileList = {
+    baseName: string;
+    material?: StorageMethod;
+    platform: Platform;
 };

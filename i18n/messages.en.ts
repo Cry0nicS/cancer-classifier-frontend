@@ -101,6 +101,9 @@ export default {
         storageMethod: {
             required: "Please select a storage method.",
             invalid: "Invalid storage method. Please select one of the allowed options."
+        },
+        platform: {
+            invalid: "An invalid platform has been detected. Please try again or contact support."
         }
     },
 
@@ -157,16 +160,18 @@ export default {
         title: "Hello, {name}",
         buttons: {
             upload: "Upload more files",
-            refresh: "Refresh document status"
+            refresh: "Refresh document status",
+            history: "Session history"
         },
         table: {
             title: "List of recent documents",
-            caption: "A list of your recent documents",
+            caption: "All file pairs in this session",
             columns: {
                 name: "Files pair",
                 status: "Status",
                 date: "Date",
-                method: "Method"
+                method: "Method",
+                platform: "Platform"
             }
         }
     },
@@ -175,6 +180,28 @@ export default {
     "material": {
         ffpe: "Formalin-Fixed, Paraffin-Embedded",
         freshFrozen: "Fresh Frozen",
-        other: "Other"
+        other: "Other",
+        none: "Not defined"
+    },
+
+    // History
+    "history": {
+        title: "Hello, {name}",
+        buttons: {
+            upload: "Upload more files",
+            refresh: "Refresh document status",
+            dashboard: "Current session"
+        },
+        table: {
+            title: "List of recent sessions",
+            caption: "All file pairs in this session",
+            columns: {
+                name: "Files pair",
+                status: "Status",
+                date: "Date",
+                method: "Method",
+                platform: "Platform"
+            }
+        }
     }
 };

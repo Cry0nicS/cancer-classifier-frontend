@@ -1,26 +1,36 @@
 <script setup lang="ts">
 import type {DateTimeFormatOptions} from "@intlify/core-base";
-import {collection, getDocs, query, where} from "firebase/firestore";
-import {useFirebaseAuth} from "vuefire";
-import type {StorageMethod} from "~/types/enums";
-import type {Upload, UploadDocument} from "~/types/firebase";
+import {doc} from "firebase/firestore";
+import {useDocument, useFirebaseAuth} from "vuefire";
+import {FetchError} from "ofetch";
+import {useSessionStorage} from "@vueuse/core";
+import type {Platform, StorageMethod} from "~/types/enums";
+import {UploadStatus} from "~/types/enums";
+import type {UserCollection} from "~/types/firebase";
 import {LocaleIsoMap} from "~/constants/locale";
-import {storageMethodNames} from "~/utils/helpers";
+import {PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
 import {useSeo} from "~/composables/use-seo";
 
-type UploadData = {
-    base_name: string;
-    material: StorageMethod;
+type FileList = {
+    baseName: string;
+    platform: Platform;
+    material: StorageMethod | null;
 };
 
 definePageMeta({
     showHeader: true,
-    middleware: ["auth"]
+    middleware: ["auth", "upload-session-id"]
 });
 
 const {t, locale} = useI18n();
 const localePath = useLocalePath();
+
+const uploadSessionId = useSessionStorage<string>("uploadSessionId", null);
+
+if (!uploadSessionId.value) {
+    throw new Error("Upload session ID is missing");
+}
 
 // Setting up date options for formatting.
 const dateOptions: DateTimeFormatOptions = {
@@ -48,39 +58,98 @@ useSeo(
 useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
+const collectionName = user.value?.uid as string;
+const userCollection = ref<UserCollection>({
+    id: "",
+    file_list: [],
+    user_id: "",
+    status: UploadStatus.Pending
+});
+const fetchingData = ref(true);
 
-// Creating a query to get uploads for the current user
-const q = query(collection(db, "uploads"), where("user_id", "==", user.value?.uid));
-
-const documents = ref<UploadDocument[]>([]);
 const isRefreshing = ref(false);
+const fileList = ref<FileList[]>([]);
+
+function parseFileList() {
+    fileList.value = userCollection.value.file_list.map((file) => ({
+        baseName: file.baseName,
+        platform: file.platform,
+        material: file.material ?? null
+    }));
+}
 
 // Fetch documents from Firestore that include the current user's uploads and the identifiable string (ID),
-const fetchDocuments = async () => {
+const fetchUserCollection = async () => {
     isRefreshing.value = true;
 
-    const documentSnapshotList = await getDocs(q);
-    documents.value = documentSnapshotList.docs.map((doc) => ({
-        id: doc.id,
-        data: doc.data() as Upload
-    }));
+    const configRef = doc(db, collectionName, uploadSessionId.value as string);
+
+    const {data, pending} = useDocument(configRef);
+
+    watch([data, pending], ([newData, newPending]) => {
+        if (newData) {
+            userCollection.value = newData as UserCollection;
+            parseFileList();
+        }
+
+        if (newPending !== undefined) {
+            fetchingData.value = newPending;
+        }
+    });
 
     useSonner.success("Data refresh");
     isRefreshing.value = false;
 };
 
 // Initial fetch of documents.
-await fetchDocuments();
+await fetchUserCollection();
 
-const {handleSubmit, isSubmitting} = useForm({
-    validationSchema: toTypedSchema(StorageMethodSchema(t))
-});
+const triggerProcess = async () => {
+    const loading = useSonner.loading(`${t("loading")}...`, {
+        description: `${t("upload.loading")}...`
+    });
 
-const formData = ref<UploadData[]>([]);
+    try {
+        await StorageMethodSchema(t).validate({fileList: fileList.value}, {abortEarly: true});
 
-const onSubmit = handleSubmit(async (_values) => {
-    // TODO: Implement submit.
-});
+        const idToken = await user.value!.getIdToken();
+
+        await $fetch(`/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            },
+            body: fileList.value
+        });
+
+        await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
+        });
+
+        await fetchUserCollection();
+
+        useSonner.success(t("upload.loadingSuccess"), {
+            id: loading
+        });
+    } catch (error) {
+        let message = t("errors.unexpected-error");
+
+        if (error instanceof FetchError) {
+            const {data} = error as FetchError;
+
+            if (data.detail) message = data.detail;
+        } else if (error instanceof Error) {
+            message = error.message;
+        }
+
+        useSonner.error(message, {
+            id: loading
+        });
+    }
+};
 </script>
 
 <template>
@@ -102,8 +171,9 @@ const onSubmit = handleSubmit(async (_values) => {
                                 <UiButton
                                     type="button"
                                     variant="secondary"
+                                    class="h-11 gap-0"
                                     :disabled="isRefreshing"
-                                    @click.prevent="fetchDocuments">
+                                    @click.prevent="fetchUserCollection">
                                     <Icon
                                         name="lucide:refresh-ccw-dot"
                                         size="30px" />
@@ -116,12 +186,30 @@ const onSubmit = handleSubmit(async (_values) => {
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
+                    <UiTooltip disable-closing-trigger>
+                        <template #trigger>
+                            <UiTooltipTrigger as-child>
+                                <NuxtLink
+                                    :to="localePath('/services/history')"
+                                    class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80">
+                                    <Icon
+                                        name="lucide:history"
+                                        size="30px" />
+                                </NuxtLink>
+                            </UiTooltipTrigger>
+                        </template>
+                        <template #content>
+                            <UiTooltipContent>
+                                <p>{{ $t("dashboard.buttons.history") }}</p>
+                            </UiTooltipContent>
+                        </template>
+                    </UiTooltip>
                 </div>
             </div>
             <div class="mt-8 w-full">
                 <span>{{ $t("dashboard.table.title") }}</span>
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
-                    <form @submit.prevent="onSubmit">
+                    <form @submit.prevent="triggerProcess">
                         <UiTable>
                             <UiTableCaption>
                                 {{ $t("dashboard.table.caption") }}
@@ -138,55 +226,59 @@ const onSubmit = handleSubmit(async (_values) => {
                                         {{ $t("dashboard.table.columns.date") }}
                                     </UiTableHead>
                                     <UiTableHead>
+                                        {{ $t("dashboard.table.columns.platform") }}
+                                    </UiTableHead>
+                                    <UiTableHead>
                                         {{ $t("dashboard.table.columns.method") }}
                                     </UiTableHead>
                                 </UiTableRow>
                             </UiTableHeader>
                             <UiTableBody class="last:border-b">
-                                <template
-                                    v-for="doc in documents"
-                                    :key="doc.id[0]">
-                                    <UiTableRow
-                                        v-for="(file, index) in doc.data.paired_files"
-                                        :key="file">
-                                        <UiTableCell class="font-medium">
-                                            <span>{{ file }}</span>
-                                        </UiTableCell>
-                                        <UiTableCell>{{ doc.data.status }}</UiTableCell>
-                                        <UiTableCell>{{ today }}</UiTableCell>
-                                        <UiTableCell>
-                                            <fieldset
-                                                :disabled="isSubmitting"
-                                                class="space-y-5">
-                                                <input
-                                                    v-model="formData[index].base_name"
-                                                    type="hidden"
-                                                    :name="`baseName-${file}`" />
-                                                <UiVeeSelect
-                                                    v-model="formData[index].material"
-                                                    :name="`storageMethod-${file}`"
-                                                    type="text">
-                                                    <option
-                                                        disabled
-                                                        value="">
-                                                        Select a storage method
-                                                    </option>
-                                                    <option
-                                                        v-for="(name, value) in storageMethodNames"
-                                                        :key="value"
-                                                        :value="value">
-                                                        {{ name }}
-                                                    </option>
-                                                </UiVeeSelect>
-                                            </fieldset>
-                                        </UiTableCell>
-                                    </UiTableRow>
-                                </template>
-                                <UiTableRow>
-                                    <!-- eslint-disable-next-line vue/attribute-hyphenation -->
-                                    <UiTableCell colSpan="4">
+                                <UiTableRow
+                                    v-for="(file, index) in userCollection.file_list"
+                                    :key="index">
+                                    <UiTableCell class="font-medium">
+                                        <span>{{ file.baseName }}</span>
+                                    </UiTableCell>
+                                    <UiTableCell>
+                                        {{ getEnumName(UploadStatusNames, userCollection.status) }}
+                                    </UiTableCell>
+                                    <UiTableCell>{{ today }}</UiTableCell>
+                                    <UiTableCell>
+                                        {{ getEnumName(PlatformNames, file.platform) }}
+                                    </UiTableCell>
+                                    <UiTableCell v-if="file.material">
+                                        {{ getEnumName(storageMethodNames, file.material) }}
+                                    </UiTableCell>
+                                    <UiTableCell v-else>
+                                        <fieldset class="space-y-5">
+                                            <UiVeeSelect
+                                                v-model="fileList[index].material as StorageMethod"
+                                                :name="`storageMethod-${file.baseName}`"
+                                                type="text">
+                                                <option
+                                                    disabled
+                                                    value="">
+                                                    Select a storage method
+                                                </option>
+                                                <option
+                                                    v-for="(name, value) in storageMethodNames"
+                                                    :key="value"
+                                                    :value="value">
+                                                    {{ name }}
+                                                </option>
+                                            </UiVeeSelect>
+                                        </fieldset>
+                                    </UiTableCell>
+                                </UiTableRow>
+                                <UiTableRow v-if="!userCollection.sample_sheet_EPIC">
+                                    <!-- eslint-disable vue/attribute-hyphenation -->
+                                    <UiTableCell
+                                        colSpan="4"
+                                        class="text-right">
                                         <UiButton type="submit">Submit</UiButton>
                                     </UiTableCell>
+                                    <!-- eslint-enable -->
                                 </UiTableRow>
                             </UiTableBody>
                         </UiTable>

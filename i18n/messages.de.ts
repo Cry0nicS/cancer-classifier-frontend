@@ -104,6 +104,9 @@ export default {
         storageMethod: {
             required: "Bitte wählen Sie eine Speichermethode.",
             invalid: "Ungültige Speichermethode."
+        },
+        platform: {
+            invalid: "Ungültige Plattform. Bitte versuchen Sie es erneut."
         }
     },
 
@@ -160,16 +163,18 @@ export default {
         title: "Hallo, {name}",
         buttons: {
             upload: "Mehr Dateien hochladen",
-            refresh: "Dokumentstatus aktualisieren"
+            refresh: "Dokumentstatus aktualisieren",
+            history: "Historie anzeigen"
         },
         table: {
             title: "Liste der letzten Dokumente",
-            caption: "Eine Liste Ihrer letzten Dokumente",
+            caption: "Alle Dateipaare in einer Sitzung",
             columns: {
                 name: "Dateipaar",
                 status: "Status",
                 date: "Datum",
-                method: "Methode"
+                method: "Methode",
+                platform: "Platform"
             }
         }
     },
@@ -178,6 +183,27 @@ export default {
     "material": {
         ffpe: "Formalin-fixiert, Paraffin-eingebettet",
         freshFrozen: "Frisch gefroren",
-        other: "Andere"
+        other: "Andere",
+        none: "Nicht definiert"
+    },
+
+    // Historie
+    "history": {
+        title: "Hallo, {name}",
+        buttons: {
+            upload: "Mehr Dateien hochladen",
+            refresh: "Dokumentenstatus aktualisieren"
+        },
+        table: {
+            title: "Liste der letzten Sitzungen",
+            caption: "Alle Dateipaare in einer Sitzung",
+            columns: {
+                name: "Dateipaar",
+                status: "Status",
+                date: "Datum",
+                method: "Methode",
+                platform: "Plattform"
+            }
+        }
     }
 };

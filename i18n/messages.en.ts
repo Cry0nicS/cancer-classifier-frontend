@@ -173,6 +173,11 @@ export default {
                 method: "Method",
                 platform: "Platform"
             }
+        },
+        progress: {
+            title: "Please wait while we process your files.",
+            subtitle:
+                "You will be shortly redirected to the next step once the process is complete."
         }
     },
 
@@ -189,7 +194,6 @@ export default {
         title: "Hello, {name}",
         buttons: {
             upload: "Upload more files",
-            refresh: "Refresh document status",
             dashboard: "Current session"
         },
         table: {

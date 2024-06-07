@@ -15,6 +15,15 @@ definePageMeta({
 const {t, locale} = useI18n();
 const localePath = useLocalePath();
 
+useSeo(
+    t("seo.title"),
+    t("seo.description"),
+    t("seo.image"),
+    t("seo.image.alt"),
+    "summary_large_image",
+    true
+);
+
 // Setting up date options for formatting.
 const dateOptions: DateTimeFormatOptions = {
     weekday: "short",
@@ -28,28 +37,20 @@ const today = new Date().toLocaleDateString(
     dateOptions
 );
 
-useSeo(
-    t("seo.title"),
-    t("seo.description"),
-    t("seo.image"),
-    t("seo.image.alt"),
-    "summary_large_image",
-    true
-);
-
-// Setting up Firebase Auth and Firestore
+// Set up Firebase Auth and Firestore
 useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
 
-const {data: userCollections} = useCollection<UserCollection>(() =>
-    user.value ? collection(db, user.value.uid as string) : null
+const {data: userCollections} = useCollection<UserCollection>(
+    () => (user.value ? collection(db, user.value.uid as string) : null),
+    {once: true}
 );
 </script>
 
 <template>
     <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[800px] flex-col justify-between gap-5">
+        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
                     {{ $t("history.title", {name: user?.displayName}) }}
@@ -60,6 +61,24 @@ const {data: userCollections} = useCollection<UserCollection>(() =>
                         :to="localePath('/services/upload')">
                         {{ $t(`history.buttons.upload`) }}
                     </NuxtLink>
+                    <UiTooltip disable-closing-trigger>
+                        <template #trigger>
+                            <UiTooltipTrigger as-child>
+                                <NuxtLink
+                                    :to="localePath('/services/dashboard')"
+                                    class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80">
+                                    <Icon
+                                        name="lucide:layout-dashboard"
+                                        size="30px" />
+                                </NuxtLink>
+                            </UiTooltipTrigger>
+                        </template>
+                        <template #content>
+                            <UiTooltipContent>
+                                <p>{{ $t("history.buttons.dashboard") }}</p>
+                            </UiTooltipContent>
+                        </template>
+                    </UiTooltip>
                 </div>
             </div>
             <div class="mt-12">

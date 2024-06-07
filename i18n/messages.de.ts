@@ -192,7 +192,7 @@ export default {
         title: "Hallo, {name}",
         buttons: {
             upload: "Mehr Dateien hochladen",
-            refresh: "Dokumentenstatus aktualisieren"
+            dashboard: "Zurück zum Dashboard"
         },
         table: {
             title: "Liste der letzten Sitzungen",
@@ -204,6 +204,11 @@ export default {
                 method: "Methode",
                 platform: "Plattform"
             }
+        },
+        progress: {
+            title: "Bitte warten Sie, während wir Ihre Dateien verarbeiten.",
+            subtitle:
+                "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
         }
     }
 };

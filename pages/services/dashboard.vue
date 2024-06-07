@@ -4,7 +4,7 @@ import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
 import {FetchError} from "ofetch";
 import {useSessionStorage} from "@vueuse/core";
-import type {Platform, StorageMethod} from "~/types/enums";
+import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
 import {LocaleIsoMap} from "~/constants/locale";
 import {PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
@@ -60,20 +60,21 @@ const db = useFirestore();
 const fileList = ref<FileList[]>([]);
 
 // Fetch the data from Firebase in real-time for the active session.
-const {data: userCollection} = useDocument<UserCollection>(() =>
+const {data: userCollection, promise} = useDocument<UserCollection>(() =>
     user.value ? doc(db, user.value.uid as string, uploadSessionId.value) : null
 );
 
+// Await the promise to resolve before mutating the user collection.
+await promise.value;
+await nextTick();
+
 // Create a list of files to be used in the form.
-if (userCollection.value) {
-    fileList.value = userCollection.value.file_list.map((file) => ({
+fileList.value =
+    userCollection.value?.file_list.map((file) => ({
         baseName: file.baseName,
         platform: file.platform,
         material: file.material ?? null
-    }));
-} else {
-    navigateTo({path: localePath("/services/upload"), replace: true});
-}
+    })) ?? [];
 
 const triggerProcess = async () => {
     const loading = useSonner.loading(`${t("loading")}...`, {
@@ -85,29 +86,33 @@ const triggerProcess = async () => {
 
         const idToken = await user.value!.getIdToken();
 
-        const {status: apiCallsStatus} = await useAsyncData(() =>
-            Promise.all([
-                $fetch(`/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`, {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${idToken}`
-                    },
-                    body: fileList.value
-                }),
+        const uploadResponse = await $fetch(
+            `/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${idToken}`
+                },
+                body: fileList.value
+            }
+        );
 
-                $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
+        if (uploadResponse) {
+            const preprocessingResponse = await $fetch(
+                `/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`,
+                {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${idToken}`
                     }
-                })
-            ])
-        );
+                }
+            );
 
-        if (apiCallsStatus.value === "success") {
-            useSonner.success(t("upload.loadingSuccess"), {
-                id: loading
-            });
+            if (preprocessingResponse) {
+                useSonner.success(t("upload.loadingSuccess"), {
+                    id: loading
+                });
+            }
         }
     } catch (error) {
         let message = t("errors.unexpected-error");
@@ -125,6 +130,38 @@ const triggerProcess = async () => {
         });
     }
 };
+
+/**
+ * Progress bar logic
+ * Displayed after the user submits the form.
+ * The progress bar will increment by 10% every second until it reaches 100%. Then restarts.
+ * Once the process is complete, the user will be redirected to the history page.
+ */
+const progressBarValue = ref(0);
+const isProcessComplete = ref(false);
+
+const incrementValue = () => {
+    if (progressBarValue.value < 100) {
+        progressBarValue.value += 10;
+    } else {
+        progressBarValue.value = 0;
+    }
+};
+
+useIntervalFn(() => {
+    incrementValue();
+}, 1000);
+
+watch(
+    () => userCollection.value?.status,
+    (newStatus) => {
+        if (newStatus === UploadStatus.PreFinished) {
+            isProcessComplete.value = true;
+
+            navigateTo({path: localePath("/services/history"), replace: true});
+        }
+    }
+);
 </script>
 
 <template>
@@ -158,6 +195,17 @@ const triggerProcess = async () => {
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
+                </div>
+            </div>
+            <div
+                v-if="userCollection?.status === UploadStatus.PreRunning"
+                class="mt-8 bg-secondary p-10">
+                <h2 class="text-xl font-medium">
+                    {{ $t("dashboard.progress.title") }}
+                </h2>
+                <span>{{ $t("dashboard.progress.subtitle") }}</span>
+                <div class="mt-8 flex w-full justify-center">
+                    <UiProgress v-model="progressBarValue" />
                 </div>
             </div>
             <div class="mt-8 w-full">

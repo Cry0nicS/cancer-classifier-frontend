@@ -176,6 +176,11 @@ export default {
                 method: "Methode",
                 platform: "Platform"
             }
+        },
+        progress: {
+            title: "Bitte warten Sie, während wir Ihre Dateien verarbeiten.",
+            subtitle:
+                "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
         }
     },
 
@@ -204,11 +209,6 @@ export default {
                 method: "Methode",
                 platform: "Plattform"
             }
-        },
-        progress: {
-            title: "Bitte warten Sie, während wir Ihre Dateien verarbeiten.",
-            subtitle:
-                "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
         }
     }
 };

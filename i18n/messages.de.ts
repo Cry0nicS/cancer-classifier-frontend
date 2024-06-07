@@ -100,6 +100,13 @@ export default {
             size: "Dateigröße ist zu groß. Bitte laden Sie eine Datei kleiner als 30 MB hoch.",
             maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
             failure: "Die ausgewählten Dateien konnten nicht hinzugefügt werden."
+        },
+        storageMethod: {
+            required: "Bitte wählen Sie eine Speichermethode.",
+            invalid: "Ungültige Speichermethode."
+        },
+        platform: {
+            invalid: "Ungültige Plattform. Bitte versuchen Sie es erneut."
         }
     },
 
@@ -148,6 +155,66 @@ export default {
             title: "Klick um Dateien hochzuladen oder ziehen Sie Dateien hierher.",
             subtext: 'Nur ".idat" erlaubt. Maximal 2 Dateien.',
             submit: "Dateien hochladen"
+        }
+    },
+
+    // Dashboard
+    "dashboard": {
+        title: "Hallo, {name}",
+        buttons: {
+            upload: "Mehr Dateien hochladen",
+            refresh: "Dokumentstatus aktualisieren",
+            history: "Historie anzeigen"
+        },
+        table: {
+            title: "Liste der letzten Dokumente",
+            caption: "Alle Dateipaare in einer Sitzung",
+            columns: {
+                name: "Dateipaar",
+                status: "Status",
+                date: "Datum",
+                method: "Methode",
+                platform: "Platform"
+            }
+        },
+        progress: {
+            title: "Bitte warten Sie, während wir Ihre Dateien verarbeiten.",
+            subtitle:
+                "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
+        },
+        loading: {
+            start: "Daten werden an den Server gesendet",
+            success: "Vorverarbeitung gestartet",
+            finished: "Vorverarbeitung abgeschlossen.",
+            redirect: "Weiterleitung"
+        }
+    },
+
+    // Uncategorized
+    "material": {
+        ffpe: "Formalin-fixiert, Paraffin-eingebettet",
+        freshFrozen: "Frisch gefroren",
+        other: "Andere",
+        none: "Nicht definiert"
+    },
+
+    // Historie
+    "history": {
+        title: "Hallo, {name}",
+        buttons: {
+            upload: "Mehr Dateien hochladen",
+            dashboard: "Zurück zum Dashboard"
+        },
+        table: {
+            title: "Liste der letzten Sitzungen",
+            caption: "Alle Dateipaare in einer Sitzung",
+            columns: {
+                name: "Dateipaar",
+                status: "Status",
+                date: "Datum",
+                method: "Methode",
+                platform: "Plattform"
+            }
         }
     }
 };

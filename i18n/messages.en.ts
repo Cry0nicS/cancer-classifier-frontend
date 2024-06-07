@@ -97,6 +97,13 @@ export default {
             size: "File size is too large. Please upload a file smaller than 30 MB.",
             maxFiles: "You can only upload two file at a time.",
             failure: "Selected files could not be added"
+        },
+        storageMethod: {
+            required: "Please select a storage method.",
+            invalid: "Invalid storage method. Please select one of the allowed options."
+        },
+        platform: {
+            invalid: "An invalid platform has been detected. Please try again or contact support."
         }
     },
 
@@ -145,6 +152,66 @@ export default {
             title: "Click to upload or drag & drop files.",
             subtext: 'Only ".idat" files allowed. Maximum 2 files',
             submit: "Upload files"
+        }
+    },
+
+    // Dashboard
+    "dashboard": {
+        title: "Hello, {name}",
+        buttons: {
+            upload: "Upload more files",
+            refresh: "Refresh document status",
+            history: "Session history"
+        },
+        table: {
+            title: "List of recent documents",
+            caption: "All file pairs in this session",
+            columns: {
+                name: "Files pair",
+                status: "Status",
+                date: "Date",
+                method: "Method",
+                platform: "Platform"
+            }
+        },
+        progress: {
+            title: "Please wait while we process your files.",
+            subtitle:
+                "You will be shortly redirected to the next step once the process is complete."
+        },
+        loading: {
+            start: "Sending data to server",
+            success: "Preprocessing started",
+            finished: "Preprocessing finished.",
+            redirect: "Redirecting"
+        }
+    },
+
+    // Uncategorized
+    "material": {
+        ffpe: "Formalin-Fixed, Paraffin-Embedded",
+        freshFrozen: "Fresh Frozen",
+        other: "Other",
+        none: "Not defined"
+    },
+
+    // History
+    "history": {
+        title: "Hello, {name}",
+        buttons: {
+            upload: "Upload more files",
+            dashboard: "Current session"
+        },
+        table: {
+            title: "List of recent sessions",
+            caption: "All file pairs in this session",
+            columns: {
+                name: "Files pair",
+                status: "Status",
+                date: "Date",
+                method: "Method",
+                platform: "Platform"
+            }
         }
     }
 };

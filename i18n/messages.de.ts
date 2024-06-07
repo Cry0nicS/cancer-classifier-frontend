@@ -181,6 +181,12 @@ export default {
             title: "Bitte warten Sie, während wir Ihre Dateien verarbeiten.",
             subtitle:
                 "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
+        },
+        loading: {
+            start: "Daten werden an den Server gesendet",
+            success: "Vorverarbeitung gestartet",
+            finished: "Vorverarbeitung abgeschlossen.",
+            redirect: "Weiterleitung"
         }
     },
 

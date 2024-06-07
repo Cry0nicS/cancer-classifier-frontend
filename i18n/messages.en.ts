@@ -178,6 +178,12 @@ export default {
             title: "Please wait while we process your files.",
             subtitle:
                 "You will be shortly redirected to the next step once the process is complete."
+        },
+        loading: {
+            start: "Sending data to server",
+            success: "Preprocessing started",
+            finished: "Preprocessing finished.",
+            redirect: "Redirecting"
         }
     },
 

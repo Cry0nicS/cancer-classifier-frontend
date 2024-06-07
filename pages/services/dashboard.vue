@@ -58,6 +58,8 @@ useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
 const fileList = ref<FileList[]>([]);
+const isProcessTriggered = ref(false); // New flag to track process initiation
+let intervalId: ReturnType<typeof setInterval>; // To store the interval ID
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection, promise} = useDocument<UserCollection>(() =>
@@ -76,9 +78,34 @@ fileList.value =
         material: file.material ?? null
     })) ?? [];
 
-const triggerProcess = async () => {
+/**
+ * Progress bar logic
+ * Displayed after the user submits the form.
+ * The progress bar will increment by 10% every second until it reaches 100%. Then restarts.
+ * Once the process is complete, the interval is cleared and the progress bar hidden..
+ */
+const progressBarValue = ref(0);
+const isPreProcessComplete = ref(false);
+
+const computeProgressBarValue = () => {
+    if (progressBarValue.value < 100) {
+        progressBarValue.value += 10;
+    } else {
+        progressBarValue.value = 0;
+    }
+};
+
+const startProgressBar = () => {
+    intervalId = setInterval(() => {
+        if (!isPreProcessComplete.value) {
+            computeProgressBarValue();
+        }
+    }, 1000);
+};
+
+const startPreProcessing = async () => {
     const loading = useSonner.loading(`${t("loading")}...`, {
-        description: `${t("upload.loading")}...`
+        description: `${t("dashboard.loading.start")}...`
     });
 
     try {
@@ -109,9 +136,13 @@ const triggerProcess = async () => {
             );
 
             if (preprocessingResponse) {
-                useSonner.success(t("upload.loadingSuccess"), {
+                useSonner.success(t("dashboard.loading.success"), {
                     id: loading
                 });
+
+                // Start the progress bar.
+                isProcessTriggered.value = true;
+                startProgressBar();
             }
         }
     } catch (error) {
@@ -131,34 +162,18 @@ const triggerProcess = async () => {
     }
 };
 
-/**
- * Progress bar logic
- * Displayed after the user submits the form.
- * The progress bar will increment by 10% every second until it reaches 100%. Then restarts.
- * Once the process is complete, the user will be redirected to the history page.
- */
-const progressBarValue = ref(0);
-const isProcessComplete = ref(false);
-
-const incrementValue = () => {
-    if (progressBarValue.value < 100) {
-        progressBarValue.value += 10;
-    } else {
-        progressBarValue.value = 0;
-    }
-};
-
-useIntervalFn(() => {
-    incrementValue();
-}, 1000);
-
 watch(
     () => userCollection.value?.status,
     (newStatus) => {
         if (newStatus === UploadStatus.PreFinished) {
-            isProcessComplete.value = true;
+            useSonner.loading(`${t("dashboard.loading.redirect")}...`, {
+                description: t("dashboard.loading.finished")
+            });
 
-            navigateTo({path: localePath("/services/history"), replace: true});
+            isPreProcessComplete.value = true;
+            clearInterval(intervalId); // Clear interval when process is complete
+
+            // TODO: Handle next steps after preprocessing is complete.
         }
     }
 );
@@ -198,7 +213,7 @@ watch(
                 </div>
             </div>
             <div
-                v-if="userCollection?.status === UploadStatus.PreRunning"
+                v-if="!isPreProcessComplete && userCollection?.status === UploadStatus.PreRunning"
                 class="mt-8 bg-secondary p-10">
                 <h2 class="text-xl font-medium">
                     {{ $t("dashboard.progress.title") }}
@@ -211,7 +226,7 @@ watch(
             <div class="mt-8 w-full">
                 <span>{{ $t("dashboard.table.title") }}</span>
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
-                    <form @submit.prevent="triggerProcess">
+                    <form @submit.prevent="startPreProcessing">
                         <UiTable>
                             <UiTableCaption>
                                 {{ $t("dashboard.table.caption") }}

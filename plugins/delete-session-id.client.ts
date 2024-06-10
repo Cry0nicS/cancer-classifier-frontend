@@ -14,15 +14,31 @@ import {SESSION_KEY} from "~/utils/helpers";
 export default defineNuxtPlugin((_nuxtApp) => {
     const uploadSessionId = useCookie("uploadSessionId");
 
+    /**
+     * Deletes the session ID cookie if the session storage does not contain the session key.
+     * This indicates that the tab or browser has been closed.
+     */
     const deleteCookie = () => {
         // Session storage is cleared when the tab or browser is closed.
-        // If the session ID is still in the session storage, it means the tab or browser was not closed
+        // If the session ID is still in the session storage, it means the tab or browser was not closed.
         if (!sessionStorage.getItem(SESSION_KEY)) {
-            // If not, assume the tab or browser was closed and destroy the user's active session ID.
+            // If not present, assume the tab or browser was closed and destroy the user's active session ID.
             uploadSessionId.value = null;
         }
     };
 
-    // Add an event listener for the 'beforeunload' event
-    window.addEventListener("beforeunload", deleteCookie);
+    /**
+     * Handles the 'beforeunload' event by deleting the session ID cookie and removing the event listener.
+     * This ensures that the event listener is cleaned up properly to avoid memory leaks.
+     */
+    const handleBeforeUnload = () => {
+        deleteCookie();
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+
+    /**
+     * Add an event listener for the 'beforeunload' event.
+     * This will trigger the handleBeforeUnload function before the tab or browser is closed
+     */
+    window.addEventListener("beforeunload", handleBeforeUnload);
 });

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {FetchError} from "ofetch";
-import {useSessionStorage} from "@vueuse/core";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 
@@ -22,8 +21,8 @@ useSeo(
 );
 
 const user = useCurrentUser();
-// Fetch current session ID for navigation purposes or set it to null.
-const uploadSessionId = useSessionStorage("uploadSessionId", null);
+// Fetch current session ID for navigation purposes.
+const uploadSessionId = useCookie("uploadSessionId");
 const files = ref<File[]>([]);
 const isSubmitting = ref(false);
 
@@ -91,16 +90,14 @@ const uploadFiles = async () => {
 
         const idToken = await user.value!.getIdToken();
 
-        const currentSessionId = await $fetch("/api/upload-files", {
+        // Store the upload session ID in a cookie.
+        uploadSessionId.value = await $fetch("/api/upload-files", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${idToken}`
             },
             body: formData
         });
-
-        // Make sure the session ID is stored in the session storage for multiple tried.
-        uploadSessionId.value = currentSessionId;
 
         useSonner.success(t("upload.loadingSuccess"), {
             id: loading

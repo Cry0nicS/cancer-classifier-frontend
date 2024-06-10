@@ -3,7 +3,6 @@ import type {DateTimeFormatOptions} from "@intlify/core-base";
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
 import {FetchError} from "ofetch";
-import {useSessionStorage} from "@vueuse/core";
 import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
 import {LocaleIsoMap} from "~/constants/locale";
@@ -24,11 +23,11 @@ definePageMeta({
 
 const {t, locale} = useI18n();
 const localePath = useLocalePath();
-
-const uploadSessionId = useSessionStorage<string>("uploadSessionId", null);
+const uploadSessionId = useCookie<string>("uploadSessionId");
 
 if (!uploadSessionId.value) {
-    throw new Error("Upload session ID is missing");
+    // This should never happen as the middleware prevents the user from accessing the page without a session ID.
+    throw new Error(t("errors.unexpected-error"));
 }
 
 // Setting up date options for formatting.
@@ -58,8 +57,8 @@ useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
 const fileList = ref<FileList[]>([]);
-const uploadProcessStarted = ref(false);
-const uploadProcessComplete = ref(false);
+const isProcessingStarted = ref(false);
+const isProcessingComplete = ref(false);
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection, promise} = useDocument<UserCollection>(() =>
@@ -146,18 +145,17 @@ const startPreProcessing = async () => {
 };
 
 function progressStatus(status: UploadStatus): void {
-    if (status === UploadStatus.PreRunning) {
-        // Start the progress bar.
-        uploadProcessStarted.value = true;
-    }
-    if (status === UploadStatus.PreFinished) {
-        useSonner.loading(`${t("dashboard.loading.redirect")}...`, {
-            description: t("dashboard.loading.finished")
-        });
-
-        uploadProcessComplete.value = true;
-
-        // TODO: Handle next steps after preprocessing is complete.
+    switch (status) {
+        case UploadStatus.PreRunning:
+            isProcessingStarted.value = true;
+            break;
+        case UploadStatus.PreFinished:
+            useSonner.loading(`${t("dashboard.loading.redirect")}...`, {
+                description: t("dashboard.loading.finished")
+            });
+            isProcessingComplete.value = true;
+            // TODO: Handle next steps after preprocessing is complete.
+            break;
     }
 }
 
@@ -203,12 +201,14 @@ watch(
                 </div>
             </div>
             <div
-                v-if="uploadProcessStarted && !uploadProcessComplete"
-                class="mt-8 bg-secondary p-10">
+                v-if="isProcessingStarted && !isProcessingComplete"
+                class="mt-8 bg-secondary p-10"
+                role="alert"
+                aria-live="polite">
                 <h2 class="text-xl font-medium">{{ $t("dashboard.progress.title") }}</h2>
                 <span>{{ $t("dashboard.progress.subtitle") }}</span>
                 <ModulesProgressBar
-                    :start="uploadProcessStarted"
+                    :start="isProcessingStarted"
                     :seconds="10"
                     class="my-8" />
             </div>

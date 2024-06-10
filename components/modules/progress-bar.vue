@@ -24,7 +24,9 @@ function toggleProgressbar(start: boolean): void {
     }
 }
 
-toggleProgressbar(start);
+onMounted(() => {
+    toggleProgressbar(start);
+});
 
 watch(
     () => start,

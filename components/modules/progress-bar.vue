@@ -38,6 +38,9 @@ watch(
 
 <template>
     <div class="flex w-full justify-center">
-        <UiProgress v-model="progressBarValue" />
+        <UiProgress
+            v-model="progressBarValue"
+            role="progressbar"
+            aria-live="polite" />
     </div>
 </template>

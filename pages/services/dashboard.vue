@@ -202,9 +202,7 @@ watch(
             </div>
             <div
                 v-if="isProcessingStarted && !isProcessingComplete"
-                class="mt-8 bg-secondary p-10"
-                role="alert"
-                aria-live="polite">
+                class="mt-8 bg-secondary p-10">
                 <h2 class="text-xl font-medium">{{ $t("dashboard.progress.title") }}</h2>
                 <span>{{ $t("dashboard.progress.subtitle") }}</span>
                 <ModulesProgressBar

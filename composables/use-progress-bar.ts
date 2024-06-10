@@ -19,6 +19,8 @@ export function useProgressBar(seconds: number) {
     };
 
     const startProgressBar = () => {
+        clearInterval(intervalId);
+
         intervalId = setInterval(
             () => {
                 if (!isProcessComplete.value) {

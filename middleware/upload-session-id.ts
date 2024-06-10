@@ -5,11 +5,18 @@
 export default defineNuxtRouteMiddleware(async (_to, _from) => {
     const localePath = useLocalePath();
 
-    // Get the uploadSessionId from the cookie.
-    const uploadSessionId = useCookie("uploadSessionId");
+    let uploadSessionId;
 
-    // Redirect the user to the upload page if they do not have a valid upload session ID.
-    if (!uploadSessionId.value) {
+    try {
+        // Attempt to get the uploadSessionId from the cookie
+        uploadSessionId = useCookie("uploadSessionId").value;
+    } catch (error) {
+        // Redirect to the upload page with an error message or handle as appropriate
+        return navigateTo({path: localePath("/services/upload"), replace: true});
+    }
+
+    // Redirect the user to the upload page if they do not have a valid upload session ID
+    if (!uploadSessionId) {
         return navigateTo({path: localePath("/services/upload"), replace: true});
     }
 });

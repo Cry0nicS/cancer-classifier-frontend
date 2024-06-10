@@ -22,7 +22,8 @@ useSeo(
 );
 
 const user = useCurrentUser();
-
+// Fetch current session ID for navigation purposes or set it to null.
+const uploadSessionId = useSessionStorage("uploadSessionId", null);
 const files = ref<File[]>([]);
 const isSubmitting = ref(false);
 
@@ -90,7 +91,7 @@ const uploadFiles = async () => {
 
         const idToken = await user.value!.getIdToken();
 
-        const uploadSessionId = await $fetch("/api/upload-files", {
+        const currentSessionId = await $fetch("/api/upload-files", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${idToken}`
@@ -98,10 +99,8 @@ const uploadFiles = async () => {
             body: formData
         });
 
-        // Store the upload session ID in the session storage to be used on the dashboard page.
-        const storedSession = useSessionStorage("uploadSessionId", uploadSessionId);
         // Make sure the session ID is stored in the session storage for multiple tried.
-        storedSession.value = uploadSessionId;
+        uploadSessionId.value = currentSessionId;
 
         useSonner.success(t("upload.loadingSuccess"), {
             id: loading
@@ -130,68 +129,107 @@ const uploadFiles = async () => {
 </script>
 
 <template>
-    <UiContainer class="flex min-h-screen flex-col items-center justify-center">
-        <div class="w-full text-center">
-            <h1 class="text-3xl font-semibold lg:text-4xl">
-                {{ $t("upload.title", {name: user?.displayName}) }}
-            </h1>
-            <p class="mt-10">{{ $t("upload.description") }}</p>
-        </div>
-
-        <div class="mt-14 w-full max-w-[600px]">
-            <form
-                class="mx-auto w-full"
-                @submit.prevent="uploadFiles">
-                <fieldset
-                    class="grid gap-5"
-                    :disabled="isSubmitting">
-                    <UiDropfile
-                        :on-drop-validation="areFilesValid"
-                        icon="lucide:files"
-                        :subtext="t('upload.dropzone.subtext')"
-                        :title="t('upload.dropzone.title')"
-                        @dropped="files = $event" />
-                    <div
-                        v-if="files && files.length"
-                        class="mt-5 w-full">
-                        <div
-                            v-for="(file, i) in files"
-                            :key="file.name"
-                            class="group relative mb-2 flex h-12 items-center justify-between rounded border px-3 py-3">
-                            <div class="flex grow items-center gap-3">
-                                <Icon
-                                    name="heroicons:document"
-                                    class="mr-3 h-5 w-5 opacity-60" />
-                                <p class="w-[80%] truncate text-sm">{{ file.name }}</p>
-                                <p
-                                    class="ml-auto whitespace-nowrap text-xs text-muted-foreground/60">
-                                    {{ formatFileSize(file.size) }}
-                                </p>
-                            </div>
-
-                            <div class="ml-3">
-                                <UiButton
-                                    size="icon-sm"
-                                    variant="outline"
-                                    @click="removeFile(i)">
+    <UiContainer class="min-h-screen py-10">
+        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
+            <div class="flex w-full flex-row justify-between">
+                <h1 class="text-2xl font-semibold lg:text-3xl">
+                    {{ $t("upload.title", {name: user?.displayName}) }}
+                </h1>
+                <div class="flex flex-col justify-center gap-2 md:flex-row">
+                    <UiTooltip
+                        v-if="uploadSessionId"
+                        disable-closing-trigger>
+                        <template #trigger>
+                            <UiTooltipTrigger as-child>
+                                <NuxtLink
+                                    :to="localePath('/services/dashboard')"
+                                    class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80">
                                     <Icon
-                                        name="heroicons:x-mark"
-                                        class="h-3.5 w-3.5" />
-                                </UiButton>
+                                        name="lucide:layout-dashboard"
+                                        size="30px" />
+                                </NuxtLink>
+                            </UiTooltipTrigger>
+                        </template>
+                        <template #content>
+                            <UiTooltipContent>
+                                <p>{{ $t("upload.buttons.dashboard") }}</p>
+                            </UiTooltipContent>
+                        </template>
+                    </UiTooltip>
+                    <UiTooltip disable-closing-trigger>
+                        <template #trigger>
+                            <UiTooltipTrigger as-child>
+                                <NuxtLink
+                                    :to="localePath('/services/history')"
+                                    class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80">
+                                    <Icon
+                                        name="lucide:history"
+                                        size="30px" />
+                                </NuxtLink>
+                            </UiTooltipTrigger>
+                        </template>
+                        <template #content>
+                            <UiTooltipContent>
+                                <p>{{ $t("upload.buttons.history") }}</p>
+                            </UiTooltipContent>
+                        </template>
+                    </UiTooltip>
+                </div>
+            </div>
+            <div class="mx-auto mt-14 flex w-full max-w-[600px] items-center justify-center">
+                <form
+                    class="mx-auto w-full"
+                    @submit.prevent="uploadFiles">
+                    <fieldset
+                        class="grid gap-5"
+                        :disabled="isSubmitting">
+                        <UiDropfile
+                            :on-drop-validation="areFilesValid"
+                            icon="lucide:files"
+                            :subtext="t('upload.dropzone.subtext')"
+                            :title="t('upload.dropzone.title')"
+                            @dropped="files = $event" />
+                        <div
+                            v-if="files && files.length"
+                            class="mt-5 w-full">
+                            <div
+                                v-for="(file, i) in files"
+                                :key="file.name"
+                                class="group relative mb-2 flex h-12 items-center justify-between rounded border px-3 py-3">
+                                <div class="flex grow items-center gap-3">
+                                    <Icon
+                                        name="heroicons:document"
+                                        class="mr-3 h-5 w-5 opacity-60" />
+                                    <p class="w-[80%] truncate text-sm">{{ file.name }}</p>
+                                    <p
+                                        class="ml-auto whitespace-nowrap text-xs text-muted-foreground/60">
+                                        {{ formatFileSize(file.size) }}
+                                    </p>
+                                </div>
+                                <div class="ml-3">
+                                    <UiButton
+                                        size="icon-sm"
+                                        variant="outline"
+                                        @click="removeFile(i)">
+                                        <Icon
+                                            name="heroicons:x-mark"
+                                            class="h-3.5 w-3.5" />
+                                    </UiButton>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <UiButton
-                        :disabled="!files.length"
-                        class="mt-10 w-full"
-                        type="submit">
-                        <Icon
-                            name="lucide:cloud-upload"
-                            class="size-4" />
-                        {{ $t("upload.dropzone.submit") }}
-                    </UiButton>
-                </fieldset>
-            </form>
+                        <UiButton
+                            :disabled="!files.length"
+                            class="mt-10 w-full"
+                            type="submit">
+                            <Icon
+                                name="lucide:cloud-upload"
+                                class="size-4" />
+                            {{ $t("upload.dropzone.submit") }}
+                        </UiButton>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </UiContainer>
 </template>

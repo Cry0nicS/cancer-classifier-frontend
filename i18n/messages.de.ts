@@ -148,7 +148,10 @@ export default {
     "upload": {
         title: "Hallo, {name}",
         description: "Laden Sie Ihre Dateien hier hoch.",
-        button: "Hochladen",
+        buttons: {
+            dashboard: "Zurück zum Dashboard",
+            history: "Historie anzeigen"
+        },
         loading: "Wird hochgeladen...",
         loadingSuccess: "Dateien erfolgreich hochgeladen.",
         dropzone: {

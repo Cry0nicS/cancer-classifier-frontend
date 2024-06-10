@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import {FetchError} from "ofetch";
+import {useSessionStorage} from "@vueuse/core";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
+import {SESSION_KEY} from "~/utils/helpers";
 
 definePageMeta({
     showHeader: true,
@@ -98,6 +100,9 @@ const uploadFiles = async () => {
             },
             body: formData
         });
+
+        // Set the session state to active. Used by delete-session-id.client plugin.
+        useSessionStorage(SESSION_KEY, "true");
 
         useSonner.success(t("upload.loadingSuccess"), {
             id: loading

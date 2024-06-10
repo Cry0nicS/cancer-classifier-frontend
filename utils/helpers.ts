@@ -1,5 +1,7 @@
 import {Platform, StorageMethod, UploadStatus} from "~/types/enums";
 
+export const SESSION_KEY = "uploadSessionActive";
+
 // Create a map to associate each storage method ID with its name
 export const storageMethodNames: Record<StorageMethod, string> = {
     [StorageMethod.FFPE]: "Formalin-Fixed, Paraffin-Embedded",

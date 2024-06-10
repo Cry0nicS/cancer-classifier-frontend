@@ -1,6 +1,34 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 language: "en-US"
+early_access: true
 reviews:
     path_filters:
         - "!**/*.xml"
+        - "!**/*.yaml"
         - "!components/Ui/**"
+    path_instructions:
+        -   path: "**/*.vue"
+            instructions: |
+                Review Vue files for a Nuxt3 project. Ensure that:
+                - The `<script>` section adheres to TypeScript guidelines and best practices, including:
+                  - Proper type annotations and usage.
+                  - Usage of modern TypeScript features.
+                  - Avoidance of any type-related issues or anti-patterns.
+                - The `<template>` section uses proper HTML and follows TailwindCSS guidelines, including:
+                  - Correct usage of TailwindCSS utility classes for styling.
+                  - Semantic HTML structure and accessibility considerations.
+                - The overall file adheres to Nuxt3 conventions and best practices, such as:
+                  - Correct usage of Nuxt3-specific features like composables, plugins, and auto-imported components.
+                  - Efficient use of the Composition API and reactive data handling.
+        -   path: "**/*.ts"
+            instructions: |
+                Review the TypeScript code files for the project. Ensure that:
+                - The code adheres to TypeScript best practices and guidelines, including:
+                  - Proper type annotations and usage.
+                  - Utilization of modern TypeScript features (e.g., optional chaining, nullish coalescing).
+                  - Avoidance of any type-related issues or anti-patterns.
+                - The code follows general software engineering best practices, such as:
+                  - Modular and maintainable code structure.
+                  - Clear and concise documentation and comments where necessary.
+                  - Efficient and readable code with a focus on performance and security.
+    profile: "assertive"

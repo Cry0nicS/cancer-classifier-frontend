@@ -183,7 +183,8 @@ export default {
             start: "Sending data to server",
             success: "Preprocessing started",
             finished: "Preprocessing finished.",
-            redirect: "Redirecting"
+            redirect: "Redirecting",
+            noData: "Error while parsing the files. Please try again."
         }
     },
 

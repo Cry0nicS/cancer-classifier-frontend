@@ -145,7 +145,10 @@ export default {
     "upload": {
         title: "Hello, {name}",
         description: "Upload your files here.",
-        button: "Upload",
+        buttons: {
+            dashboard: "Dashboard",
+            history: "History"
+        },
         loading: "Uploading...",
         loadingSuccess: "Files uploaded successfully.",
         dropzone: {
@@ -183,7 +186,8 @@ export default {
             start: "Sending data to server",
             success: "Preprocessing started",
             finished: "Preprocessing finished.",
-            redirect: "Redirecting"
+            redirect: "Redirecting",
+            noData: "Error while parsing the files. Please try again."
         }
     },
 

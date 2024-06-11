@@ -1,0 +1,168 @@
+name: CI
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    setup:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Cache Node.js modules
+              uses: actions/cache@v3
+              id: cache-node-modules
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Upload node_modules
+              uses: actions/upload-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+    lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Download node_modules
+              uses: actions/download-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+            - name: Run ESLint
+              run: npm run lint
+
+    format-check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Download node_modules
+              uses: actions/download-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+            - name: Run Prettier
+              run: npm run format-check
+
+    spell-check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Download node_modules
+              uses: actions/download-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+            - name: Run cSpell
+              run: npm run spell-check
+
+    style-check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Download node_modules
+              uses: actions/download-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+            - name: Run Stylelint
+              run: npm run style-check
+
+    type-check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Download node_modules
+              uses: actions/download-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+            - name: Run Tsc
+              run: npm run type-check
+
+    build:
+        needs: [lint, format-check, spell-check, style-check, type-check]
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Download node_modules
+              uses: actions/download-artifact@v2
+              with:
+                  name: node_modules
+                  path: ~/.npm
+
+            - name: Build
+              run: npm run build
+              env:
+                  FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+                  FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+                  FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+                  FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+                  FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+                  FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+                  FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+                  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+                  API_URL: ${{ secrets.API_URL }}

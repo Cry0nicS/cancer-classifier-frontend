@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "prod": "tgc-cloud"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

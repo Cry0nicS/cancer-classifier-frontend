@@ -1,0 +1,29 @@
+# Environment variables and secrets
+env:
+    -   variable: FIREBASE_API_KEY
+        secret: FIREBASE_API_KEY
+
+    -   variable: FIREBASE_AUTH_DOMAIN
+        secret: FIREBASE_AUTH_DOMAIN
+
+    -   variable: FIREBASE_PROJECT_ID
+        secret: FIREBASE_PROJECT_ID
+
+    -   variable: FIREBASE_STORAGE_BUCKET
+        secret: FIREBASE_STORAGE_BUCKET
+
+    -   variable: FIREBASE_MESSAGING_SENDER_ID
+        secret: FIREBASE_MESSAGING_SENDER_ID
+
+    -   variable: FIREBASE_APP_ID
+        secret: FIREBASE_APP_ID
+
+    -   variable: FIREBASE_MEASUREMENT_ID
+        secret: FIREBASE_MEASUREMENT_ID
+
+    -   variable: GOOGLE_APPLICATION_CREDENTIALS
+        secret: GOOGLE_APPLICATION_CREDENTIALS
+
+    -   variable: API_URL
+        secret: API_URL
+

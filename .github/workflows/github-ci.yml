@@ -1,5 +1,16 @@
 name: CI
 
+env:
+    FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+    FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+    FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+    FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+    FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+    FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+    FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
+    GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+    API_URL: ${{ secrets.API_URL }}
+
 on:
     push:
         branches: [ main ]
@@ -37,6 +48,7 @@ jobs:
                   path: ~/.npm
 
     lint:
+        needs: setup
         runs-on: ubuntu-latest
 
         steps:
@@ -57,6 +69,7 @@ jobs:
               run: npm run lint
 
     format-check:
+        needs: setup
         runs-on: ubuntu-latest
 
         steps:
@@ -77,6 +90,7 @@ jobs:
               run: npm run format-check
 
     spell-check:
+        needs: setup
         runs-on: ubuntu-latest
 
         steps:
@@ -97,6 +111,7 @@ jobs:
               run: npm run spell-check
 
     style-check:
+        needs: setup
         runs-on: ubuntu-latest
 
         steps:
@@ -117,6 +132,7 @@ jobs:
               run: npm run style-check
 
     type-check:
+        needs: setup
         runs-on: ubuntu-latest
 
         steps:
@@ -137,7 +153,7 @@ jobs:
               run: npm run type-check
 
     build:
-        needs: [lint, format-check, spell-check, style-check, type-check]
+        needs: [setup, lint, format-check, spell-check, style-check, type-check]
         runs-on: ubuntu-latest
 
         steps:
@@ -156,13 +172,3 @@ jobs:
 
             - name: Build
               run: npm run build
-              env:
-                  FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-                  FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
-                  FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-                  FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-                  FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
-                  FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-                  FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
-                  GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-                  API_URL: ${{ secrets.API_URL }}

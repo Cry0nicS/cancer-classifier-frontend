@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import {useColorMode} from "@vueuse/core";
 import {Locale} from "~/constants/locale";
 const {t, locale} = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
 const user = useCurrentUser();
+const colorMode = useColorMode();
 </script>
 
 <template>
@@ -21,14 +23,14 @@ const user = useCurrentUser();
                     size="icon-sm"
                     variant="ghost"
                     :title="t('toggleTheme')"
-                    @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'">
+                    @click="colorMode = colorMode === 'dark' ? 'light' : 'dark'">
                     <span class="sr-only">{{ t("toggleTheme") }}</span>
                     <Icon
-                        v-show="$colorMode.preference === 'dark'"
+                        v-show="colorMode === 'dark'"
                         class="size-4"
                         name="lucide:sun" />
                     <Icon
-                        v-show="$colorMode.preference === 'light'"
+                        v-show="colorMode === 'light'"
                         class="size-4"
                         name="lucide:moon" />
                 </UiButton>

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import {Locale} from "~/constants/locale";
-const {locale} = useI18n();
-const switchLocalePath = useSwitchLocalePath();
-
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
 const user = useCurrentUser();
 </script>
@@ -20,22 +16,18 @@ const user = useCurrentUser();
                     <ModulesLogout />
                 </div>
                 <ThemeToggle class="p-2" />
-                <nuxt-link
-                    v-if="locale !== Locale.German"
-                    title="Deutsch"
-                    :to="switchLocalePath(Locale.German)">
-                    <Icon
-                        class="size-4"
-                        name="lucide:languages" />
-                </nuxt-link>
-                <nuxt-link
-                    v-if="locale !== Locale.English"
-                    title="English"
-                    :to="switchLocalePath(Locale.English)">
-                    <Icon
-                        class="size-4"
-                        name="lucide:languages" />
-                </nuxt-link>
+                <LanguageToggle class="p-2">
+                    <template #english>
+                        <Icon
+                            class="size-6"
+                            name="emojione:flag-for-us-outlying-islands" />
+                    </template>
+                    <template #german>
+                        <Icon
+                            class="size-6"
+                            name="emojione:flag-for-germany" />
+                    </template>
+                </LanguageToggle>
             </div>
         </UiContainer>
     </UiNavbar>

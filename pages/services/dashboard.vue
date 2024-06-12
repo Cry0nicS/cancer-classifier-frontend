@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import type {DateTimeFormatOptions} from "@intlify/core-base";
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
 import {FetchError} from "ofetch";
 import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
-import {LocaleIsoMap} from "~/constants/locale";
-import {PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
+import {LocaleIsoMap, PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
 import {useSeo} from "~/composables/use-seo";
 
@@ -30,18 +28,10 @@ if (!uploadSessionId.value) {
     throw new Error(t("errors.unexpected-error"));
 }
 
-// Setting up date options for formatting.
-const dateOptions: DateTimeFormatOptions = {
-    weekday: "short",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-};
 // Fixme: Fix hardcoded today's date. This should come from the database.
-const today = new Date().toLocaleDateString(
-    LocaleIsoMap[locale.value as keyof typeof LocaleIsoMap],
-    dateOptions
-);
+const today = useDateFormat(useNow(), "ddd, MMMM DD, YYYY", {
+    locales: LocaleIsoMap[locale.value as keyof typeof LocaleIsoMap]
+});
 
 useSeo(
     t("seo.title"),

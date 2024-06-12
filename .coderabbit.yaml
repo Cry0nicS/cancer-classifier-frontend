@@ -32,3 +32,4 @@ reviews:
                   - Clear and concise documentation and comments where necessary.
                   - Efficient and readable code with a focus on performance and security.
     profile: "assertive"
+    request_changes_workflow: true

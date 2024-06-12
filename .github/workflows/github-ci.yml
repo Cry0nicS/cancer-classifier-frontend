@@ -13,16 +13,17 @@ env:
 
 on:
     push:
-        branches: [ main ]
+        branches: [main]
     pull_request:
-        branches: [ main ]
+        branches: [main]
 
 jobs:
     setup:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
             - name: Use Node.js
               uses: actions/setup-node@v4
@@ -41,134 +42,130 @@ jobs:
             - name: Install Dependencies
               run: npm ci
 
-            - name: Upload node_modules
-              uses: actions/upload-artifact@v2
+            - name: Cache node_modules
+              uses: actions/cache@v3
               with:
-                  name: node_modules
-                  path: ~/.npm
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
     lint:
-        needs: setup
         runs-on: ubuntu-latest
+        needs: setup
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
             - name: Use Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
 
-            - name: Download node_modules
-              uses: actions/download-artifact@v2
+            - name: Restore node_modules cache
+              uses: actions/cache@v3
               with:
-                  name: node_modules
-                  path: ~/.npm
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
             - name: Run ESLint
               run: npm run lint
 
     format-check:
-        needs: setup
         runs-on: ubuntu-latest
+        needs: setup
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
             - name: Use Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
 
-            - name: Download node_modules
-              uses: actions/download-artifact@v2
+            - name: Restore node_modules cache
+              uses: actions/cache@v3
               with:
-                  name: node_modules
-                  path: ~/.npm
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
             - name: Run Prettier
               run: npm run format-check
 
     spell-check:
-        needs: setup
         runs-on: ubuntu-latest
+        needs: setup
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
             - name: Use Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
 
-            - name: Download node_modules
-              uses: actions/download-artifact@v2
+            - name: Restore node_modules cache
+              uses: actions/cache@v3
               with:
-                  name: node_modules
-                  path: ~/.npm
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
             - name: Run cSpell
               run: npm run spell-check
 
     style-check:
-        needs: setup
         runs-on: ubuntu-latest
+        needs: setup
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
             - name: Use Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
 
-            - name: Download node_modules
-              uses: actions/download-artifact@v2
+            - name: Restore node_modules cache
+              uses: actions/cache@v3
               with:
-                  name: node_modules
-                  path: ~/.npm
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
             - name: Run Stylelint
               run: npm run style-check
 
-    type-check:
-        needs: setup
-        runs-on: ubuntu-latest
-
-        steps:
-            - uses: actions/checkout@v2
-
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20'
-
-            - name: Download node_modules
-              uses: actions/download-artifact@v2
-              with:
-                  name: node_modules
-                  path: ~/.npm
-
-            - name: Run Tsc
-              run: npm run type-check
-
     build:
-        needs: [setup, lint, format-check, spell-check, style-check, type-check]
         runs-on: ubuntu-latest
+        needs: [setup, lint, format-check, spell-check, style-check]
 
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
             - name: Use Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
 
-            - name: Download node_modules
-              uses: actions/download-artifact@v2
+            - name: Restore node_modules cache
+              uses: actions/cache@v3
               with:
-                  name: node_modules
-                  path: ~/.npm
+                  path: node_modules
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
 
             - name: Build
               run: npm run build

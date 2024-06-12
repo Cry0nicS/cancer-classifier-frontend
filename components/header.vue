@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import {Locale} from "~/constants/locale";
-const {t, locale} = useI18n();
-const switchLocalePath = useSwitchLocalePath();
-
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
 const user = useCurrentUser();
 </script>
@@ -13,41 +9,25 @@ const user = useCurrentUser();
             <div>
                 <Logo :size="56" />
             </div>
-            <div class="flex items-center gap-2">
-                <div v-if="user">
+            <div class="flex min-w-[180px] items-center gap-4">
+                <div
+                    v-if="user"
+                    class="basis-[90px]">
                     <ModulesLogout />
                 </div>
-                <UiButton
-                    size="icon-sm"
-                    variant="ghost"
-                    :title="t('toggleTheme')"
-                    @click="$colorMode.preference = $colorMode.value === 'dark' ? 'light' : 'dark'">
-                    <span class="sr-only">{{ t("toggleTheme") }}</span>
-                    <Icon
-                        v-show="$colorMode.preference === 'dark'"
-                        class="size-4"
-                        name="lucide:sun" />
-                    <Icon
-                        v-show="$colorMode.preference === 'light'"
-                        class="size-4"
-                        name="lucide:moon" />
-                </UiButton>
-                <nuxt-link
-                    v-if="locale !== Locale.German"
-                    title="Deutsch"
-                    :to="switchLocalePath(Locale.German)">
-                    <Icon
-                        class="size-4"
-                        name="lucide:languages" />
-                </nuxt-link>
-                <nuxt-link
-                    v-if="locale !== Locale.English"
-                    title="English"
-                    :to="switchLocalePath(Locale.English)">
-                    <Icon
-                        class="size-4"
-                        name="lucide:languages" />
-                </nuxt-link>
+                <ThemeToggle class="p-2" />
+                <LanguageToggle class="p-2">
+                    <template #english>
+                        <Icon
+                            class="size-6"
+                            name="emojione:flag-for-us-outlying-islands" />
+                    </template>
+                    <template #german>
+                        <Icon
+                            class="size-6"
+                            name="emojione:flag-for-germany" />
+                    </template>
+                </LanguageToggle>
             </div>
         </UiContainer>
     </UiNavbar>

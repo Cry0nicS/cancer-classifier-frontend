@@ -1,3 +1,8 @@
+export enum Locale {
+    English = "en",
+    German = "de"
+}
+
 export enum StorageMethod {
     FFPE = "FFPE",
     FreshFrozen = "Frozen",

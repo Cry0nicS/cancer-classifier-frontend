@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type {DateTimeFormatOptions} from "@intlify/core-base";
 import {collection} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
 import type {UserCollection} from "~/types/firebase";
-import {LocaleIsoMap} from "~/constants/locale";
 import {useSeo} from "~/composables/use-seo";
-import {PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
+import {LocaleIsoMap, PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
 
 definePageMeta({
     showHeader: true,
@@ -24,18 +22,10 @@ useSeo(
     true
 );
 
-// Setting up date options for formatting.
-const dateOptions: DateTimeFormatOptions = {
-    weekday: "short",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-};
 // Fixme: Fix hardcoded today's date. This should come from the database.
-const today = new Date().toLocaleDateString(
-    LocaleIsoMap[locale.value as keyof typeof LocaleIsoMap],
-    dateOptions
-);
+const today = useDateFormat(useNow(), "ddd, MMMM DD, YYYY", {
+    locales: LocaleIsoMap[locale.value as keyof typeof LocaleIsoMap]
+});
 
 // Set up Firebase Auth and Firestore
 useFirebaseAuth();

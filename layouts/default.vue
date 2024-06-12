@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import LanguageSwitch from "~/components/language-switch.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <Header />
@@ -12,7 +10,15 @@ import LanguageSwitch from "~/components/language-switch.vue";
             <a href="https://www.google.com/">{{ $t(`footer.contact`) }}</a>
             <a href="https://www.google.com/">{{ $t(`footer.imprint`) }}</a>
             <a href="https://www.google.com/">{{ $t(`footer.privacy`) }}</a>
-            <LanguageSwitch />
+            <LanguageToggle />
+            <ThemeToggle>
+                <template #dark-mode>
+                    <span>{{ $t("lightMode") }}</span>
+                </template>
+                <template #light-mode>
+                    <span>{{ $t("darkMode") }}</span>
+                </template>
+            </ThemeToggle>
         </template>
 
         <template #social>

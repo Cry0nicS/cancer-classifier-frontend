@@ -1,4 +1,4 @@
-import {Platform, StorageMethod, UploadStatus} from "~/types/enums";
+import {Locale, Platform, StorageMethod, UploadStatus} from "~/types/enums";
 
 export const SESSION_KEY = "uploadSessionActive";
 
@@ -31,3 +31,8 @@ export function getEnumName<T extends Record<string, string | number | symbol>>(
 ): string {
     return enumMap[key];
 }
+
+export const LocaleIsoMap = {
+    [Locale.English]: "en-US",
+    [Locale.German]: "de-DE"
+};

@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import {useColorMode} from "@vueuse/core";
 import {Locale} from "~/constants/locale";
-const {t, locale} = useI18n();
+const {locale} = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
 const user = useCurrentUser();
-const colorMode = useColorMode();
 </script>
 
 <template>
@@ -15,25 +13,13 @@ const colorMode = useColorMode();
             <div>
                 <Logo :size="56" />
             </div>
-            <div class="flex items-center gap-2">
-                <div v-if="user">
+            <div class="flex min-w-[180px] items-center gap-4">
+                <div
+                    v-if="user"
+                    class="basis-[90px]">
                     <ModulesLogout />
                 </div>
-                <UiButton
-                    size="icon-sm"
-                    variant="ghost"
-                    :title="t('toggleTheme')"
-                    @click="colorMode = colorMode === 'dark' ? 'light' : 'dark'">
-                    <span class="sr-only">{{ t("toggleTheme") }}</span>
-                    <Icon
-                        v-show="colorMode === 'dark'"
-                        class="size-4"
-                        name="lucide:sun" />
-                    <Icon
-                        v-show="colorMode === 'light'"
-                        class="size-4"
-                        name="lucide:moon" />
-                </UiButton>
+                <ThemeToggle class="p-2" />
                 <nuxt-link
                     v-if="locale !== Locale.German"
                     title="Deutsch"

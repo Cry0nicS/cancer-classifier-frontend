@@ -13,6 +13,14 @@ import LanguageSwitch from "~/components/language-switch.vue";
             <a href="https://www.google.com/">{{ $t(`footer.imprint`) }}</a>
             <a href="https://www.google.com/">{{ $t(`footer.privacy`) }}</a>
             <LanguageSwitch />
+            <ThemeToggle>
+                <template #dark-mode>
+                    <span>{{ $t("darkMode") }}</span>
+                </template>
+                <template #light-mode>
+                    <span>{{ $t("lightMode") }}</span>
+                </template>
+            </ThemeToggle>
         </template>
 
         <template #social>

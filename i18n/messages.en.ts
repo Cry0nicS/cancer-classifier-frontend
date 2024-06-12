@@ -23,6 +23,8 @@ export default {
     "or": "or",
     "loading": "Loading",
     "toggleTheme": "Toggle theme",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
     "toggleLocale": "Toggle language",
 
     // Account

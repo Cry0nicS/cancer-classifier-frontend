@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {useColorMode} from "@vueuse/core";
 
 const {t} = useI18n();
@@ -16,14 +16,14 @@ const colorMode = useColorMode();
         <template v-if="colorMode === 'dark'">
             <slot name="dark-mode">
                 <Icon
-                    class="size-4"
+                    class="size-6"
                     name="lucide:sun" />
             </slot>
         </template>
         <template v-else>
             <slot name="light-mode">
                 <Icon
-                    class="size-4"
+                    class="size-6"
                     name="lucide:moon" />
             </slot>
         </template>

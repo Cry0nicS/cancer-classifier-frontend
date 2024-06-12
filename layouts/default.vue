@@ -13,10 +13,10 @@
             <LanguageToggle />
             <ThemeToggle>
                 <template #dark-mode>
-                    <span>{{ $t("darkMode") }}</span>
+                    <span>{{ $t("lightMode") }}</span>
                 </template>
                 <template #light-mode>
-                    <span>{{ $t("lightMode") }}</span>
+                    <span>{{ $t("darkMode") }}</span>
                 </template>
             </ThemeToggle>
         </template>

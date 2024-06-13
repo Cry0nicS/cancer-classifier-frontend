@@ -12,8 +12,10 @@ export function useProgressBar(seconds: number) {
 
     const computeProgressBarValue = () => {
         if (progressBarValue.value < 100) {
-            progressBarValue.value += 10;
+            // Increment the progress bar value by 2% until it reaches 100%.
+            progressBarValue.value += 2;
         } else {
+            // Restart the progress bar when it reaches 100%. This simulates a continuous progress bar.
             progressBarValue.value = 0;
         }
     };
@@ -27,7 +29,10 @@ export function useProgressBar(seconds: number) {
                     computeProgressBarValue();
                 }
             },
-            (seconds * 1000) / 10
+            // This calculation spreads the progress updates evenly over the specified number of seconds.
+            // Dividing by 50 it means the progress bar updates 50 times within the specified number of seconds.
+            // Changing this requires adjusting the increment value in the computeProgressBarValue function.
+            (seconds * 1000) / 50
         );
     };
 

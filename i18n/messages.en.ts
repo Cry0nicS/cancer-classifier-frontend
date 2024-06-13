@@ -180,14 +180,19 @@ export default {
             }
         },
         progress: {
-            title: "Please wait while we process your files.",
-            subtitle:
-                "You will be shortly redirected to the next step once the process is complete."
+            title: "Files are being processed.",
+            subtitle: "Please wait. This might take up to five minutes."
+        },
+        prediction: {
+            title: "Prediction process started",
+            subtitle: "Please wait while we analyze your files. This may take a few minutes."
         },
         loading: {
+            wait: "Please wait",
             start: "Sending data to server",
             success: "Preprocessing started",
-            finished: "Preprocessing finished.",
+            finished: "Process finished.",
+            prediction: "Prediction started",
             redirect: "Redirecting",
             noData: "Error while parsing the files. Please try again."
         }

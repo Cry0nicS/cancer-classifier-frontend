@@ -49,6 +49,8 @@ const db = useFirestore();
 const fileList = ref<FileList[]>([]);
 const isProcessingStarted = ref(false);
 const isProcessingComplete = ref(false);
+const isPredictionStarted = ref(false);
+const isPredictionComplete = ref(false);
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection, promise} = useDocument<UserCollection>(() =>
@@ -139,12 +141,18 @@ function progressStatus(status: UploadStatus): void {
         case UploadStatus.PreRunning:
             isProcessingStarted.value = true;
             break;
-        case UploadStatus.PreFinished:
+        case UploadStatus.PreSuccessful:
+            useSonner.success(`${t("dashboard.loading.wait")}...`, {
+                description: t("dashboard.loading.prediction")
+            });
+            isProcessingComplete.value = true;
+            isPredictionStarted.value = true;
+            break;
+        case UploadStatus.PredictionReady:
             useSonner.loading(`${t("dashboard.loading.redirect")}...`, {
                 description: t("dashboard.loading.finished")
             });
-            isProcessingComplete.value = true;
-            // TODO: Handle next steps after preprocessing is complete.
+            isPredictionComplete.value = true;
             break;
     }
 }
@@ -197,7 +205,17 @@ watch(
                 <span>{{ $t("dashboard.progress.subtitle") }}</span>
                 <ModulesProgressBar
                     :start="isProcessingStarted"
-                    :seconds="10"
+                    :seconds="300"
+                    class="my-8" />
+            </div>
+            <div
+                v-if="isPredictionStarted && !isPredictionComplete"
+                class="mt-8 bg-secondary p-10">
+                <h2 class="text-xl font-medium">{{ $t("dashboard.prediction.title") }}</h2>
+                <span>{{ $t("dashboard.prediction.subtitle") }}</span>
+                <ModulesProgressBar
+                    :start="isProcessingComplete"
+                    :seconds="200"
                     class="my-8" />
             </div>
             <div class="mt-8 w-full">

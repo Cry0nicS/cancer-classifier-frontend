@@ -16,8 +16,11 @@ export enum Platform {
 }
 
 export enum UploadStatus {
-    PreFinished = "preprocessing-finished",
+    CsvUploaded = "csv-uploaded",
+    Pending = "pending",
+    PredictionReady = "prediction-successful",
     PreRunning = "preprocessing-running",
-    UploadPending = "upload-pending",
-    Pending = "pending"
+    PreSuccessful = "preprocessing-successful",
+    UploadFinished = "files-uploaded",
+    UploadPending = "upload-pending"
 }

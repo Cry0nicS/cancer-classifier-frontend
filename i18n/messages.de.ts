@@ -187,10 +187,16 @@ export default {
             subtitle:
                 "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
         },
+        prediction: {
+            title: "Vorhersageprozess gestartet",
+            subtitle: "Bitte warten Sie, während wir Ihre Dateien analysieren."
+        },
         loading: {
+            wait: "Bitte warten",
             start: "Daten werden an den Server gesendet",
             success: "Vorverarbeitung gestartet",
-            finished: "Vorverarbeitung abgeschlossen.",
+            finished: "Prozess abgeschlossen.",
+            prediction: "Vorhersage gestartet",
             redirect: "Weiterleitung",
             noData: "Fehler beim Parsen der Dateien. Bitte versuchen Sie es erneut."
         }

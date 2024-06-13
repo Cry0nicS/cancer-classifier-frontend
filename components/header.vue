@@ -15,19 +15,23 @@ const user = useCurrentUser();
                     class="basis-[90px]">
                     <ModulesLogout />
                 </div>
-                <ThemeToggle class="p-2" />
-                <LanguageToggle class="p-2">
-                    <template #english>
-                        <Icon
-                            class="size-6"
-                            name="emojione:flag-for-us-outlying-islands" />
-                    </template>
-                    <template #german>
-                        <Icon
-                            class="size-6"
-                            name="emojione:flag-for-germany" />
-                    </template>
-                </LanguageToggle>
+                <div class="p-2">
+                    <ThemeToggle />
+                </div>
+                <div class="p-2">
+                    <LanguageToggle>
+                        <template #english>
+                            <Icon
+                                class="size-6"
+                                name="emojione:flag-for-us-outlying-islands" />
+                        </template>
+                        <template #german>
+                            <Icon
+                                class="size-6"
+                                name="emojione:flag-for-germany" />
+                        </template>
+                    </LanguageToggle>
+                </div>
             </div>
         </UiContainer>
     </UiNavbar>

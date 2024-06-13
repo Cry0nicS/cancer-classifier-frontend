@@ -18,10 +18,13 @@ export const PlatformNames: Record<Platform, string> = {
 
 // Create a map to associate each platform ID with its name
 export const UploadStatusNames: Record<UploadStatus, string> = {
-    [UploadStatus.UploadPending]: "Upload pending",
-    [UploadStatus.PreFinished]: "Preprocessing finished",
+    [UploadStatus.CsvUploaded]: "Documents uploaded",
+    [UploadStatus.Pending]: "Pending",
+    [UploadStatus.PredictionReady]: "Prediction ready",
     [UploadStatus.PreRunning]: "Preprocessing running",
-    [UploadStatus.Pending]: "Pending"
+    [UploadStatus.PreSuccessful]: "Preprocessing successful",
+    [UploadStatus.UploadFinished]: "Files uploaded",
+    [UploadStatus.UploadPending]: "Upload pending"
 };
 
 // Generic function to fetch the name of an enum value based on the key

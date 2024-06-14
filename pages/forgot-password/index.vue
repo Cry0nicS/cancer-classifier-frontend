@@ -50,9 +50,7 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
 
         emailSent.value = true;
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: loading
         });

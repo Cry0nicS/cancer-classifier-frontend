@@ -56,9 +56,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         // Redirect to a dedicated page.
         return navigateTo({path: localePath("/services/upload"), replace: true});
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: loading
         });

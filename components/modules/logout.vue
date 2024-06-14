@@ -25,9 +25,7 @@ const logoutUser = async () => {
         // Redirect to a dedicated page.
         return await navigateTo({path: localePath("/"), replace: true});
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: loading
         });

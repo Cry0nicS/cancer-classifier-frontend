@@ -65,9 +65,7 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
 
         return true;
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {description: t("errors.tryAgain")});
+        useSonner.error(extractErrorMessage(error), {description: t("errors.tryAgain")});
 
         return false;
     }
@@ -112,9 +110,7 @@ const uploadFiles = async () => {
         // Redirect to the dashboard page.
         return navigateTo({path: localePath("/services/dashboard"), replace: true});
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: loading
         });

@@ -118,9 +118,7 @@ const startPreProcessing = async () => {
             });
         }
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: notificationId.value
         });
@@ -136,9 +134,7 @@ const startPrediction = async () => {
             }
         });
     } catch (error) {
-        const message = extractErrorMessage(error);
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: notificationId.value
         });

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import {signOut} from "@firebase/auth";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 const {t} = useI18n();
 const localePath = useLocalePath();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
+const {extractErrorMessage} = useErrorMessage();
 
 // Handle the form validation and submission.
 const logoutUser = async () => {
@@ -23,9 +25,10 @@ const logoutUser = async () => {
         // Redirect to a dedicated page.
         return await navigateTo({path: localePath("/"), replace: true});
     } catch (error) {
-        const {message} = error as Error;
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
+            description: t("errors.try-again"),
             id: loading
         });
     }

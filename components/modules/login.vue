@@ -2,12 +2,14 @@
 import {useForm} from "vee-validate";
 import {toTypedSchema} from "@vee-validate/yup";
 import {signInWithEmailAndPassword} from "@firebase/auth";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 const {t} = useI18n();
 const localePath = useLocalePath();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
+const {extractErrorMessage} = useErrorMessage();
 
 // Initialize and configured form validation based on Yup validation schema.
 const {handleSubmit, isSubmitting} = useForm({
@@ -31,9 +33,10 @@ const loginUser = handleSubmit(async (values, _ctx) => {
         // Redirect to the upload page.
         return navigateTo({path: localePath("/services/upload"), replace: true});
     } catch (error) {
-        const {message} = error as Error;
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
+            description: t("errors.try-again"),
             id: loading
         });
     }

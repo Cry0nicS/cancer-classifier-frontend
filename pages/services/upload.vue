@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {FetchError} from "ofetch";
 import {useSessionStorage} from "@vueuse/core";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 import {SESSION_KEY} from "~/utils/helpers";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 definePageMeta({
     showHeader: true,
@@ -27,6 +27,7 @@ const user = useCurrentUser();
 const uploadSessionId = useCookie("uploadSessionId");
 const files = ref<File[]>([]);
 const isSubmitting = ref(false);
+const {extractErrorMessage} = useErrorMessage();
 
 function formatFileSize(fileSize: number) {
     const units = ["B", "KB", "MB", "GB", "TB"];
@@ -64,9 +65,9 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
 
         return true;
     } catch (error) {
-        const {message} = error as Error;
+        const message = extractErrorMessage(error);
 
-        useSonner.error(t("validation.file.failure"), {description: message});
+        useSonner.error(message, {description: t("errors.try-again")});
 
         return false;
     }
@@ -111,17 +112,10 @@ const uploadFiles = async () => {
         // Redirect to the dashboard page.
         return navigateTo({path: localePath("/services/dashboard"), replace: true});
     } catch (error) {
-        let message = t("errors.unexpected-error");
-
-        if (error instanceof FetchError) {
-            const {data} = error as FetchError;
-
-            if (data.detail) message = data.detail;
-        } else if (error instanceof Error) {
-            message = error.message;
-        }
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
+            description: t("errors.try-again"),
             id: loading
         });
     }

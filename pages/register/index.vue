@@ -4,6 +4,7 @@ import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {useForm} from "vee-validate";
 import {useFirebaseAuth} from "#imports";
 import {RegisterSchema} from "~/utils/validations";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 definePageMeta({
     middleware: ["already-logged-in"]
@@ -12,6 +13,7 @@ definePageMeta({
 // Import the useI18n composable to access the translation function.
 const {t} = useI18n();
 const localePath = useLocalePath();
+const {extractErrorMessage} = useErrorMessage();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
@@ -45,9 +47,10 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         // Redirect to a dedicated page.
         return navigateTo({path: localePath("/services/upload"), replace: true});
     } catch (error) {
-        const {message} = error as Error;
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
+            description: t("errors.try-again"),
             id: loading
         });
     }

@@ -2,6 +2,7 @@
 import {sendPasswordResetEmail} from "@firebase/auth";
 import {toTypedSchema} from "@vee-validate/yup";
 import {useForm} from "vee-validate";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 definePageMeta({
     middleware: ["already-logged-in"]
@@ -9,6 +10,7 @@ definePageMeta({
 
 const {t} = useI18n();
 const localePath = useLocalePath();
+const {extractErrorMessage} = useErrorMessage();
 const emailSent = ref(false);
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
@@ -38,9 +40,10 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
 
         emailSent.value = true;
     } catch (error) {
-        const {message} = error as Error;
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
+            description: t("errors.try-again"),
             id: loading
         });
     }

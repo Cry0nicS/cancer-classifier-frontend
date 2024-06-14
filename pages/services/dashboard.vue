@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
-import {FetchError} from "ofetch";
 import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
 import {LocaleIsoMap, PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
 import {useSeo} from "~/composables/use-seo";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 type FileList = {
     baseName: string;
@@ -53,6 +53,7 @@ const isProcessingComplete = ref(false);
 const isPredictionStarted = ref(false);
 const isPredictionComplete = ref(false);
 const notificationId = ref<string>(t("dashboard.loading.wait"));
+const {extractErrorMessage} = useErrorMessage();
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection, promise} = useDocument<UserCollection>(() =>
@@ -112,18 +113,10 @@ const startPreProcessing = async () => {
             });
         }
     } catch (error) {
-        let message = t("errors.unexpected-error");
-
-        if (error instanceof FetchError) {
-            const {data} = error as FetchError;
-
-            if (data.detail) message = data.detail;
-        } else if (error instanceof Error) {
-            message = error.message;
-        }
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
-            description: t("try-again"),
+            description: t("errors.try-again"),
             id: notificationId.value
         });
     }
@@ -138,18 +131,10 @@ const startPrediction = async () => {
             }
         });
     } catch (error) {
-        let message = t("errors.unexpected-error");
-
-        if (error instanceof FetchError) {
-            const {data} = error as FetchError;
-
-            if (data.detail) message = data.detail;
-        } else if (error instanceof Error) {
-            message = error.message;
-        }
+        const message = extractErrorMessage(error);
 
         useSonner.error(message, {
-            description: t("try-again"),
+            description: t("errors.try-again"),
             id: notificationId.value
         });
     }

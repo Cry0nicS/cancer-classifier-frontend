@@ -20,7 +20,8 @@ export const PlatformNames: Record<Platform, string> = {
 export const UploadStatusNames: Record<UploadStatus, string> = {
     [UploadStatus.CsvUploaded]: "Documents uploaded",
     [UploadStatus.Pending]: "Pending",
-    [UploadStatus.PredictionReady]: "Prediction ready",
+    [UploadStatus.PredictionRunning]: "Prediction running",
+    [UploadStatus.PredictionSuccessful]: "Prediction successful",
     [UploadStatus.PreRunning]: "Preprocessing running",
     [UploadStatus.PreSuccessful]: "Preprocessing successful",
     [UploadStatus.UploadFinished]: "Files uploaded",

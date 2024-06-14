@@ -194,10 +194,11 @@ export default {
         loading: {
             wait: "Bitte warten",
             start: "Daten werden an den Server gesendet",
-            success: "Vorverarbeitung gestartet",
-            finished: "Prozess abgeschlossen.",
-            prediction: "Vorhersage gestartet",
-            redirect: "Weiterleitung",
+            preStart: "Vorverarbeitung gestartet",
+            preSuccessful: "Vorverarbeitung abgeschlossen",
+            predictionStart: "Vorhersage gestartet",
+            predictionSuccessful: "Vorhersage abgeschlossen",
+            redirect: "Weiterleiten",
             noData: "Fehler beim Parsen der Dateien. Bitte versuchen Sie es erneut."
         }
     },

@@ -7,12 +7,12 @@ import {FetchError} from "ofetch";
 export function useErrorMessage() {
     const {t} = useI18n();
 
+    // TODO: Explicitly type the error parameter.
     const extractErrorMessage = (error: unknown) => {
         let message = t("errors.unexpectedError");
 
         if (error instanceof FetchError) {
-            const fetchError = error as FetchError;
-            message = fetchError.data?.detail || fetchError.message;
+            message = error.data?.detail || error.message;
         } else if (error instanceof Error) {
             message = error.message;
         }

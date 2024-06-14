@@ -52,6 +52,7 @@ const isProcessingStarted = ref(false);
 const isProcessingComplete = ref(false);
 const isPredictionStarted = ref(false);
 const isPredictionComplete = ref(false);
+const notificationId = ref<string>(t("dashboard.loading.wait"));
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection, promise} = useDocument<UserCollection>(() =>
@@ -83,9 +84,9 @@ fileList.value =
     })) ?? [];
 
 const startPreProcessing = async () => {
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: `${t("dashboard.loading.start")}...`,
-        duration: 3000
+    useSonner.loading(t("dashboard.loading.start"), {
+        description: t("dashboard.loading.wait"),
+        id: notificationId.value
     });
 
     try {
@@ -122,7 +123,8 @@ const startPreProcessing = async () => {
         }
 
         useSonner.error(message, {
-            id: loading
+            description: t("try-again"),
+            id: notificationId.value
         });
     }
 };
@@ -146,8 +148,9 @@ const startPrediction = async () => {
             message = error.message;
         }
 
-        useSonner.error(t("loading"), {
-            description: message
+        useSonner.error(message, {
+            description: t("try-again"),
+            id: notificationId.value
         });
     }
 };
@@ -156,28 +159,32 @@ function progressStatus(status: UploadStatus): void {
     switch (status) {
         case UploadStatus.PreRunning:
             isProcessingStarted.value = true;
-            useSonner.loading(`${t("dashboard.loading.wait")}...`, {
-                description: t("dashboard.loading.preStart")
+            useSonner.loading(t("dashboard.loading.preStart"), {
+                description: t("dashboard.loading.wait"),
+                id: notificationId.value
             });
             break;
         case UploadStatus.PreSuccessful:
-            useSonner.success(`${t("dashboard.loading.wait")}...`, {
-                description: t("dashboard.loading.preSuccessful")
-            });
             isProcessingComplete.value = true;
+            useSonner.success(t("dashboard.loading.preSuccessful"), {
+                description: t("dashboard.loading.continue"),
+                id: notificationId.value
+            });
             startPrediction();
             break;
         case UploadStatus.PredictionRunning:
             isPredictionStarted.value = true;
-            useSonner.loading(`${t("dashboard.loading.wait")}...`, {
-                description: t("dashboard.loading.predictionStart")
+            useSonner.loading(t("dashboard.loading.predictionStart"), {
+                description: t("dashboard.loading.wait"),
+                id: notificationId.value
             });
             break;
         case UploadStatus.PredictionSuccessful:
-            useSonner.success(`${t("dashboard.loading.redirect")}...`, {
-                description: t("dashboard.loading.predictionSuccessful")
-            });
             isPredictionComplete.value = true;
+            useSonner.success(t("dashboard.loading.predictionSuccessful"), {
+                description: `${t("dashboard.loading.redirect")}...`,
+                id: notificationId.value
+            });
             break;
     }
 }

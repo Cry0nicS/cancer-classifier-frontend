@@ -65,7 +65,8 @@ export default {
         "too-many-requests": "Too many attempts. Please try again later.",
         "invalid-email": "Invalid email format.",
         "default-error": "Login failed with error code: {code}",
-        "unexpected-error": "An unexpected error occurred. Please try again."
+        "unexpected-error": "An unexpected error occurred.",
+        "try-again": "Please try again."
     },
 
     // Register
@@ -190,6 +191,7 @@ export default {
         loading: {
             wait: "Please wait",
             start: "Sending data to server",
+            continue: "Proceeding to the next step",
             preStart: "Preprocessing started",
             preSuccessful: "Preprocessing complete",
             predictionStart: "Prediction started",

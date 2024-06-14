@@ -66,8 +66,8 @@ export default {
         "too-many-requests": "Zu viele Versuche. Bitte versuchen Sie es später noch einmal.",
         "invalid-email": "Ungültiges E-Mail-Format.",
         "default-error": "Anmeldung fehlgeschlagen mit Fehlercode: {code}",
-        "unexpected-error":
-            "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+        "unexpected-error": "Ein unerwarteter Fehler ist aufgetreten.",
+        "try-again": "Bitte versuchen Sie es erneut."
     },
 
     // Register
@@ -194,6 +194,7 @@ export default {
         loading: {
             wait: "Bitte warten",
             start: "Daten werden an den Server gesendet",
+            continue: "Vorgang wird fortgesetzt",
             preStart: "Vorverarbeitung gestartet",
             preSuccessful: "Vorverarbeitung abgeschlossen",
             predictionStart: "Vorhersage gestartet",

@@ -66,10 +66,6 @@ export default defineNuxtConfig({
         // Disable custom route with page components.
         customRoutes: "config",
         pages: {
-            "about": {
-                de: "/ueber-uns",
-                en: "/about"
-            },
             "register/index": {
                 de: "/registrieren",
                 en: "/register"

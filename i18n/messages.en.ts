@@ -190,9 +190,10 @@ export default {
         loading: {
             wait: "Please wait",
             start: "Sending data to server",
-            success: "Preprocessing started",
-            finished: "Process finished.",
-            prediction: "Prediction started",
+            preStart: "Preprocessing started",
+            preSuccessful: "Preprocessing complete",
+            predictionStart: "Prediction started",
+            predictionSuccessful: "Prediction finished",
             redirect: "Redirecting",
             noData: "Error while parsing the files. Please try again."
         }

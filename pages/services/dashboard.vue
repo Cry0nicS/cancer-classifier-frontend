@@ -45,6 +45,7 @@ useSeo(
 // Setting up Firebase Auth and Firestore
 useFirebaseAuth();
 const user = useCurrentUser();
+const idToken = await user.value!.getIdToken();
 const db = useFirestore();
 const fileList = ref<FileList[]>([]);
 const isProcessingStarted = ref(false);
@@ -83,13 +84,12 @@ fileList.value =
 
 const startPreProcessing = async () => {
     const loading = useSonner.loading(`${t("loading")}...`, {
-        description: `${t("dashboard.loading.start")}...`
+        description: `${t("dashboard.loading.start")}...`,
+        duration: 3000
     });
 
     try {
         await StorageMethodSchema(t).validate({fileList: fileList.value}, {abortEarly: true});
-
-        const idToken = await user.value!.getIdToken();
 
         const uploadResponse = await $fetch(
             `/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`,
@@ -103,21 +103,12 @@ const startPreProcessing = async () => {
         );
 
         if (uploadResponse) {
-            const preprocessingResponse = await $fetch(
-                `/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`,
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${idToken}`
-                    }
+            await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${idToken}`
                 }
-            );
-
-            if (preprocessingResponse) {
-                useSonner.success(t("dashboard.loading.success"), {
-                    id: loading
-                });
-            }
+            });
         }
     } catch (error) {
         let message = t("errors.unexpected-error");
@@ -136,21 +127,55 @@ const startPreProcessing = async () => {
     }
 };
 
+const startPrediction = async () => {
+    try {
+        await $fetch(`/api/start-prediction?upload_session_id=${uploadSessionId.value}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${idToken}`
+            }
+        });
+    } catch (error) {
+        let message = t("errors.unexpected-error");
+
+        if (error instanceof FetchError) {
+            const {data} = error as FetchError;
+
+            if (data.detail) message = data.detail;
+        } else if (error instanceof Error) {
+            message = error.message;
+        }
+
+        useSonner.error(t("loading"), {
+            description: message
+        });
+    }
+};
+
 function progressStatus(status: UploadStatus): void {
     switch (status) {
         case UploadStatus.PreRunning:
             isProcessingStarted.value = true;
+            useSonner.loading(`${t("dashboard.loading.wait")}...`, {
+                description: t("dashboard.loading.preStart")
+            });
             break;
         case UploadStatus.PreSuccessful:
             useSonner.success(`${t("dashboard.loading.wait")}...`, {
-                description: t("dashboard.loading.prediction")
+                description: t("dashboard.loading.preSuccessful")
             });
             isProcessingComplete.value = true;
-            isPredictionStarted.value = true;
+            startPrediction();
             break;
-        case UploadStatus.PredictionReady:
-            useSonner.loading(`${t("dashboard.loading.redirect")}...`, {
-                description: t("dashboard.loading.finished")
+        case UploadStatus.PredictionRunning:
+            isPredictionStarted.value = true;
+            useSonner.loading(`${t("dashboard.loading.wait")}...`, {
+                description: t("dashboard.loading.predictionStart")
+            });
+            break;
+        case UploadStatus.PredictionSuccessful:
+            useSonner.success(`${t("dashboard.loading.redirect")}...`, {
+                description: t("dashboard.loading.predictionSuccessful")
             });
             isPredictionComplete.value = true;
             break;
@@ -217,6 +242,11 @@ watch(
                     :start="isProcessingComplete"
                     :seconds="200"
                     class="my-8" />
+            </div>
+            <div
+                v-if="isPredictionComplete"
+                class="mt-8 bg-secondary p-10">
+                <h2 class="text-xl font-medium">You're predictions are now ready</h2>
             </div>
             <div class="mt-8 w-full">
                 <span>{{ $t("dashboard.table.title") }}</span>

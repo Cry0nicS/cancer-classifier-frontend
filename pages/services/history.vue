@@ -14,10 +14,10 @@ const {t, locale} = useI18n();
 const localePath = useLocalePath();
 
 useSeo(
-    t("seo.title"),
-    t("seo.description"),
-    t("seo.image"),
-    t("seo.image.alt"),
+    t("history.seo.title"),
+    t("history.seo.description"),
+    t("history.seo.image"),
+    t("history.seo.imageAlt"),
     "summary_large_image",
     true
 );
@@ -43,13 +43,13 @@ const {data: userCollections} = useCollection<UserCollection>(
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ $t("history.title", {name: user?.displayName}) }}
+                    {{ t("history.title", {name: user?.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <NuxtLink
                         class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:mb-2 md:mb-0"
                         :to="localePath('/services/upload')">
-                        {{ $t(`history.buttons.upload`) }}
+                        {{ t(`buttons.upload`) }}
                     </NuxtLink>
                     <UiTooltip disable-closing-trigger>
                         <template #trigger>
@@ -65,14 +65,14 @@ const {data: userCollections} = useCollection<UserCollection>(
                         </template>
                         <template #content>
                             <UiTooltipContent>
-                                <p>{{ $t("history.buttons.dashboard") }}</p>
+                                <p>{{ t("buttons.dashboard") }}</p>
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
                 </div>
             </div>
             <div class="mt-12">
-                <h2 class="text-xl font-medium">{{ $t("history.table.title") }}</h2>
+                <h2 class="text-xl font-medium">{{ t("history.table.title") }}</h2>
             </div>
             <div
                 v-for="userCollection in userCollections"
@@ -81,24 +81,24 @@ const {data: userCollections} = useCollection<UserCollection>(
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
                     <UiTable>
                         <UiTableCaption>
-                            {{ $t("history.table.caption") }}
+                            {{ t("history.table.caption") }}
                         </UiTableCaption>
                         <UiTableHeader>
                             <UiTableRow>
                                 <UiTableHead>
-                                    {{ $t("history.table.columns.name") }}
+                                    {{ t("history.table.columns.name") }}
                                 </UiTableHead>
                                 <UiTableHead>
-                                    {{ $t("history.table.columns.status") }}
+                                    {{ t("history.table.columns.status") }}
                                 </UiTableHead>
                                 <UiTableHead>
-                                    {{ $t("history.table.columns.date") }}
+                                    {{ t("history.table.columns.date") }}
                                 </UiTableHead>
                                 <UiTableHead>
-                                    {{ $t("history.table.columns.platform") }}
+                                    {{ t("history.table.columns.platform") }}
                                 </UiTableHead>
                                 <UiTableHead>
-                                    {{ $t("history.table.columns.method") }}
+                                    {{ t("history.table.columns.method") }}
                                 </UiTableHead>
                             </UiTableRow>
                         </UiTableHeader>
@@ -121,7 +121,7 @@ const {data: userCollections} = useCollection<UserCollection>(
                                         {{ getEnumName(storageMethodNames, file.material) }}
                                     </template>
                                     <template v-else>
-                                        {{ $t("material.none") }}
+                                        {{ t("material.none") }}
                                     </template>
                                 </UiTableCell>
                             </UiTableRow>
@@ -137,7 +137,7 @@ const {data: userCollections} = useCollection<UserCollection>(
                         name="lucide:square-arrow-out-up-right"
                         class="mr-2"
                         size="18px" />
-                    {{ $t(`history.buttons.dashboard`) }}
+                    {{ t(`buttons.dashboard`) }}
                 </NuxtLink>
             </div>
         </div>

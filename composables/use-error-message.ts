@@ -8,7 +8,7 @@ export function useErrorMessage() {
     const {t} = useI18n();
 
     const extractErrorMessage = (error: unknown) => {
-        let message = t("errors.unexpected-error");
+        let message = t("errors.unexpectedError");
 
         if (error instanceof FetchError) {
             const fetchError = error as FetchError;

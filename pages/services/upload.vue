@@ -14,10 +14,10 @@ const {t} = useI18n();
 const localePath = useLocalePath();
 
 useSeo(
-    t("seo.title"),
-    t("seo.description"),
-    t("seo.image"),
-    t("seo.image.alt"),
+    t("upload.seo.title"),
+    t("upload.seo.description"),
+    t("upload.seo.image"),
+    t("upload.seo.imageAlt"),
     "summary_large_image",
     true
 );
@@ -67,7 +67,7 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
     } catch (error) {
         const message = extractErrorMessage(error);
 
-        useSonner.error(message, {description: t("errors.try-again")});
+        useSonner.error(message, {description: t("errors.tryAgain")});
 
         return false;
     }
@@ -76,8 +76,8 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
 const uploadFiles = async () => {
     isSubmitting.value = true;
 
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: `${t("upload.loading")}...`
+    const loading = useSonner.loading(t("toast.uploading"), {
+        description: `${t("toast.wait")}...`
     });
 
     try {
@@ -105,7 +105,7 @@ const uploadFiles = async () => {
         // Set the session state to active. Used by delete-session-id.client plugin.
         useSessionStorage(SESSION_KEY, "true");
 
-        useSonner.success(t("upload.loadingSuccess"), {
+        useSonner.success(t("toast.uploadSuccess"), {
             id: loading
         });
 
@@ -115,7 +115,7 @@ const uploadFiles = async () => {
         const message = extractErrorMessage(error);
 
         useSonner.error(message, {
-            description: t("errors.try-again"),
+            description: t("errors.tryAgain"),
             id: loading
         });
     }
@@ -129,7 +129,7 @@ const uploadFiles = async () => {
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ $t("upload.title", {name: user?.displayName}) }}
+                    {{ t("upload.title", {name: user?.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <UiTooltip
@@ -148,7 +148,7 @@ const uploadFiles = async () => {
                         </template>
                         <template #content>
                             <UiTooltipContent>
-                                <p>{{ $t("upload.buttons.dashboard") }}</p>
+                                <p>{{ t("buttons.dashboard") }}</p>
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
@@ -166,7 +166,7 @@ const uploadFiles = async () => {
                         </template>
                         <template #content>
                             <UiTooltipContent>
-                                <p>{{ $t("upload.buttons.history") }}</p>
+                                <p>{{ t("buttons.history") }}</p>
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
@@ -221,7 +221,7 @@ const uploadFiles = async () => {
                             <Icon
                                 name="lucide:cloud-upload"
                                 class="size-4" />
-                            {{ $t("upload.dropzone.submit") }}
+                            {{ t("upload.dropzone.submit") }}
                         </UiButton>
                     </fieldset>
                 </form>

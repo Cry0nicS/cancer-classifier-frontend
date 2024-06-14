@@ -25,7 +25,7 @@ const uploadSessionId = useCookie<string>("uploadSessionId");
 
 if (!uploadSessionId.value) {
     // This should never happen as the middleware prevents the user from accessing the page without a session ID.
-    throw new Error(t("errors.unexpected-error"));
+    throw new Error(t("errors.unexpectedError"));
 }
 
 // Fixme: Fix hardcoded today's date. This should come from the database.
@@ -34,10 +34,10 @@ const today = useDateFormat(useNow(), "ddd, MMMM DD, YYYY", {
 });
 
 useSeo(
-    t("seo.title"),
-    t("seo.description"),
-    t("seo.image"),
-    t("seo.image.alt"),
+    t("dashboard.seo.title"),
+    t("dashboard.seo.description"),
+    t("dashboard.seo.image"),
+    t("dashboard.seo.imageAlt"),
     "summary_large_image",
     true
 );
@@ -52,7 +52,7 @@ const isProcessingStarted = ref(false);
 const isProcessingComplete = ref(false);
 const isPredictionStarted = ref(false);
 const isPredictionComplete = ref(false);
-const notificationId = ref<string>(t("dashboard.loading.wait"));
+const notificationId = ref<string>(t("toast.wait"));
 const {extractErrorMessage} = useErrorMessage();
 
 // Fetch the data from Firebase in real-time for the active session.
@@ -65,8 +65,8 @@ await promise.value;
 await nextTick();
 
 if (!userCollection.value) {
-    useSonner.loading(`${t("dashboard.loading.redirect")}...`, {
-        description: t("dashboard.loading.noData")
+    useSonner.loading(t("toast.noData"), {
+        description: `${t("toast.redirect")}...`
     });
 
     navigateTo({path: localePath("/services/upload"), replace: true});
@@ -85,8 +85,8 @@ fileList.value =
     })) ?? [];
 
 const startPreProcessing = async () => {
-    useSonner.loading(t("dashboard.loading.start"), {
-        description: t("dashboard.loading.wait"),
+    useSonner.loading(t("toast.sendData"), {
+        description: t("toast.wait"),
         id: notificationId.value
     });
 
@@ -104,6 +104,11 @@ const startPreProcessing = async () => {
             }
         );
 
+        useSonner.success(t("toast.wait"), {
+            description: t("toast.nextStep"),
+            duration: 2000
+        });
+
         if (uploadResponse) {
             await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
                 method: "POST",
@@ -116,7 +121,7 @@ const startPreProcessing = async () => {
         const message = extractErrorMessage(error);
 
         useSonner.error(message, {
-            description: t("errors.try-again"),
+            description: t("errors.tryAgain"),
             id: notificationId.value
         });
     }
@@ -134,7 +139,7 @@ const startPrediction = async () => {
         const message = extractErrorMessage(error);
 
         useSonner.error(message, {
-            description: t("errors.try-again"),
+            description: t("errors.tryAgain"),
             id: notificationId.value
         });
     }
@@ -144,30 +149,31 @@ function progressStatus(status: UploadStatus): void {
     switch (status) {
         case UploadStatus.PreRunning:
             isProcessingStarted.value = true;
-            useSonner.loading(t("dashboard.loading.preStart"), {
-                description: t("dashboard.loading.wait"),
+            useSonner.loading(t("toast.preStart"), {
+                description: t("toast.wait"),
                 id: notificationId.value
             });
             break;
         case UploadStatus.PreSuccessful:
             isProcessingComplete.value = true;
-            useSonner.success(t("dashboard.loading.preSuccessful"), {
-                description: t("dashboard.loading.continue"),
-                id: notificationId.value
+            useSonner.success(t("toast.preSuccessful"), {
+                description: t("toast.nextStep"),
+                duration: 2000
             });
             startPrediction();
             break;
         case UploadStatus.PredictionRunning:
             isPredictionStarted.value = true;
-            useSonner.loading(t("dashboard.loading.predictionStart"), {
-                description: t("dashboard.loading.wait"),
+            useSonner.loading(t("toast.predictionStart"), {
+                description: t("toast.wait"),
                 id: notificationId.value
             });
             break;
         case UploadStatus.PredictionSuccessful:
             isPredictionComplete.value = true;
-            useSonner.success(t("dashboard.loading.predictionSuccessful"), {
-                description: `${t("dashboard.loading.redirect")}...`,
+            useSonner.success(t("toast.predictionSuccessful"), {
+                description: `${t("toast.redirect")}...`,
+                duration: 2000,
                 id: notificationId.value
             });
             break;
@@ -187,13 +193,13 @@ watch(
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ $t("dashboard.title", {name: user?.displayName}) }}
+                    {{ t("dashboard.title", {name: user?.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <NuxtLink
                         class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:mb-2 md:mb-0"
                         :to="localePath('/services/upload')">
-                        {{ $t(`dashboard.buttons.upload`) }}
+                        {{ t(`buttons.upload`) }}
                     </NuxtLink>
                     <UiTooltip disable-closing-trigger>
                         <template #trigger>
@@ -209,7 +215,7 @@ watch(
                         </template>
                         <template #content>
                             <UiTooltipContent>
-                                <p>{{ $t("dashboard.buttons.history") }}</p>
+                                <p>{{ t("buttons.history") }}</p>
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
@@ -218,8 +224,8 @@ watch(
             <div
                 v-if="isProcessingStarted && !isProcessingComplete"
                 class="mt-8 bg-secondary p-10">
-                <h2 class="text-xl font-medium">{{ $t("dashboard.progress.title") }}</h2>
-                <span>{{ $t("dashboard.progress.subtitle") }}</span>
+                <h2 class="text-xl font-medium">{{ t("dashboard.progress.title") }}</h2>
+                <span>{{ t("dashboard.progress.subtitle") }}</span>
                 <ModulesProgressBar
                     :start="isProcessingStarted"
                     :seconds="300"
@@ -228,8 +234,8 @@ watch(
             <div
                 v-if="isPredictionStarted && !isPredictionComplete"
                 class="mt-8 bg-secondary p-10">
-                <h2 class="text-xl font-medium">{{ $t("dashboard.prediction.title") }}</h2>
-                <span>{{ $t("dashboard.prediction.subtitle") }}</span>
+                <h2 class="text-xl font-medium">{{ t("dashboard.prediction.title") }}</h2>
+                <span>{{ t("dashboard.prediction.subtitle") }}</span>
                 <ModulesProgressBar
                     :start="isProcessingComplete"
                     :seconds="200"
@@ -238,32 +244,32 @@ watch(
             <div
                 v-if="isPredictionComplete"
                 class="mt-8 bg-secondary p-10">
-                <h2 class="text-xl font-medium">You're predictions are now ready</h2>
+                <h2 class="text-xl font-medium">Your predictions are now ready</h2>
             </div>
             <div class="mt-8 w-full">
-                <span>{{ $t("dashboard.table.title") }}</span>
+                <span>{{ t("dashboard.table.title") }}</span>
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
                     <form @submit.prevent="startPreProcessing">
                         <UiTable>
                             <UiTableCaption>
-                                {{ $t("dashboard.table.caption") }}
+                                {{ t("dashboard.table.caption") }}
                             </UiTableCaption>
                             <UiTableHeader>
                                 <UiTableRow>
                                     <UiTableHead>
-                                        {{ $t("dashboard.table.columns.name") }}
+                                        {{ t("dashboard.table.columns.name") }}
                                     </UiTableHead>
                                     <UiTableHead>
-                                        {{ $t("dashboard.table.columns.status") }}
+                                        {{ t("dashboard.table.columns.status") }}
                                     </UiTableHead>
                                     <UiTableHead>
-                                        {{ $t("dashboard.table.columns.date") }}
+                                        {{ t("dashboard.table.columns.date") }}
                                     </UiTableHead>
                                     <UiTableHead>
-                                        {{ $t("dashboard.table.columns.platform") }}
+                                        {{ t("dashboard.table.columns.platform") }}
                                     </UiTableHead>
                                     <UiTableHead>
-                                        {{ $t("dashboard.table.columns.method") }}
+                                        {{ t("dashboard.table.columns.method") }}
                                     </UiTableHead>
                                 </UiTableRow>
                             </UiTableHeader>

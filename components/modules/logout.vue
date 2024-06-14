@@ -11,14 +11,14 @@ const {extractErrorMessage} = useErrorMessage();
 
 // Handle the form validation and submission.
 const logoutUser = async () => {
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: t(`logout.loading`)
+    const loading = useSonner.loading(t("toast.logOut"), {
+        description: t("toast.wait")
     });
     try {
         // Authenticate the user with email and password.
         await signOut(auth!);
 
-        useSonner.success(t(`logout.loadingSuccess`), {
+        useSonner.success(t(`toast.logOutSuccess`), {
             id: loading
         });
 
@@ -28,7 +28,7 @@ const logoutUser = async () => {
         const message = extractErrorMessage(error);
 
         useSonner.error(message, {
-            description: t("errors.try-again"),
+            description: t("errors.tryAgain"),
             id: loading
         });
     }
@@ -41,6 +41,6 @@ const logoutUser = async () => {
         variant="destructive"
         class="rounded"
         @click="logoutUser">
-        {{ $t(`login.logout`) }}
+        {{ t("buttons.logOut") }}
     </UiButton>
 </template>

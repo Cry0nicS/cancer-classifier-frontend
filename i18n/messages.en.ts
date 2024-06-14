@@ -1,93 +1,66 @@
 export default {
-    "logo.alt_text":
-        "Intertwined DNA strands forming part of the circular design, centered with the app name in a clean, readable font. The color scheme includes shades of blue and gray, conveying a professional and trustworthy image suitable for a medical application. The logo combines visual elements of science and medicine, symbolizing the app's focus on DNA methylation profiles for cancer classification.",
-
-    // SEO metadata.
-    "seo.title": "Cancer Classifier",
-    "seo.description":
-        "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
-    "seo.image": "/og-image.webp",
-    "seo.image.alt":
-        "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction.",
-
-    //  Footer.
-    "footer.contact": "Contact",
-    "footer.imprint": "Imprint",
-    "footer.privacy": "Privacy",
-    "footer.privacy_settings": "Privacy settings",
-
-    "language.de": "German",
-    "language.en": "English",
-
-    // General keywords
-    "or": "or",
-    "loading": "Loading",
-    "toggleTheme": "Toggle theme",
-    "darkMode": "Dark mode",
-    "lightMode": "Light mode",
-    "toggleLocale": "Toggle language",
-
-    // Account
-    "name": "Name",
-    "email": "Email",
-    "password": "Password",
-
-    // Login
-    "login": {
-        title: "Log in with an existing account",
-        login: "Log in",
-        logout: "Log out",
-        loading: "Signing in...",
-        loadingSuccess: "You have been signed in successfully.",
-        register: "Create an account"
+    logo: {
+        altText:
+            "Intertwined DNA strands forming part of the circular design, centered with the app name in a clean, readable font. The color scheme includes shades of blue and gray, conveying a professional and trustworthy image suitable for a medical application. The logo combines visual elements of science and medicine, symbolizing the app's focus on DNA methylation profiles for cancer classification."
     },
-
-    "logout": {
-        title: "Log out",
-        loading: "Signing out...",
-        loadingSuccess: "You have been signed out successfully."
+    footer: {
+        contact: "Contact",
+        imprint: "Imprint",
+        privacy: "Privacy"
     },
-
-    //Forgot Password
-    "forgot-password": {
-        title: "Forgot your password?",
-        submit: "Reset password",
-        loading: "Sending instructions...",
-        loadingSuccess: "Instructions sent!",
-        emailSent: "Check your inbox.",
-        instructions: "An email with instructions has been sent to your email address."
+    language: {
+        de: "German",
+        en: "English"
     },
-
-    // Errors
-    "errors": {
-        "user-not-found": "No user found with this email. Please register first.",
-        "wrong-password": "Incorrect password. Please try again.",
-        "too-many-requests": "Too many attempts. Please try again later.",
-        "invalid-email": "Invalid email format.",
-        "default-error": "Login failed with error code: {code}",
-        "unexpected-error": "An unexpected error occurred.",
-        "try-again": "Please try again."
+    common: {
+        darkMode: "Dark mode",
+        lightMode: "Light mode",
+        or: "or",
+        toggleTheme: "Toggle theme"
     },
-
-    // Register
-    "register": {
-        title: "Create an account",
-        register: "Register",
-        signIn: "Sign in",
-        loading: "Creating your account...",
-        loadingSuccess: "Your account has been created successfully."
+    account: {
+        email: "Email",
+        name: "Name",
+        password: "Password"
     },
-
-    // Validation messages.
-    "validation": {
+    login: {
+        title: "Log in with an existing account"
+    },
+    toast: {
+        accountCreated: "Your account has been created successfully.",
+        createAccount: "Creating your account",
+        instructionsSent: "Instructions sent!",
+        loading: "Loading",
+        logOut: "Signing out",
+        logOutSuccess: "You have been signed out successfully.",
+        nextStep: "Proceeding to the next step",
+        noData: "Error while parsing the files. Please try again.",
+        predictionStart: "Prediction started",
+        predictionSuccessful: "Prediction finished",
+        preStart: "Preprocessing started",
+        preSuccessful: "Preprocessing complete",
+        redirect: "Redirecting",
+        sendData: "Sending data to server",
+        sendInstructions: "Sending instructions",
+        signIn: "Signing in",
+        signInSuccess: "You have been signed in successfully.",
+        uploading: "Uploading files to server",
+        uploadSuccess: "Files uploaded successfully.",
+        wait: "Please wait"
+    },
+    errors: {
+        unexpectedError: "An unexpected error occurred.",
+        tryAgain: "Please try again."
+    },
+    validation: {
         name: {
+            long: "Your name is too long. It should be no more than 50 characters.",
             required: "Please enter your name.",
-            short: "Your name is too short. It should be at least 3 characters.",
-            long: "Your name is too long. It should be no more than 50 characters."
+            short: "Your name is too short. It should be at least 3 characters."
         },
         email: {
-            required: "Please enter your email address.",
-            invalid: "The email address you entered is invalid. Please check it and try again."
+            invalid: "The email address you entered is invalid. Please check it and try again.",
+            required: "Please enter your email address."
         },
         password: {
             required: "Please enter a password.",
@@ -95,32 +68,83 @@ export default {
             weak: "Your password is too weak. Please use a stronger password that includes a mix of letters, numbers, and symbols."
         },
         file: {
+            failure: "Selected files could not be added.",
+            maxFiles: "You can only upload two files at a time.",
             required: "Please upload a file.",
-            type: 'Invalid file type. Please upload only ".idat" files.',
             size: "File size is too large. Please upload a file smaller than 30 MB.",
-            maxFiles: "You can only upload two file at a time.",
-            failure: "Selected files could not be added"
+            type: 'Invalid file type. Please upload only ".idat" files.'
         },
         storageMethod: {
-            required: "Please select a storage method.",
-            invalid: "Invalid storage method. Please select one of the allowed options."
+            invalid: "Invalid storage method. Please select one of the allowed options.",
+            required: "Please select a storage method."
         },
         platform: {
             invalid: "An invalid platform has been detected. Please try again or contact support."
         }
     },
+    material: {
+        ffpe: "Formalin-Fixed, Paraffin-Embedded",
+        freshFrozen: "Fresh Frozen",
+        none: "Not defined",
+        other: "Other"
+    },
+    buttons: {
+        createAccount: "Create an account",
+        dashboard: "Current session",
+        getStarted: "Get started",
+        history: "Session history",
+        logIn: "Log in",
+        logOut: "Log out",
+        upload: "Upload more files"
+    },
 
-    // Homepage
-
-    "home": {
+    // Pages
+    // -- Forgotten password
+    forgotPassword: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "Forgot your password?",
+        submit: "Reset password",
+        emailSent: "Check your inbox.",
+        instructions: "An email with instructions has been sent to your email address."
+    },
+    // -- Register
+    register: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "Create an account",
+        submit: "Register now",
+        signIn: "Sign in"
+    },
+    // -- Index
+    home: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
         user: {
             title: "Welcome back, {name}",
-            description: "You can upload your files and use our services here.",
-            button: "Get started"
+            description: "You can upload your files and use our services here."
         },
         noUser: {
-            title: "Welcome to our lil' project",
-            description: "Please sign in or create an account to be able to user our services."
+            title: "Welcome to our project",
+            description: "Please sign in or create an account to use our services."
         },
         faq: {
             title: "Frequently Asked Questions",
@@ -143,37 +167,39 @@ export default {
             }
         }
     },
-
-    // Upload
-    "upload": {
-        title: "Hello, {name}",
-        description: "Upload your files here.",
-        buttons: {
-            dashboard: "Dashboard",
-            history: "History"
+    // -- Upload
+    upload: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
-        loading: "Uploading...",
-        loadingSuccess: "Files uploaded successfully.",
+        title: "Hello, {name}",
         dropzone: {
             title: "Click to upload or drag & drop files.",
-            subtext: 'Only ".idat" files allowed. Maximum 2 files',
+            subtext: 'Only ".idat" files allowed. Maximum 2 files.',
             submit: "Upload files"
         }
     },
-
-    // Dashboard
-    "dashboard": {
-        title: "Hello, {name}",
-        buttons: {
-            upload: "Upload more files",
-            refresh: "Refresh document status",
-            history: "Session history"
+    // -- Dashboard
+    dashboard: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
+        title: "Hello, {name}",
         table: {
             title: "List of recent documents",
             caption: "All file pairs in this session",
             columns: {
-                name: "Files pair",
+                name: "File pair",
                 status: "Status",
                 date: "Date",
                 method: "Method",
@@ -187,40 +213,24 @@ export default {
         prediction: {
             title: "Prediction process started",
             subtitle: "Please wait while we analyze your files. This may take a few minutes."
-        },
-        loading: {
-            wait: "Please wait",
-            start: "Sending data to server",
-            continue: "Proceeding to the next step",
-            preStart: "Preprocessing started",
-            preSuccessful: "Preprocessing complete",
-            predictionStart: "Prediction started",
-            predictionSuccessful: "Prediction finished",
-            redirect: "Redirecting",
-            noData: "Error while parsing the files. Please try again."
         }
     },
-
-    // Uncategorized
-    "material": {
-        ffpe: "Formalin-Fixed, Paraffin-Embedded",
-        freshFrozen: "Fresh Frozen",
-        other: "Other",
-        none: "Not defined"
-    },
-
-    // History
-    "history": {
-        title: "Hello, {name}",
-        buttons: {
-            upload: "Upload more files",
-            dashboard: "Current session"
+    // -- History
+    history: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
+        title: "Hello, {name}",
         table: {
             title: "List of recent sessions",
             caption: "All file pairs in this session",
             columns: {
-                name: "Files pair",
+                name: "File pair",
                 status: "Status",
                 date: "Date",
                 method: "Method",

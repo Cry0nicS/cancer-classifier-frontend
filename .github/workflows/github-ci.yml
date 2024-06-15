@@ -12,8 +12,6 @@ env:
     API_URL: ${{ secrets.API_URL }}
 
 on:
-    push:
-        branches: [main]
     pull_request:
         branches: [main]
 

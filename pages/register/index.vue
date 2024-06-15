@@ -2,8 +2,9 @@
 import {toTypedSchema} from "@vee-validate/yup";
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {useForm} from "vee-validate";
-import {useFirebaseAuth} from "#imports";
+import {useFirebaseAuth, useSeo} from "#imports";
 import {RegisterSchema} from "~/utils/validations";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 definePageMeta({
     middleware: ["already-logged-in"]
@@ -12,6 +13,16 @@ definePageMeta({
 // Import the useI18n composable to access the translation function.
 const {t} = useI18n();
 const localePath = useLocalePath();
+const {extractErrorMessage} = useErrorMessage();
+
+useSeo(
+    t("register.seo.title"),
+    t("register.seo.description"),
+    t("register.seo.image"),
+    t("register.seo.imageAlt"),
+    "summary_large_image",
+    true
+);
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
@@ -23,8 +34,8 @@ const {handleSubmit, isSubmitting} = useForm({
 
 // Handle the form validation and submission.
 const registerUser = handleSubmit(async (values, _ctx) => {
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: t(`register.loading`)
+    const loading = useSonner.loading(`${t("toast.createAccount")}...`, {
+        description: t(`toast.loading`)
     });
 
     try {
@@ -38,16 +49,15 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         // Update the user profile to set the display name.
         await updateProfile(userCredential.user, {displayName: values.name});
 
-        useSonner.success(t(`register.loadingSuccess`), {
+        useSonner.success(t(`toast.accountCreated`), {
             id: loading
         });
 
         // Redirect to a dedicated page.
         return navigateTo({path: localePath("/services/upload"), replace: true});
     } catch (error) {
-        const {message} = error as Error;
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
+            description: t("errors.tryAgain"),
             id: loading
         });
     }
@@ -61,7 +71,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                 class="size-10"
                 name="lucide:circle-user-round" />
             <h1 class="text-3xl font-semibold lg:text-4xl">
-                {{ $t(`register.title`) }}
+                {{ t("register.title") }}
             </h1>
         </div>
         <form
@@ -73,30 +83,30 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                 <UiVeeInput
                     icon="lucide:user"
                     name="name"
-                    :label="$t(`name`)"
+                    :label="t('account.name')"
                     placeholder="John Doe" />
                 <UiVeeInput
                     icon="lucide:mail"
                     name="email"
                     type="email"
-                    :label="$t(`email`)"
+                    :label="t('account.email')"
                     placeholder="John.doe@domain.com" />
                 <UiVeeInput
                     icon="lucide:lock"
                     type="password"
                     name="password"
-                    :label="$t(`password`)"
+                    :label="t('account.password')"
                     hint="Min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit" />
                 <UiButton
                     type="submit"
                     class="w-full">
-                    {{ $t(`register.register`) }}
+                    {{ t("register.submit") }}
                 </UiButton>
-                <UiDivider :label="$t(`or`)" />
+                <UiDivider :label="t(`common.or`)" />
                 <NuxtLink
                     :to="localePath('/')"
                     class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    {{ $t(`register.signIn`) }}
+                    {{ t("register.signIn") }}
                 </NuxtLink>
             </fieldset>
         </form>

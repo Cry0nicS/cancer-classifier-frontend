@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {FetchError} from "ofetch";
 import {useSessionStorage} from "@vueuse/core";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 import {SESSION_KEY} from "~/utils/helpers";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 definePageMeta({
     showHeader: true,
@@ -14,10 +14,10 @@ const {t} = useI18n();
 const localePath = useLocalePath();
 
 useSeo(
-    t("seo.title"),
-    t("seo.description"),
-    t("seo.image"),
-    t("seo.image.alt"),
+    t("upload.seo.title"),
+    t("upload.seo.description"),
+    t("upload.seo.image"),
+    t("upload.seo.imageAlt"),
     "summary_large_image",
     true
 );
@@ -27,6 +27,7 @@ const user = useCurrentUser();
 const uploadSessionId = useCookie("uploadSessionId");
 const files = ref<File[]>([]);
 const isSubmitting = ref(false);
+const {extractErrorMessage} = useErrorMessage();
 
 function formatFileSize(fileSize: number) {
     const units = ["B", "KB", "MB", "GB", "TB"];
@@ -64,9 +65,7 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
 
         return true;
     } catch (error) {
-        const {message} = error as Error;
-
-        useSonner.error(t("validation.file.failure"), {description: message});
+        useSonner.error(extractErrorMessage(error), {description: t("errors.tryAgain")});
 
         return false;
     }
@@ -75,8 +74,8 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
 const uploadFiles = async () => {
     isSubmitting.value = true;
 
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: `${t("upload.loading")}...`
+    const loading = useSonner.loading(t("toast.uploading"), {
+        description: `${t("toast.wait")}...`
     });
 
     try {
@@ -104,24 +103,15 @@ const uploadFiles = async () => {
         // Set the session state to active. Used by delete-session-id.client plugin.
         useSessionStorage(SESSION_KEY, "true");
 
-        useSonner.success(t("upload.loadingSuccess"), {
+        useSonner.success(t("toast.uploadSuccess"), {
             id: loading
         });
 
         // Redirect to the dashboard page.
         return navigateTo({path: localePath("/services/dashboard"), replace: true});
     } catch (error) {
-        let message = t("errors.unexpected-error");
-
-        if (error instanceof FetchError) {
-            const {data} = error as FetchError;
-
-            if (data.detail) message = data.detail;
-        } else if (error instanceof Error) {
-            message = error.message;
-        }
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
+            description: t("errors.tryAgain"),
             id: loading
         });
     }
@@ -135,7 +125,7 @@ const uploadFiles = async () => {
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ $t("upload.title", {name: user?.displayName}) }}
+                    {{ t("upload.title", {name: user?.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <UiTooltip
@@ -154,7 +144,7 @@ const uploadFiles = async () => {
                         </template>
                         <template #content>
                             <UiTooltipContent>
-                                <p>{{ $t("upload.buttons.dashboard") }}</p>
+                                <p>{{ t("buttons.dashboard") }}</p>
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
@@ -172,7 +162,7 @@ const uploadFiles = async () => {
                         </template>
                         <template #content>
                             <UiTooltipContent>
-                                <p>{{ $t("upload.buttons.history") }}</p>
+                                <p>{{ t("buttons.history") }}</p>
                             </UiTooltipContent>
                         </template>
                     </UiTooltip>
@@ -227,7 +217,7 @@ const uploadFiles = async () => {
                             <Icon
                                 name="lucide:cloud-upload"
                                 class="size-4" />
-                            {{ $t("upload.dropzone.submit") }}
+                            {{ t("upload.dropzone.submit") }}
                         </UiButton>
                     </fieldset>
                 </form>

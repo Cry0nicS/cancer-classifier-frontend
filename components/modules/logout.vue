@@ -1,31 +1,32 @@
 <script setup lang="ts">
 import {signOut} from "@firebase/auth";
+import {useErrorMessage} from "~/composables/use-error-message";
 
 const {t} = useI18n();
 const localePath = useLocalePath();
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
+const {extractErrorMessage} = useErrorMessage();
 
 // Handle the form validation and submission.
 const logoutUser = async () => {
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: t(`logout.loading`)
+    const loading = useSonner.loading(t("toast.logOut"), {
+        description: t("toast.wait")
     });
     try {
         // Authenticate the user with email and password.
         await signOut(auth!);
 
-        useSonner.success(t(`logout.loadingSuccess`), {
+        useSonner.success(t(`toast.logOutSuccess`), {
             id: loading
         });
 
         // Redirect to a dedicated page.
         return await navigateTo({path: localePath("/"), replace: true});
     } catch (error) {
-        const {message} = error as Error;
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
+            description: t("errors.tryAgain"),
             id: loading
         });
     }
@@ -38,6 +39,6 @@ const logoutUser = async () => {
         variant="destructive"
         class="rounded"
         @click="logoutUser">
-        {{ $t(`login.logout`) }}
+        {{ t("buttons.logOut") }}
     </UiButton>
 </template>

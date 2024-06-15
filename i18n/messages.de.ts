@@ -1,132 +1,158 @@
 export default {
-    "logo.alt_text":
-        "Verflochtene DNA-Stränge, die Teil des kreisförmigen Designs bilden, zentriert mit dem App-Namen in einer sauberen, gut lesbaren Schriftart. Das Farbschema umfasst Blau- und Grautöne, die ein professionelles und vertrauenswürdiges Bild vermitteln, passend für eine medizinische Anwendung. Das Logo kombiniert visuelle Elemente aus Wissenschaft und Medizin und symbolisiert den Fokus der App auf DNA-Methylierungsprofile zur Krebsklassifikation.",
-
-    // SEO metadata.
-    "seo.title": "Cancer Classifier",
-    "seo.description":
-        "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um zu bestimmen, um welche Art von Krebs es sich handelt.",
-    "seo.image": "/og-image.webp",
-    "seo.image.alt":
-        "Ein breitformatiges Open Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und zellulären Strukturen zeigt. Die Farbpalette umfasst verschiedene Blau- und Grautöne und betont ein sauberes und professionelles Erscheinungsbild. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebsklassifikation visuell darstellt, ohne Text oder Logos, und bietet eine rein grafische Darstellung.",
-
-    // Footer.
-    "footer.contact": "Kontakt",
-    "footer.imprint": "Impressum",
-    "footer.privacy": "Datenschutz",
-    "footer.privacy_settings": "Datenschutzeinstellungen",
-
-    "language.de": "Deutsch",
-    "language.en": "Englisch",
-
-    // General keywords
-    "or": "oder",
-    "loading": "Wird geladen",
-    "toggleTheme": "Thema wechseln",
-    "darkMode": "Dunkelmodus",
-    "lightMode": "Hellmodus",
-    "toggleLocale": "Sprache wechseln",
-
-    // Account
-    "name": "Name",
-    "email": "E-Mail",
-    "password": "Passwort",
-
-    // Login
-    "login": {
-        title: "Mit Ihrem Konto fortfahren",
-        login: "Anmelden",
-        logout: "Abmelden",
-        loading: "Anmeldung läuft...",
-        loadingSuccess: "Sie wurden erfolgreich angemeldet.",
-        register: "Konto erstellen"
+    logo: {
+        altText:
+            "Verflochtene DNA-Stränge, die Teil des kreisförmigen Designs bilden, zentriert mit dem App-Namen in einer klaren, lesbaren Schrift. Das Farbschema umfasst Blautöne und Grautöne, die ein professionelles und vertrauenswürdiges Bild vermitteln, das für eine medizinische Anwendung geeignet ist. Das Logo kombiniert visuelle Elemente der Wissenschaft und Medizin und symbolisiert den Fokus der App auf DNA-Methylierungsprofile zur Krebs-Klassifikation."
     },
-
-    "logout": {
-        title: "Abmelden",
-        loading: "Abmeldung läuft...",
-        loadingSuccess: "Sie wurden erfolgreich abgemeldet."
+    footer: {
+        contact: "Kontakt",
+        imprint: "Impressum",
+        privacy: "Datenschutz"
     },
-
-    //Forgot Password
-    "forgot-password": {
-        title: "Passwort vergessen?",
-        submit: "Passwort zurücksetzen",
-        loading: "Anweisungen werden gesendet...",
-        loadingSuccess: "Anweisungen gesendet!",
-        emailSent: "Überprüfen Sie Ihren Posteingang.",
-        instructions: "Eine E-Mail mit Anweisungen wurde an Ihre E-Mail-Adresse gesendet."
+    language: {
+        de: "Deutsch",
+        en: "Englisch"
     },
-
-    // Errors
-    "errors": {
-        "user-not-found":
-            "Kein Benutzer mit dieser E-Mail gefunden. Bitte registrieren Sie sich zuerst.",
-        "wrong-password": "Falsches Passwort. Bitte versuchen Sie es erneut.",
-        "too-many-requests": "Zu viele Versuche. Bitte versuchen Sie es später noch einmal.",
-        "invalid-email": "Ungültiges E-Mail-Format.",
-        "default-error": "Anmeldung fehlgeschlagen mit Fehlercode: {code}",
-        "unexpected-error":
-            "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    common: {
+        darkMode: "Dunkelmodus",
+        lightMode: "Hellmodus",
+        or: "oder",
+        toggleTheme: "Thema wechseln"
     },
-
-    // Register
-    "register": {
-        title: "Konto erstellen",
-        register: "Registrieren",
-        signIn: "Einloggen",
-        loading: "Ihr Konto wird erstellt...",
-        loadingSuccess: "Ihr Konto wurde erfolgreich erstellt."
+    account: {
+        email: "E-Mail",
+        name: "Name",
+        password: "Passwort"
     },
-
-    // Validation messages.
-    "validation": {
+    login: {
+        title: "Mit bestehendem Konto anmelden"
+    },
+    toast: {
+        accountCreated: "Ihr Konto wurde erfolgreich erstellt.",
+        createAccount: "Konto wird erstellt",
+        instructionsSent: "Anweisungen gesendet!",
+        loading: "Laden",
+        logOut: "Abmelden",
+        logOutSuccess: "Sie wurden erfolgreich abgemeldet.",
+        nextStep: "Weiter zum nächsten Schritt",
+        noData: "Fehler beim Verarbeiten der Dateien. Bitte erneut versuchen.",
+        predictionStart: "Vorhersage gestartet",
+        predictionSuccessful: "Vorhersage abgeschlossen",
+        preStart: "Vorverarbeitung gestartet",
+        preSuccessful: "Vorverarbeitung abgeschlossen",
+        redirect: "Weiterleiten",
+        sendData: "Daten an Server senden",
+        sendInstructions: "Anweisungen senden",
+        signIn: "Anmelden",
+        signInSuccess: "Sie wurden erfolgreich angemeldet.",
+        uploading: "Dateien zum Server hochladen",
+        uploadSuccess: "Dateien erfolgreich hochgeladen.",
+        wait: "Bitte warten"
+    },
+    errors: {
+        unexpectedError: "Ein unerwarteter Fehler ist aufgetreten.",
+        tryAgain: "Bitte erneut versuchen."
+    },
+    validation: {
         name: {
+            long: "Ihr Name ist zu lang. Er sollte nicht länger als 50 Zeichen sein.",
             required: "Bitte geben Sie Ihren Namen ein.",
-            short: "Ihr Name ist zu kurz. Er sollte mindestens 3 Zeichen haben.",
-            long: "Ihr Name ist zu lang. Er sollte nicht mehr als 50 Zeichen haben."
+            short: "Ihr Name ist zu kurz. Er sollte mindestens 3 Zeichen lang sein."
         },
         email: {
-            required: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
             invalid:
-                "Die eingegebene E-Mail-Adresse ist ungültig. Bitte überprüfen Sie sie und versuchen Sie es erneut."
+                "Die eingegebene E-Mail-Adresse ist ungültig. Bitte überprüfen und erneut versuchen.",
+            required: "Bitte geben Sie Ihre E-Mail-Adresse ein."
         },
         password: {
             required: "Bitte geben Sie ein Passwort ein.",
-            short: "Ihr Passwort ist zu kurz. Es sollte mindestens 8 Zeichen haben.",
-            weak: "Ihr Passwort ist zu schwach. Bitte verwenden Sie ein stärkeres Passwort, das eine Kombination aus Buchstaben, Zahlen und Symbolen enthält."
+            short: "Ihr Passwort ist zu kurz. Es sollte mindestens 8 Zeichen lang sein.",
+            weak: "Ihr Passwort ist zu schwach. Bitte verwenden Sie ein stärkeres Passwort mit einer Mischung aus Buchstaben, Zahlen und Symbolen."
         },
         file: {
-            required: "Bitte laden Sie eine Datei hoch.",
-            type: 'Ungültiger Dateityp. Bitte laden Sie ein ".idat" hoch.',
-            size: "Dateigröße ist zu groß. Bitte laden Sie eine Datei kleiner als 30 MB hoch.",
+            failure: "Ausgewählte Dateien konnten nicht hinzugefügt werden.",
             maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
-            failure: "Die ausgewählten Dateien konnten nicht hinzugefügt werden."
+            required: "Bitte laden Sie eine Datei hoch.",
+            size: "Die Dateigröße ist zu groß. Bitte laden Sie eine Datei hoch, die kleiner als 30 MB ist.",
+            type: 'Ungültiger Dateityp. Bitte laden Sie nur ".idat"-Dateien hoch.'
         },
         storageMethod: {
-            required: "Bitte wählen Sie eine Speichermethode.",
-            invalid: "Ungültige Speichermethode."
+            invalid: "Ungültige Speichermethode. Bitte wählen Sie eine der erlaubten Optionen.",
+            required: "Bitte wählen Sie eine Speichermethode."
         },
         platform: {
-            invalid: "Ungültige Plattform. Bitte versuchen Sie es erneut."
+            invalid:
+                "Eine ungültige Plattform wurde erkannt. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
         }
     },
+    material: {
+        ffpe: "Formalin-Fixiertes, Paraffin-Eingebettetes",
+        freshFrozen: "Frisch Gefroren",
+        none: "Nicht definiert",
+        other: "Andere"
+    },
+    buttons: {
+        createAccount: "Konto erstellen",
+        dashboard: "Aktuelle Sitzung",
+        getStarted: "Erste Schritte",
+        history: "Sitzungsverlauf",
+        logIn: "Anmelden",
+        logOut: "Abmelden",
+        upload: "Weitere Dateien hochladen"
+    },
 
-    // Homepage
-    "home": {
+    // Seiten
+    // -- Passwort vergessen
+    forgotPassword: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Passwort vergessen?",
+        submit: "Passwort zurücksetzen",
+        emailSent: "Überprüfen Sie Ihren Posteingang.",
+        instructions: "Eine E-Mail mit Anweisungen wurde an Ihre E-Mail-Adresse gesendet."
+    },
+    // -- Registrieren
+    register: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Konto erstellen",
+        submit: "Jetzt registrieren",
+        signIn: "Anmelden"
+    },
+    // -- Startseite
+    home: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
         user: {
             title: "Willkommen zurück, {name}",
-            description: "Hier können Sie Ihre Dateien hochladen und unsere Dienste nutzen.",
-            button: "Jetzt starten"
+            description:
+                "Sie können Ihre Dateien hier hochladen und unsere Dienstleistungen nutzen."
         },
         noUser: {
-            title: "Willkommen",
+            title: "Willkommen zu unserem Projekt",
             description:
-                "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienste nutzen zu können."
+                "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienstleistungen zu nutzen."
         },
         faq: {
             title: "Häufig gestellte Fragen",
-            description: "Hier sind einige häufig gestellte Fragen und Antworten.",
+            description: "Hier sind einige häufige Fragen und Antworten.",
             item1: {
                 title: "Frage 1",
                 content: "Antwort auf Frage 1."
@@ -145,82 +171,69 @@ export default {
             }
         }
     },
-
-    // Upload
-    "upload": {
-        title: "Hallo, {name}",
-        description: "Laden Sie Ihre Dateien hier hoch.",
-        buttons: {
-            dashboard: "Zurück zum Dashboard",
-            history: "Historie anzeigen"
+    // -- Hochladen
+    upload: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
-        loading: "Wird hochgeladen...",
-        loadingSuccess: "Dateien erfolgreich hochgeladen.",
+        title: "Hallo, {name}",
         dropzone: {
-            title: "Klick um Dateien hochzuladen oder ziehen Sie Dateien hierher.",
-            subtext: 'Nur ".idat" erlaubt. Maximal 2 Dateien.',
+            title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie sie hierher.",
+            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 2 Dateien.',
             submit: "Dateien hochladen"
         }
     },
-
-    // Dashboard
-    "dashboard": {
-        title: "Hallo, {name}",
-        buttons: {
-            upload: "Mehr Dateien hochladen",
-            refresh: "Dokumentstatus aktualisieren",
-            history: "Historie anzeigen"
+    // -- Dashboard
+    dashboard: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
+        title: "Hallo, {name}",
         table: {
-            title: "Liste der letzten Dokumente",
-            caption: "Alle Dateipaare in einer Sitzung",
+            title: "Liste der aktuellen Dokumente",
+            caption: "Alle Dateipaare in dieser Sitzung",
             columns: {
                 name: "Dateipaar",
                 status: "Status",
                 date: "Datum",
                 method: "Methode",
-                platform: "Platform"
+                platform: "Plattform"
             }
         },
         progress: {
-            title: "Bitte warten Sie, während wir Ihre Dateien verarbeiten.",
-            subtitle:
-                "Sie werden in Kürze zum nächsten Schritt weitergeleitet, sobald der Vorgang abgeschlossen ist."
+            title: "Dateien werden verarbeitet.",
+            subtitle: "Bitte warten Sie. Dies kann bis zu fünf Minuten dauern."
         },
         prediction: {
             title: "Vorhersageprozess gestartet",
-            subtitle: "Bitte warten Sie, während wir Ihre Dateien analysieren."
-        },
-        loading: {
-            wait: "Bitte warten",
-            start: "Daten werden an den Server gesendet",
-            preStart: "Vorverarbeitung gestartet",
-            preSuccessful: "Vorverarbeitung abgeschlossen",
-            predictionStart: "Vorhersage gestartet",
-            predictionSuccessful: "Vorhersage abgeschlossen",
-            redirect: "Weiterleiten",
-            noData: "Fehler beim Parsen der Dateien. Bitte versuchen Sie es erneut."
+            subtitle:
+                "Bitte warten Sie, während wir Ihre Dateien analysieren. Dies kann einige Minuten dauern."
         }
     },
-
-    // Uncategorized
-    "material": {
-        ffpe: "Formalin-fixiert, Paraffin-eingebettet",
-        freshFrozen: "Frisch gefroren",
-        other: "Andere",
-        none: "Nicht definiert"
-    },
-
-    // Historie
-    "history": {
-        title: "Hallo, {name}",
-        buttons: {
-            upload: "Mehr Dateien hochladen",
-            dashboard: "Zurück zum Dashboard"
+    // -- Verlauf
+    history: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
+        title: "Hallo, {name}",
         table: {
             title: "Liste der letzten Sitzungen",
-            caption: "Alle Dateipaare in einer Sitzung",
+            caption: "Alle Dateipaare in dieser Sitzung",
             columns: {
                 name: "Dateipaar",
                 status: "Status",

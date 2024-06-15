@@ -32,6 +32,6 @@ const localePath = useLocalePath();
             src="/logo.webp"
             loading="lazy" />
 
-        <span class="sr-only">{{ $t("logo.alt_text") }}</span>
+        <span class="sr-only">{{ $t("logo.altText") }}</span>
     </NuxtLink>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useColorMode} from "@vueuse/core";
 
-const {t} = useI18n();
 const colorMode = useColorMode();
 </script>
 
@@ -10,9 +9,9 @@ const colorMode = useColorMode();
         size="icon-sm"
         variant="ghost"
         class="h-auto w-auto"
-        :title="t('toggleTheme')"
+        :title="$t('common.toggleTheme')"
         @click="colorMode = colorMode === 'dark' ? 'light' : 'dark'">
-        <span class="sr-only">{{ t("toggleTheme") }}</span>
+        <span class="sr-only">{{ $t("common.toggleTheme") }}</span>
         <template v-if="colorMode === 'dark'">
             <slot name="dark-mode">
                 <Icon

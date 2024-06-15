@@ -13,10 +13,10 @@ const localePath = useLocalePath();
 const user = useCurrentUser();
 
 useSeo(
-    t("seo.title"),
-    t("seo.description"),
-    t("seo.image"),
-    t("seo.image.alt"),
+    t("home.seo.title"),
+    t("home.seo.description"),
+    t("home.seo.image"),
+    t("home.seo.imageAlt"),
     "summary_large_image"
 );
 
@@ -36,10 +36,10 @@ const accordionItems = range(1, 5).map((index) => ({
             <div class="col-span-5 flex items-center justify-center text-center">
                 <div class="w-full max-w-[340px]">
                     <h1 class="text-3xl font-semibold lg:text-4xl">
-                        {{ $t("home.noUser.title") }}
+                        {{ t("home.noUser.title") }}
                     </h1>
                     <p class="mt-5 text-muted-foreground">
-                        {{ $t("home.noUser.description") }}
+                        {{ t("home.noUser.description") }}
                     </p>
                 </div>
             </div>
@@ -57,25 +57,25 @@ const accordionItems = range(1, 5).map((index) => ({
                     class="size-10"
                     name="lucide:key-round" />
                 <h1 class="mt-10 text-3xl font-semibold lg:text-4xl">
-                    {{ $t("home.user.title", {name: user.displayName}) }}
+                    {{ t("home.user.title", {name: user.displayName}) }}
                 </h1>
                 <h3 class="mt-10 text-xl text-muted-foreground lg:text-2xl">
-                    {{ $t("home.user.description") }}
+                    {{ t("home.user.description") }}
                 </h3>
                 <NuxtLink
                     :to="localePath('/services/upload')"
                     class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    {{ $t(`home.user.button`) }}
+                    {{ t("buttons.getStarted") }}
                 </NuxtLink>
             </div>
         </div>
         <ModulesFaq
-            :title="$t('home.faq.title')"
+            :title="t('home.faq.title')"
             background-color="transparent"
             class="my-10 border-2"
             :accordion-items="accordionItems">
             <template #content>
-                <p class="mt-6 text-muted-foreground">{{ $t(`home.faq.description`) }}</p>
+                <p class="mt-6 text-muted-foreground">{{ t("home.faq.description") }}</p>
             </template>
         </ModulesFaq>
     </UiContainer>

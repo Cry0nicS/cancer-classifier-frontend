@@ -4,6 +4,7 @@ export type UserCollection = {
     id: string;
     file_list: FileList[];
     status: UploadStatus;
+    sessionStartedAt: string;
     user_id: string;
     sample_sheet_EPIC?: string;
 };

@@ -2,6 +2,8 @@
 import {sendPasswordResetEmail} from "@firebase/auth";
 import {toTypedSchema} from "@vee-validate/yup";
 import {useForm} from "vee-validate";
+import {useErrorMessage} from "~/composables/use-error-message";
+import {useSeo} from "~/composables/use-seo";
 
 definePageMeta({
     middleware: ["already-logged-in"]
@@ -9,7 +11,17 @@ definePageMeta({
 
 const {t} = useI18n();
 const localePath = useLocalePath();
+const {extractErrorMessage} = useErrorMessage();
 const emailSent = ref(false);
+
+useSeo(
+    t("forgotPassword.seo.title"),
+    t("forgotPassword.seo.description"),
+    t("forgotPassword.seo.image"),
+    t("forgotPassword.seo.imageAlt"),
+    "summary_large_image",
+    true
+);
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
@@ -21,8 +33,8 @@ const {handleSubmit, isSubmitting} = useForm({
 
 // Handle the form validation and submission.
 const resetPassword = handleSubmit(async (values, _ctx) => {
-    const loading = useSonner.loading(`${t("loading")}...`, {
-        description: t(`forgot-password.loading`)
+    const loading = useSonner.loading(`${t("toast.sendInstructions")}...`, {
+        description: t(`toast.loading`)
     });
 
     try {
@@ -32,15 +44,14 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
             url: "http://localhost:3000/"
         });
 
-        useSonner.success(t(`forgot-password.loadingSuccess`), {
+        useSonner.success(t("toast.instructionsSent"), {
             id: loading
         });
 
         emailSent.value = true;
     } catch (error) {
-        const {message} = error as Error;
-
-        useSonner.error(message, {
+        useSonner.error(extractErrorMessage(error), {
+            description: t("errors.tryAgain"),
             id: loading
         });
     }
@@ -55,7 +66,7 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
                     class="size-10"
                     name="lucide:key-round" />
                 <h1 class="text-3xl font-semibold lg:text-4xl">
-                    {{ $t(`forgot-password.title`) }}
+                    {{ t(`forgotPassword.title`) }}
                 </h1>
             </div>
             <form
@@ -68,18 +79,18 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
                         icon="lucide:mail"
                         name="email"
                         type="email"
-                        :label="$t(`email`)"
+                        :label="t(`account.email`)"
                         placeholder="John.doe@domain.com" />
                     <UiButton
                         type="submit"
                         class="w-full">
-                        {{ $t(`forgot-password.submit`) }}
+                        {{ t(`forgotPassword.submit`) }}
                     </UiButton>
-                    <UiDivider :label="$t(`or`)" />
+                    <UiDivider :label="t('common.or')" />
                     <NuxtLink
                         :to="localePath('/')"
                         class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                        {{ $t(`register.signIn`) }}
+                        {{ t(`register.signIn`) }}
                     </NuxtLink>
                 </fieldset>
             </form>
@@ -90,15 +101,15 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
                     class="size-10"
                     name="lucide:mail-check" />
                 <h1 class="text-3xl font-semibold lg:text-4xl">
-                    {{ $t(`forgot-password.emailSent`) }}
+                    {{ t(`forgotPassword.emailSent`) }}
                 </h1>
                 <p class="mt-5 text-muted-foreground">
-                    {{ $t(`forgot-password.instructions`) }}
+                    {{ t(`forgotPassword.instructions`) }}
                 </p>
                 <NuxtLink
                     :to="localePath('/')"
                     class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    {{ $t(`login.login`) }}
+                    {{ t(`login.login`) }}
                 </NuxtLink>
             </div>
         </div>

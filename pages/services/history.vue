@@ -109,12 +109,7 @@ const {data: userCollections} = useCollection<UserCollection>(
                                     {{ getEnumName(UploadStatusNames, userCollection.status) }}
                                 </UiTableCell>
                                 <UiTableCell>
-                                    {{
-                                        formatDate(
-                                            userCollection!.sessionStartedAt ?? useNow().value,
-                                            locale
-                                        )
-                                    }}
+                                    {{ formatDate(userCollection!.sessionStartedAt, locale) }}
                                 </UiTableCell>
                                 <UiTableCell>
                                     {{ getEnumName(PlatformNames, file.platform) }}

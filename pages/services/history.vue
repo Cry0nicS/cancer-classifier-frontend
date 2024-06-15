@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {collection} from "firebase/firestore";
+import {collection, orderBy, query} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
+import type {User} from "@firebase/auth";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {PlatformNames, formatDate, getEnumName, storageMethodNames} from "~/utils/helpers";
@@ -24,14 +25,18 @@ useSeo(
 
 // Set up Firebase Auth and Firestore
 useFirebaseAuth();
-const user = useCurrentUser();
+const user = (await getCurrentUser()) as User;
 const db = useFirestore();
 
-// TODO: implement pagination.
-const {data: userCollections} = useCollection<UserCollection>(
-    () => (user.value ? collection(db, user.value.uid as string) : null),
-    {once: true}
+const userCollectionsQuery = query(
+    collection(db, user.uid as string),
+    orderBy("sessionStartedAt", "desc")
 );
+
+const {data: userCollections} = useCollection<UserCollection>(userCollectionsQuery, {
+    once: true,
+    ssrKey: user.uid
+});
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
 import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
-import {LocaleIsoMap, PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
+import {PlatformNames, formatDate, getEnumName, storageMethodNames} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
 import {useSeo} from "~/composables/use-seo";
 import {useErrorMessage} from "~/composables/use-error-message";
@@ -27,11 +27,6 @@ if (!uploadSessionId.value) {
     // This should never happen as the middleware prevents the user from accessing the page without a session ID.
     throw new Error(t("errors.unexpectedError"));
 }
-
-// Fixme: Fix hardcoded today's date. This should come from the database.
-const today = useDateFormat(useNow(), "ddd, MMMM DD, YYYY", {
-    locales: LocaleIsoMap[locale.value as keyof typeof LocaleIsoMap]
-});
 
 useSeo(
     t("dashboard.seo.title"),
@@ -246,7 +241,7 @@ watch(
                 <span>{{ t("dashboard.table.title") }}</span>
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
                     <form @submit.prevent="startPreProcessing">
-                        <UiTable>
+                        <UiTable class="w-full table-auto">
                             <UiTableCaption>
                                 {{ t("dashboard.table.caption") }}
                             </UiTableCaption>
@@ -279,7 +274,14 @@ watch(
                                     <UiTableCell>
                                         {{ getEnumName(UploadStatusNames, userCollection!.status) }}
                                     </UiTableCell>
-                                    <UiTableCell>{{ today }}</UiTableCell>
+                                    <UiTableCell>
+                                        {{
+                                            formatDate(
+                                                userCollection!.sessionStartedAt ?? useNow().value,
+                                                locale
+                                            )
+                                        }}
+                                    </UiTableCell>
                                     <UiTableCell>
                                         {{ getEnumName(PlatformNames, file.platform) }}
                                     </UiTableCell>

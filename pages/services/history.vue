@@ -3,7 +3,7 @@ import {collection} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
-import {LocaleIsoMap, PlatformNames, getEnumName, storageMethodNames} from "~/utils/helpers";
+import {PlatformNames, formatDate, getEnumName, storageMethodNames} from "~/utils/helpers";
 
 definePageMeta({
     showHeader: true,
@@ -22,16 +22,12 @@ useSeo(
     true
 );
 
-// Fixme: Fix hardcoded today's date. This should come from the database.
-const today = useDateFormat(useNow(), "ddd, MMMM DD, YYYY", {
-    locales: LocaleIsoMap[locale.value as keyof typeof LocaleIsoMap]
-});
-
 // Set up Firebase Auth and Firestore
 useFirebaseAuth();
 const user = useCurrentUser();
 const db = useFirestore();
 
+// TODO: implement pagination.
 const {data: userCollections} = useCollection<UserCollection>(
     () => (user.value ? collection(db, user.value.uid as string) : null),
     {once: true}
@@ -79,7 +75,7 @@ const {data: userCollections} = useCollection<UserCollection>(
                 :key="userCollection.id"
                 class="mt-8 w-full">
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
-                    <UiTable>
+                    <UiTable class="w-full table-auto">
                         <UiTableCaption>
                             {{ t("history.table.caption") }}
                         </UiTableCaption>
@@ -112,7 +108,14 @@ const {data: userCollections} = useCollection<UserCollection>(
                                 <UiTableCell>
                                     {{ getEnumName(UploadStatusNames, userCollection.status) }}
                                 </UiTableCell>
-                                <UiTableCell>{{ today }}</UiTableCell>
+                                <UiTableCell>
+                                    {{
+                                        formatDate(
+                                            userCollection!.sessionStartedAt ?? useNow().value,
+                                            locale
+                                        )
+                                    }}
+                                </UiTableCell>
                                 <UiTableCell>
                                     {{ getEnumName(PlatformNames, file.platform) }}
                                 </UiTableCell>

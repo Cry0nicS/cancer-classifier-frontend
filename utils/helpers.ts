@@ -40,3 +40,9 @@ export const LocaleIsoMap = {
     [Locale.English]: "en-US",
     [Locale.German]: "de-DE"
 };
+
+export function formatDate(dateString: string, locale: string) {
+    return useDateFormat(dateString, "ddd, MMMM DD, YYYY, HH:mm", {
+        locales: LocaleIsoMap[locale as keyof typeof LocaleIsoMap]
+    }).value;
+}

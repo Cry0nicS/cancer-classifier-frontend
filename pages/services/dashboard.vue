@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
+import type {User} from "@firebase/auth";
 import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
 import {PlatformNames, formatDate, getEnumName, storageMethodNames} from "~/utils/helpers";
@@ -21,12 +22,7 @@ definePageMeta({
 
 const {t, locale} = useI18n();
 const localePath = useLocalePath();
-const uploadSessionId = useCookie<string>("uploadSessionId");
-
-if (!uploadSessionId.value) {
-    // This should never happen as the middleware prevents the user from accessing the page without a session ID.
-    throw new Error(t("errors.unexpectedError"));
-}
+const uploadSessionId = useSessionId().getUploadSessionId();
 
 useSeo(
     t("dashboard.seo.title"),
@@ -39,8 +35,8 @@ useSeo(
 
 // Setting up Firebase Auth and Firestore
 useFirebaseAuth();
-const user = useCurrentUser();
-const idToken = await user.value!.getIdToken();
+const user = (await getCurrentUser()) as User;
+const idToken = user.getIdToken();
 const db = useFirestore();
 const fileList = ref<FileList[]>([]);
 const isProcessingStarted = ref(false);
@@ -52,7 +48,7 @@ const {extractErrorMessage} = useErrorMessage();
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection, promise} = useDocument<UserCollection>(() =>
-    user.value ? doc(db, user.value.uid as string, uploadSessionId.value) : null
+    doc(db, user.uid, uploadSessionId)
 );
 
 // Await the promise to resolve before checking and mutating the user collection.
@@ -89,7 +85,7 @@ const startPreProcessing = async () => {
         await StorageMethodSchema(t).validate({fileList: fileList.value}, {abortEarly: true});
 
         const uploadResponse = await $fetch(
-            `/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId.value}`,
+            `/api/upload-samplesheet-csv?upload_session_id=${uploadSessionId}`,
             {
                 method: "POST",
                 headers: {
@@ -105,7 +101,7 @@ const startPreProcessing = async () => {
         });
 
         if (uploadResponse) {
-            await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId.value}`, {
+            await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${idToken}`
@@ -122,7 +118,7 @@ const startPreProcessing = async () => {
 
 const startPrediction = async () => {
     try {
-        await $fetch(`/api/start-prediction?upload_session_id=${uploadSessionId.value}`, {
+        await $fetch(`/api/start-prediction?upload_session_id=${uploadSessionId}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${idToken}`
@@ -167,7 +163,12 @@ function progressStatus(status: UploadStatus): void {
                 duration: 2000,
                 id: notificationId.value
             });
-            break;
+
+            navigateTo({
+                path: localePath("/services/results"),
+                query: {sessionId: uploadSessionId},
+                replace: true
+            });
     }
 }
 
@@ -184,7 +185,7 @@ watch(
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ t("dashboard.title", {name: user?.displayName}) }}
+                    {{ t("dashboard.title", {name: user.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <NuxtLink
@@ -275,12 +276,7 @@ watch(
                                         {{ getEnumName(UploadStatusNames, userCollection!.status) }}
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{
-                                            formatDate(
-                                                userCollection!.sessionStartedAt ?? useNow().value,
-                                                locale
-                                            )
-                                        }}
+                                        {{ formatDate(userCollection!.sessionStartedAt, locale) }}
                                     </UiTableCell>
                                     <UiTableCell>
                                         {{ getEnumName(PlatformNames, file.platform) }}

@@ -242,5 +242,28 @@ export default {
                 platform: "Plattform"
             }
         }
+    },
+    // -- Results
+    results: {
+        seo: {
+            title: "Krebs-Klassifikator",
+            description:
+                "Wir verwenden DNA-Methylierungsprofile und einen ML-Klassifikator, um die Art des Krebses zu bestimmen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Hallo, {name}",
+        table: {
+            columns: {
+                name: "Dateipaar",
+                prediction: "Vorhersage",
+                binomialScorePositive: "Binomialer Score Positiv",
+                nnScoreNormalBile: "NN Score Normal Bile",
+                nnScorePaad: "NN Score Paad",
+                nnScoreiCCA: "NN Score iCCA",
+                binomial_prediction: "Binomiale Vorhersage"
+            }
+        }
     }
 };

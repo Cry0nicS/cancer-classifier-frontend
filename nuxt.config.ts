@@ -85,6 +85,10 @@ export default defineNuxtConfig({
             "services/history": {
                 de: "/dienstleistungen/verlauf",
                 en: "/services/history"
+            },
+            "services/results": {
+                de: "/dienstleistungen/ergebnisse",
+                en: "/services/results"
             }
         }
     },

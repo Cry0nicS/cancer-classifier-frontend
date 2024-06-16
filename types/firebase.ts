@@ -13,4 +13,13 @@ export type FileList = {
     baseName: string;
     material?: StorageMethod;
     platform: Platform;
+} & PredictionResult;
+
+export type PredictionResult = {
+    BinomialScorePositive?: number;
+    NNScoreNormalBile?: number;
+    NNScorePaad?: number;
+    NNScoreiCCA?: number;
+    binomial_prediction?: string;
+    prediction?: string;
 };

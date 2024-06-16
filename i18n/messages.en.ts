@@ -237,5 +237,28 @@ export default {
                 platform: "Platform"
             }
         }
+    },
+    // -- Results
+    results: {
+        seo: {
+            title: "Cancer Classifier",
+            description:
+                "We use DNA methylation profiles and an ML classifier to determine what kind of cancer it is.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "Hello, {name}",
+        table: {
+            columns: {
+                name: "File pair",
+                prediction: "Prediction",
+                binomialScorePositive: "Binomial Score Positive",
+                nnScoreNormalBile: "NN Score Normal Bile",
+                nnScorePaad: "NN Score Paad",
+                nnScoreiCCA: "NN Score iCCA",
+                binomial_prediction: "Binomial Prediction"
+            }
+        }
     }
 };

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useSessionStorage} from "@vueuse/core";
+import type {User} from "@firebase/auth";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 import {SESSION_KEY} from "~/utils/helpers";
@@ -22,7 +23,7 @@ useSeo(
     true
 );
 
-const user = useCurrentUser();
+const user = (await getCurrentUser()) as User;
 // Fetch current session ID for navigation purposes.
 const uploadSessionId = useCookie("uploadSessionId");
 const files = ref<File[]>([]);
@@ -89,7 +90,7 @@ const uploadFiles = async () => {
             formData.append("files", file);
         });
 
-        const idToken = await user.value!.getIdToken();
+        const idToken = await user.getIdToken();
 
         // Store the upload session ID in a cookie.
         uploadSessionId.value = await $fetch("/api/upload-files", {

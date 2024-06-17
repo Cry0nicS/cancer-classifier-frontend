@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {range} from "@antfu/utils";
+import type {User} from "@firebase/auth";
 import {useSeo} from "~/composables/use-seo";
+import type {AccordionItem} from "~/components/Ui/Accordion/Accordion.vue";
 
 definePageMeta({
     showHeader: false
@@ -10,7 +12,7 @@ const {t} = useI18n();
 const localePath = useLocalePath();
 
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
-const user = useCurrentUser();
+const user = (await getCurrentUser()) as User | null;
 
 useSeo(
     t("home.seo.title"),
@@ -21,7 +23,8 @@ useSeo(
 );
 
 // Fetch the FAQ items from translations.
-const accordionItems = range(1, 5).map((index) => ({
+const accordionItems: AccordionItem[] = range(1, 5).map((index) => ({
+    id: useId(),
     value: `item-${index}`,
     title: t(`home.faq.item${index}.title`),
     content: t(`home.faq.item${index}.content`)
@@ -50,7 +53,7 @@ const accordionItems = range(1, 5).map((index) => ({
             </div>
         </div>
         <div
-            v-if="user"
+            v-else
             class="flex min-h-[400px] flex-col items-center justify-center lg:min-h-[600px]">
             <div class="w-full max-w-[340px] text-center">
                 <Icon

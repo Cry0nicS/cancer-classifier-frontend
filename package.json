@@ -34,7 +34,6 @@
         "tailwind-variants": "^0.2.1",
         "typescript": "^5.4.5",
         "ufo": "^1.5.3",
-        "uuid": "^10.0.0",
         "vue-sonner": "^1.1.2",
         "yup": "^1.4.0"
     },

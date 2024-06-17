@@ -230,7 +230,7 @@ export default {
         title: "Hello, {name}",
         table: {
             title: "List of recent sessions",
-            caption: "All file pairs in this session",
+            caption: "No prediction available for this session",
             columns: {
                 name: "File pair",
                 status: "Status",
@@ -252,7 +252,7 @@ export default {
         },
         title: "Hello, {name}",
         table: {
-            caption: "No prediction available for this session",
+            caption: "Session started {date}",
             columns: {
                 name: "File pair",
                 prediction: "Prediction",

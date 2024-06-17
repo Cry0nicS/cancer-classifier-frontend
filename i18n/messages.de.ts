@@ -235,7 +235,7 @@ export default {
         title: "Hallo, {name}",
         table: {
             title: "Liste der letzten Sitzungen",
-            caption: "Alle Dateipaare in dieser Sitzung",
+            caption: "Keine Vorhersage verfügbar für dieses Sitzung",
             columns: {
                 name: "Dateipaar",
                 status: "Status",
@@ -257,7 +257,7 @@ export default {
         },
         title: "Hallo, {name}",
         table: {
-            caption: "Keine Vorhersage verfügbar für dieses Sitzung",
+            caption: "Sitzung vom {date}",
             columns: {
                 name: "Dateipaar",
                 prediction: "Vorhersage",

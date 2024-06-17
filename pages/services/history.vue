@@ -100,7 +100,7 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                                     name="lucide:external-link"
                                     size="18px" />
                             </NuxtLink>
-                            <span v-else>{{ t("results.table.caption") }}</span>
+                            <span v-else>{{ t("history.table.caption") }}</span>
                         </UiTableCaption>
                         <UiTableHeader>
                             <UiTableRow>

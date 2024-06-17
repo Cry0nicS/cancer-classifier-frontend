@@ -5,12 +5,12 @@ const slots = useSlots();
 <template>
     <UiContainer
         as="footer"
-        class="flex flex-col items-center justify-between gap-7 border-t-2 py-12 lg:flex-row">
+        class="flex flex-col items-center justify-between gap-7 border-t-2 py-12 md:flex-row">
         <p class="text-muted-foreground">&copy; {{ new Date().getFullYear() }}</p>
 
         <nav
             v-if="slots.links"
-            class="flex flex-col gap-6 xl:flex-row xl:gap-4">
+            class="flex flex-col gap-6 md:flex-row xl:gap-4">
             <slot name="links" />
         </nav>
 

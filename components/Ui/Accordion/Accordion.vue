@@ -2,8 +2,8 @@
     <AccordionRoot v-bind="forwarded">
         <slot :items="items">
             <template
-                v-for="(item, i) in items"
-                :key="i">
+                v-for="item in items"
+                :key="item.id">
                 <UiAccordionItem
                     :disabled="item.disabled"
                     :value="item.value">
@@ -36,6 +36,7 @@ import {AccordionRoot, useForwardPropsEmits} from "radix-vue";
 import type {AccordionRootEmits, AccordionRootProps} from "radix-vue";
 
 export interface AccordionItem {
+    id: string;
     title?: string;
     content?: string;
     value: string;

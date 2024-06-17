@@ -1,9 +1,5 @@
 <script setup lang="ts">
-interface AccordionItem {
-    value: string;
-    title: string;
-    content: string;
-}
+import type {AccordionItem} from "~/components/Ui/Accordion/Accordion.vue";
 
 interface FaqProps {
     title: string;

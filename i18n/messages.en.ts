@@ -96,7 +96,8 @@ export default {
         history: "Session history",
         logIn: "Log in",
         logOut: "Log out",
-        upload: "Upload more files"
+        upload: "Upload more files",
+        predictions: "Prediction details"
     },
 
     // Pages
@@ -251,6 +252,7 @@ export default {
         },
         title: "Hello, {name}",
         table: {
+            caption: "No prediction available for this session",
             columns: {
                 name: "File pair",
                 prediction: "Prediction",

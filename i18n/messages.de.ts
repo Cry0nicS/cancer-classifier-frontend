@@ -98,7 +98,8 @@ export default {
         history: "Sitzungsverlauf",
         logIn: "Anmelden",
         logOut: "Abmelden",
-        upload: "Weitere Dateien hochladen"
+        upload: "Weitere Dateien hochladen",
+        predictions: "Vorhersagedetails"
     },
 
     // Seiten
@@ -256,6 +257,7 @@ export default {
         },
         title: "Hallo, {name}",
         table: {
+            caption: "Keine Vorhersage verfügbar für dieses Sitzung",
             columns: {
                 name: "Dateipaar",
                 prediction: "Vorhersage",

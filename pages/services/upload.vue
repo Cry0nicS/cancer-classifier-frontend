@@ -53,9 +53,16 @@ const validateFiles = async (selectedFiles: File[]): Promise<void> => {
 };
 
 const checkFileLimit = (selectedFiles: File[]): void => {
-    // Check if the total number of existing files and newly selected files is not more than 2.
-    if (files.value.length + selectedFiles.length > 2) {
+    // Check if the total number of existing files and newly selected files is not more than 16.
+    if (files.value.length + selectedFiles.length > 16) {
         throw new Error(t("validation.file.maxFiles"));
+    }
+};
+
+const checkFilesInPairs = (files: File[]): void => {
+    // Check if the total number of existing files and newly selected files is even.
+    if (files.length % 2 !== 0) {
+        throw new Error(t("validation.file.evenNumber"));
     }
 };
 
@@ -80,6 +87,9 @@ const uploadFiles = async () => {
     });
 
     try {
+        // Validate that selected files are uploaded in pairs (even number).
+        checkFilesInPairs(files.value);
+
         const formData = new FormData();
         /**
          * The append method of FormData cannot take an array as its second argument.

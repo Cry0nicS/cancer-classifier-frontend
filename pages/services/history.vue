@@ -86,7 +86,21 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
                     <UiTable class="w-full table-auto">
                         <UiTableCaption>
-                            {{ t("history.table.caption") }}
+                            <NuxtLink
+                                v-if="userCollection.status === UploadStatus.PredictionSuccessful"
+                                :to="
+                                    localePath({
+                                        name: 'services-results',
+                                        query: {sessionId: userCollection.id}
+                                    })
+                                "
+                                class="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                                {{ t("buttons.predictions") }}
+                                <Icon
+                                    name="lucide:external-link"
+                                    size="18px" />
+                            </NuxtLink>
+                            <span v-else>{{ t("history.table.caption") }}</span>
                         </UiTableCaption>
                         <UiTableHeader>
                             <UiTableRow>
@@ -116,23 +130,6 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                                 </UiTableCell>
                                 <UiTableCell>
                                     {{ getEnumName(UploadStatusNames, userCollection.status) }}
-                                    <!-- prettier-ignore -->
-                                    <NuxtLink
-                                        v-if="
-                                            userCollection.status ===
-                                                UploadStatus.PredictionSuccessful
-                                        "
-                                        :to="
-                                            localePath({
-                                                name: 'services-results',
-                                                query: {sessionId: userCollection.id}
-                                            })
-                                        ">
-                                        <Icon
-                                            name="lucide:external-link"
-                                            size="18px"
-                                            class="mb-1.5" />
-                                    </NuxtLink>
                                 </UiTableCell>
                                 <UiTableCell>
                                     {{ formatDate(userCollection!.sessionStartedAt, locale) }}

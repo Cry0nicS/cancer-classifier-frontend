@@ -62,10 +62,10 @@ export const DropFileSchema = (translate: ComposerTranslation) =>
                         name: "fileSize",
                         message: translate("validation.file.size"),
                         test: (value) =>
-                            value && value instanceof File && value.size <= 30 * 1024 * 1024 // 30 MB
+                            value && value instanceof File && value.size <= 20 * 1024 * 1024 // 20 MB
                     })
             )
-            .max(2, translate("validation.file.maxFiles"))
+            .max(16, translate("validation.file.maxFiles")) // Maximum 16 files
     });
 
 export const StorageMethodSchema = (translate: ComposerTranslation) =>

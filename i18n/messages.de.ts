@@ -70,7 +70,8 @@ export default {
         },
         file: {
             failure: "Ausgewählte Dateien konnten nicht hinzugefügt werden.",
-            maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
+            maxFiles: "Sie können maximal 16 Dateien gleichzeitig hochladen.",
+            evenNumber: "Bitte laden Sie eine gerade Anzahl von Dateien hoch.",
             required: "Bitte laden Sie eine Datei hoch.",
             size: "Die Dateigröße ist zu groß. Bitte laden Sie eine Datei hoch, die kleiner als 30 MB ist.",
             type: 'Ungültiger Dateityp. Bitte laden Sie nur ".idat"-Dateien hoch.'
@@ -97,7 +98,8 @@ export default {
         history: "Sitzungsverlauf",
         logIn: "Anmelden",
         logOut: "Abmelden",
-        upload: "Weitere Dateien hochladen"
+        upload: "Weitere Dateien hochladen",
+        predictions: "Vorhersagedetails"
     },
 
     // Seiten
@@ -233,7 +235,7 @@ export default {
         title: "Hallo, {name}",
         table: {
             title: "Liste der letzten Sitzungen",
-            caption: "Alle Dateipaare in dieser Sitzung",
+            caption: "Keine Vorhersage verfügbar für dieses Sitzung",
             columns: {
                 name: "Dateipaar",
                 status: "Status",
@@ -255,6 +257,7 @@ export default {
         },
         title: "Hallo, {name}",
         table: {
+            caption: "Sitzung vom {date}",
             columns: {
                 name: "Dateipaar",
                 prediction: "Vorhersage",

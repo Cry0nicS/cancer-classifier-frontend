@@ -25,3 +25,15 @@ export enum UploadStatus {
     UploadFinished = "files-uploaded",
     UploadPending = "upload-pending"
 }
+
+export enum PredictionResult {
+    PAAD = "PAAD",
+    iCCA = "iCCA",
+    NormalBile = "normal_bile",
+    NoMatch = "no_match"
+}
+
+export enum BinomialPrediction {
+    Positive = "positive",
+    Negative = "negative"
+}

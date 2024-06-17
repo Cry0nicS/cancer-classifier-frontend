@@ -1,4 +1,11 @@
-import {Locale, Platform, StorageMethod, UploadStatus} from "~/types/enums";
+import {
+    BinomialPrediction,
+    Locale,
+    Platform,
+    PredictionResult,
+    StorageMethod,
+    UploadStatus
+} from "~/types/enums";
 
 export const SESSION_KEY = "uploadSessionActive";
 
@@ -28,6 +35,18 @@ export const UploadStatusNames: Record<UploadStatus, string> = {
     [UploadStatus.UploadPending]: "Upload pending"
 };
 
+export const PredictionResultNames: Record<PredictionResult, string> = {
+    [PredictionResult.PAAD]: "PAAD",
+    [PredictionResult.iCCA]: "iCCA",
+    [PredictionResult.NormalBile]: "Normal bile",
+    [PredictionResult.NoMatch]: "No match"
+};
+
+export const BinomialPredictionNames: Record<BinomialPrediction, string> = {
+    [BinomialPrediction.Positive]: "Pass",
+    [BinomialPrediction.Negative]: "Fail"
+};
+
 // Generic function to fetch the name of an enum value based on the key
 export function getEnumName<T extends Record<string, string | number | symbol>>(
     enumMap: Record<T[keyof T], string>,
@@ -41,8 +60,12 @@ export const LocaleIsoMap = {
     [Locale.German]: "de-DE"
 };
 
-export function formatDate(dateString: string, locale: string) {
-    return useDateFormat(dateString, "ddd, MMMM DD, YYYY, HH:mm", {
+export function formatDate(
+    dateString: string,
+    locale: string,
+    format = "ddd, MMMM DD, YYYY, HH:mm"
+) {
+    return useDateFormat(dateString, format, {
         locales: LocaleIsoMap[locale as keyof typeof LocaleIsoMap]
     }).value;
 }

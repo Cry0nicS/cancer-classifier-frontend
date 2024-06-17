@@ -69,7 +69,8 @@ export default {
         },
         file: {
             failure: "Selected files could not be added.",
-            maxFiles: "You can only upload two files at a time.",
+            maxFiles: "You can upload maximum 16 files at a time.",
+            evenNumber: "Please upload files in pairs.",
             required: "Please upload a file.",
             size: "File size is too large. Please upload a file smaller than 30 MB.",
             type: 'Invalid file type. Please upload only ".idat" files.'
@@ -95,7 +96,8 @@ export default {
         history: "Session history",
         logIn: "Log in",
         logOut: "Log out",
-        upload: "Upload more files"
+        upload: "Upload more files",
+        predictions: "Prediction details"
     },
 
     // Pages
@@ -228,7 +230,7 @@ export default {
         title: "Hello, {name}",
         table: {
             title: "List of recent sessions",
-            caption: "All file pairs in this session",
+            caption: "No prediction available for this session",
             columns: {
                 name: "File pair",
                 status: "Status",
@@ -250,6 +252,7 @@ export default {
         },
         title: "Hello, {name}",
         table: {
+            caption: "Session started {date}",
             columns: {
                 name: "File pair",
                 prediction: "Prediction",

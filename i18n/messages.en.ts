@@ -69,7 +69,8 @@ export default {
         },
         file: {
             failure: "Selected files could not be added.",
-            maxFiles: "You can only upload two files at a time.",
+            maxFiles: "You can upload maximum 16 files at a time.",
+            evenNumber: "Please upload files in pairs.",
             required: "Please upload a file.",
             size: "File size is too large. Please upload a file smaller than 30 MB.",
             type: 'Invalid file type. Please upload only ".idat" files.'

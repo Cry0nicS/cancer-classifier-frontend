@@ -70,7 +70,8 @@ export default {
         },
         file: {
             failure: "Ausgewählte Dateien konnten nicht hinzugefügt werden.",
-            maxFiles: "Sie können nur zwei Dateien gleichzeitig hochladen.",
+            maxFiles: "Sie können maximal 16 Dateien gleichzeitig hochladen.",
+            evenNumber: "Bitte laden Sie eine gerade Anzahl von Dateien hoch.",
             required: "Bitte laden Sie eine Datei hoch.",
             size: "Die Dateigröße ist zu groß. Bitte laden Sie eine Datei hoch, die kleiner als 30 MB ist.",
             type: 'Ungültiger Dateityp. Bitte laden Sie nur ".idat"-Dateien hoch.'

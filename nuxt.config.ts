@@ -114,7 +114,9 @@ export default defineNuxtConfig({
         exposeConfig: true
     },
     colorMode: {
-        classSuffix: ""
+        classSuffix: "",
+        preference: "system",
+        fallback: "dark"
     },
     imports: {
         imports: [

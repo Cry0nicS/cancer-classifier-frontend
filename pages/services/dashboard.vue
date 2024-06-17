@@ -36,7 +36,7 @@ useSeo(
 // Setting up Firebase Auth and Firestore
 useFirebaseAuth();
 const user = (await getCurrentUser()) as User;
-const idToken = user.getIdToken();
+const idToken = await user.getIdToken();
 const db = useFirestore();
 const fileList = ref<FileList[]>([]);
 const isProcessingStarted = ref(false);

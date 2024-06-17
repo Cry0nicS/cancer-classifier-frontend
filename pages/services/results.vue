@@ -5,13 +5,14 @@ import type {User} from "@firebase/auth";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {useSessionId} from "~/composables/use-session-id";
+import {BinomialPredictionNames} from "~/utils/helpers";
 
 definePageMeta({
     showHeader: true,
     middleware: ["auth", "query-session-id"]
 });
 
-const {t} = useI18n();
+const {t, locale} = useI18n();
 const localePath = useLocalePath();
 const sessionId = useSessionId().getQueryParamSessionId();
 const uploadSessionId = useCookie<string>("uploadSessionId");
@@ -105,12 +106,20 @@ if (!userCollection.value) {
             </div>
             <div class="mt-12">
                 <UiTable class="w-full table-auto">
+                    <UiTableCaption>
+                        {{
+                            t("results.table.caption", {
+                                date: formatDate(userCollection!.sessionStartedAt, locale)
+                            })
+                        }}
+                    </UiTableCaption>
                     <UiTableHeader>
                         <UiTableRow>
                             <UiTableHead>{{ t("results.table.columns.name") }}</UiTableHead>
-                            <UiTableHead>{{ t("results.table.columns.prediction") }}</UiTableHead>
                             <UiTableHead>
-                                {{ t("results.table.columns.binomialScorePositive") }}
+                                <span class="font-bold">
+                                    {{ t("results.table.columns.prediction") }}
+                                </span>
                             </UiTableHead>
                             <UiTableHead>
                                 {{ t("results.table.columns.nnScoreNormalBile") }}
@@ -120,20 +129,22 @@ if (!userCollection.value) {
                             <UiTableHead>
                                 {{ t("results.table.columns.binomial_prediction") }}
                             </UiTableHead>
+                            <UiTableHead>
+                                {{ t("results.table.columns.binomialScorePositive") }}
+                            </UiTableHead>
                         </UiTableRow>
                     </UiTableHeader>
                     <UiTableBody class="last:border-b">
                         <UiTableRow
                             v-for="(file, index) in userCollection!.file_list"
                             :key="index">
-                            <UiTableCell class="font-medium">
+                            <UiTableCell>
                                 <span>{{ file.baseName }}</span>
                             </UiTableCell>
                             <UiTableCell>
-                                <span>{{ file.prediction! }}</span>
-                            </UiTableCell>
-                            <UiTableCell>
-                                <span>{{ file.BinomialScorePositive!.toFixed(2) }}</span>
+                                <span class="font-bold">
+                                    {{ getEnumName(PredictionResultNames, file.prediction!) }}
+                                </span>
                             </UiTableCell>
                             <UiTableCell>
                                 <span>{{ file.NNScoreNormalBile!.toFixed(2) }}</span>
@@ -146,8 +157,16 @@ if (!userCollection.value) {
                             </UiTableCell>
                             <UiTableCell>
                                 <span>
-                                    {{ file.binomial_prediction }}
+                                    {{
+                                        getEnumName(
+                                            BinomialPredictionNames,
+                                            file.binomial_prediction!
+                                        )
+                                    }}
                                 </span>
+                            </UiTableCell>
+                            <UiTableCell>
+                                <span>{{ file.BinomialScorePositive!.toFixed(2) }}</span>
                             </UiTableCell>
                         </UiTableRow>
                     </UiTableBody>

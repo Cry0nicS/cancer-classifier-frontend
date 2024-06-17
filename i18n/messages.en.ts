@@ -182,7 +182,7 @@ export default {
         title: "Hello, {name}",
         dropzone: {
             title: "Click to upload or drag & drop files.",
-            subtext: 'Only ".idat" files allowed. Maximum 2 files.',
+            subtext: 'Only ".idat" files allowed. Maximum 16 files.',
             submit: "Upload files"
         }
     },

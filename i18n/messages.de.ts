@@ -186,7 +186,7 @@ export default {
         title: "Hallo, {name}",
         dropzone: {
             title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie sie hierher.",
-            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 2 Dateien.',
+            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 16 Dateien.',
             submit: "Dateien hochladen"
         }
     },

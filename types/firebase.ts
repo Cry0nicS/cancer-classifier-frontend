@@ -1,4 +1,4 @@
-import type {Platform, StorageMethod, UploadStatus} from "~/types/enums";
+import type {Platform, StorageMethod, UploadStatus} from "~/types/constants";
 
 export type UserCollection = {
     id: string;

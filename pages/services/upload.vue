@@ -3,8 +3,8 @@ import {useSessionStorage} from "@vueuse/core";
 import type {User} from "@firebase/auth";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
-import {SESSION_KEY} from "~/utils/helpers";
 import {useErrorMessage} from "~/composables/use-error-message";
+import {UPLOAD_SESSION_KEY} from "~/types/constants";
 
 definePageMeta({
     showHeader: true,
@@ -112,7 +112,7 @@ const uploadFiles = async () => {
         });
 
         // Set the session state to active. Used by delete-session-id.client plugin.
-        useSessionStorage(SESSION_KEY, "true");
+        useSessionStorage(UPLOAD_SESSION_KEY, "true");
 
         useSonner.success(t("toast.uploadSuccess"), {
             id: loading

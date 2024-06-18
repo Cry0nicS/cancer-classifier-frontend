@@ -2,17 +2,24 @@
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
 import type {User} from "@firebase/auth";
-import {type Platform, type StorageMethod, UploadStatus} from "~/types/enums";
 import type {UserCollection} from "~/types/firebase";
-import {PlatformNames, formatDate, getEnumName, storageMethodNames} from "~/utils/helpers";
+import {formatDate} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
 import {useSeo} from "~/composables/use-seo";
 import {useErrorMessage} from "~/composables/use-error-message";
+import {
+    type Locale,
+    type Platform,
+    STORAGE_METHOD,
+    type StorageMethod,
+    UPLOAD_STATUS,
+    type UploadStatus
+} from "~/types/constants";
 
 type FileList = {
     baseName: string;
     platform: Platform;
-    material: StorageMethod | null;
+    material: StorageMethod | "";
 };
 
 definePageMeta({
@@ -72,7 +79,7 @@ fileList.value =
     userCollection.value!.file_list.map((file) => ({
         baseName: file.baseName,
         platform: file.platform,
-        material: file.material ?? null
+        material: file.material ?? ""
     })) ?? [];
 
 const startPreProcessing = async () => {
@@ -134,14 +141,14 @@ const startPrediction = async () => {
 
 function progressStatus(status: UploadStatus): void {
     switch (status) {
-        case UploadStatus.PreRunning:
+        case UPLOAD_STATUS.PreRunning:
             isProcessingStarted.value = true;
             useSonner.loading(t("toast.preStart"), {
                 description: t("toast.wait"),
                 id: notificationId.value
             });
             break;
-        case UploadStatus.PreSuccessful:
+        case UPLOAD_STATUS.PreSuccessful:
             isProcessingComplete.value = true;
             useSonner.success(t("toast.preSuccessful"), {
                 description: t("toast.nextStep"),
@@ -149,14 +156,14 @@ function progressStatus(status: UploadStatus): void {
             });
             startPrediction();
             break;
-        case UploadStatus.PredictionRunning:
+        case UPLOAD_STATUS.PredictionRunning:
             isPredictionStarted.value = true;
             useSonner.loading(t("toast.predictionStart"), {
                 description: t("toast.wait"),
                 id: notificationId.value
             });
             break;
-        case UploadStatus.PredictionSuccessful:
+        case UPLOAD_STATUS.PredictionSuccessful:
             isPredictionComplete.value = true;
             useSonner.success(t("toast.predictionSuccessful"), {
                 description: `${t("toast.redirect")}...`,
@@ -174,7 +181,7 @@ function progressStatus(status: UploadStatus): void {
 
 watch(
     () => userCollection.value!.status,
-    (newStatus) => {
+    (newStatus: UploadStatus) => {
         progressStatus(newStatus);
     }
 );
@@ -273,21 +280,26 @@ watch(
                                         <span>{{ file.baseName }}</span>
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{ getEnumName(UploadStatusNames, userCollection!.status) }}
+                                        {{ t(`api.uploadStatus.${userCollection!.status}`) }}
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{ formatDate(userCollection!.sessionStartedAt, locale) }}
+                                        {{
+                                            formatDate(
+                                                userCollection!.sessionStartedAt,
+                                                locale as Locale
+                                            )
+                                        }}
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{ getEnumName(PlatformNames, file.platform) }}
+                                        {{ t(`api.platform.${file.platform}`) }}
                                     </UiTableCell>
                                     <UiTableCell v-if="file.material">
-                                        {{ getEnumName(storageMethodNames, file.material) }}
+                                        {{ t(`api.storageMethod.${file.material}`) }}
                                     </UiTableCell>
                                     <UiTableCell v-else>
                                         <fieldset class="space-y-5">
                                             <UiVeeSelect
-                                                v-model="fileList[index].material as StorageMethod"
+                                                v-model="fileList[index].material"
                                                 :name="`storageMethod-${file.baseName}`"
                                                 type="text">
                                                 <option
@@ -296,10 +308,10 @@ watch(
                                                     Select a storage method
                                                 </option>
                                                 <option
-                                                    v-for="(name, value) in storageMethodNames"
+                                                    v-for="value in STORAGE_METHOD"
                                                     :key="value"
                                                     :value="value">
-                                                    {{ name }}
+                                                    {{ t(`api.storageMethod.${value}`) }}
                                                 </option>
                                             </UiVeeSelect>
                                         </fieldset>

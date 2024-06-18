@@ -5,7 +5,7 @@ import type {User} from "@firebase/auth";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {useSessionId} from "~/composables/use-session-id";
-import {BinomialPredictionNames} from "~/utils/helpers";
+import type {Locale} from "~/types/constants";
 
 definePageMeta({
     showHeader: true,
@@ -109,7 +109,7 @@ if (!userCollection.value) {
                     <UiTableCaption>
                         {{
                             t("results.table.caption", {
-                                date: formatDate(userCollection!.sessionStartedAt, locale)
+                                date: formatDate(userCollection!.sessionStartedAt, locale as Locale)
                             })
                         }}
                     </UiTableCaption>
@@ -143,7 +143,7 @@ if (!userCollection.value) {
                             </UiTableCell>
                             <UiTableCell>
                                 <span class="font-bold">
-                                    {{ getEnumName(PredictionResultNames, file.prediction!) }}
+                                    {{ t(`api.predictionResult.${file.prediction}`) }}
                                 </span>
                             </UiTableCell>
                             <UiTableCell>
@@ -157,12 +157,7 @@ if (!userCollection.value) {
                             </UiTableCell>
                             <UiTableCell>
                                 <span>
-                                    {{
-                                        getEnumName(
-                                            BinomialPredictionNames,
-                                            file.binomial_prediction!
-                                        )
-                                    }}
+                                    {{ t(`api.binomialPrediction.${file.binomial_prediction}`) }}
                                 </span>
                             </UiTableCell>
                             <UiTableCell>

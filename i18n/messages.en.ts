@@ -100,6 +100,40 @@ export default {
         predictions: "Prediction details"
     },
 
+    // API
+    api: {
+        storageMethod: {
+            FFPE: "Formalin-Fixed, Paraffin-Embedded",
+            Frozen: "Fresh Frozen",
+            Other: "Other"
+        },
+        platform: {
+            "EPIC": "EPIC",
+            "EPICv2": "EPICv2",
+            "450k": "450k"
+        },
+        uploadStatus: {
+            "csv-uploaded": "Documents uploaded",
+            "pending": "Pending",
+            "prediction-running": "Prediction running",
+            "prediction-successful": "Prediction successful",
+            "preprocessing-running": "Preprocessing running",
+            "preprocessing-successful": "Preprocessing successful",
+            "files-uploaded": "Files uploaded",
+            "upload-pending": "Upload pending"
+        },
+        predictionResult: {
+            PAAD: "PAAD",
+            iCCA: "iCCA",
+            normal_bile: "Normal bile",
+            no_match: "No match"
+        },
+        binomialPrediction: {
+            positive: "Pass",
+            negative: "Fail"
+        }
+    },
+
     // Pages
     // -- Forgotten password
     forgotPassword: {

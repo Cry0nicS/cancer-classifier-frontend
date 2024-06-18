@@ -4,8 +4,8 @@ import {useFirebaseAuth} from "vuefire";
 import type {User} from "@firebase/auth";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
-import {PlatformNames, formatDate, getEnumName, storageMethodNames} from "~/utils/helpers";
-import {UploadStatus} from "~/types/enums";
+import {formatDate} from "~/utils/helpers";
+import {type Locale, UPLOAD_STATUS} from "~/types/constants";
 
 definePageMeta({
     showHeader: true,
@@ -87,7 +87,7 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                     <UiTable class="w-full table-auto">
                         <UiTableCaption>
                             <NuxtLink
-                                v-if="userCollection.status === UploadStatus.PredictionSuccessful"
+                                v-if="userCollection.status === UPLOAD_STATUS.PredictionSuccessful"
                                 :to="
                                     localePath({
                                         name: 'services-results',
@@ -129,17 +129,22 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                                     <span>{{ file.baseName }}</span>
                                 </UiTableCell>
                                 <UiTableCell>
-                                    {{ getEnumName(UploadStatusNames, userCollection.status) }}
+                                    {{ t(`api.uploadStatus.${userCollection!.status}`) }}
                                 </UiTableCell>
                                 <UiTableCell>
-                                    {{ formatDate(userCollection!.sessionStartedAt, locale) }}
+                                    {{
+                                        formatDate(
+                                            userCollection!.sessionStartedAt,
+                                            locale as Locale
+                                        )
+                                    }}
                                 </UiTableCell>
                                 <UiTableCell>
-                                    {{ getEnumName(PlatformNames, file.platform) }}
+                                    {{ t(`api.platform.${file.platform}`) }}
                                 </UiTableCell>
                                 <UiTableCell>
                                     <template v-if="file.material">
-                                        {{ getEnumName(storageMethodNames, file.material) }}
+                                        {{ t(`api.storageMethod.${file.material}`) }}
                                     </template>
                                     <template v-else>
                                         {{ t("material.none") }}

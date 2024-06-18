@@ -1,6 +1,6 @@
 import {array, mixed, object, string} from "yup";
 import type {ComposerTranslation} from "vue-i18n";
-import {Platform, StorageMethod} from "~/types/enums";
+import {PLATFORM, STORAGE_METHOD} from "~/types/constants";
 
 // Rules: min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -75,13 +75,13 @@ export const StorageMethodSchema = (translate: ComposerTranslation) =>
                 baseName: string().required(),
                 platform: mixed()
                     .oneOf(
-                        [Platform.EPIC, Platform.EPICv2, Platform.FOUR_FIVE_K],
+                        [PLATFORM.EPIC, PLATFORM.EPICv2, PLATFORM.FOUR_FIVE_K],
                         translate("validation.platform.invalid")
                     )
                     .required(),
                 material: mixed()
                     .oneOf(
-                        [StorageMethod.FFPE, StorageMethod.FreshFrozen, StorageMethod.Other],
+                        [STORAGE_METHOD.FFPE, STORAGE_METHOD.Frozen, STORAGE_METHOD.Other],
                         translate("validation.storageMethod.invalid")
                     )
                     .required(translate("validation.storageMethod.required"))

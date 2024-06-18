@@ -102,6 +102,40 @@ export default {
         predictions: "Vorhersagedetails"
     },
 
+    // API
+    api: {
+        storageMethod: {
+            FFPE: "Formalin-fixiert, Paraffin-eingebettet",
+            Frozen: "Frisch gefroren",
+            Other: "Andere"
+        },
+        platform: {
+            "EPIC": "EPIC",
+            "EPICv2": "EPICv2",
+            "450k": "450k"
+        },
+        uploadStatus: {
+            "csv-uploaded": "Dokumente hochgeladen",
+            "pending": "Ausstehend",
+            "prediction-running": "Vorhersage läuft",
+            "prediction-successful": "Vorhersage erfolgreich",
+            "preprocessing-running": "Vorverarbeitung läuft",
+            "preprocessing-successful": "Vorverarbeitung erfolgreich",
+            "files-uploaded": "Dateien hochgeladen",
+            "upload-pending": "Hochladen ausstehend"
+        },
+        predictionResult: {
+            PAAD: "PAAD",
+            iCCA: "iCCA",
+            normal_bile: "Normale Galle",
+            no_match: "Kein Treffer"
+        },
+        binomialPrediction: {
+            positive: "Bestanden",
+            negative: "Nicht bestanden"
+        }
+    },
+
     // Seiten
     // -- Passwort vergessen
     forgotPassword: {

@@ -1,4 +1,4 @@
-import {SESSION_KEY} from "~/utils/helpers";
+import {UPLOAD_SESSION_KEY} from "~/types/constants";
 
 /**
  * Nuxt.js plugin to delete the user's active session ID when the tab or browser is closed.
@@ -21,7 +21,7 @@ export default defineNuxtPlugin((_nuxtApp) => {
     const deleteCookie = () => {
         // Session storage is cleared when the tab or browser is closed.
         // If the session ID is still in the session storage, it means the tab or browser was not closed.
-        if (!sessionStorage.getItem(SESSION_KEY)) {
+        if (!sessionStorage.getItem(UPLOAD_SESSION_KEY)) {
             // If not present, assume the tab or browser was closed and destroy the user's active session ID.
             uploadSessionId.value = null;
         }

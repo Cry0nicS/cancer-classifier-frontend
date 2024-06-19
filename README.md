@@ -91,7 +91,3 @@ You can do so by using the `@latest`. e.g. `npm install <packagename>@latest`
 ### Alternative
 
 As an alternative, you can also use [npm-check-updates](https://github.com/raineorshine/npm-check-updates).
-
-## TODOs
-
--   [ ] Update `prettier` to ESM-only. See [#3066](https://github.com/prettier/prettier-vscode/issues/3066)

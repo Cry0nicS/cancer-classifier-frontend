@@ -1,4 +1,7 @@
-module.exports = {
+/**
+ * @type {import("prettier").Config}
+ */
+const config = {
     $schema: "https://json.schemastore.org/prettierrc",
     arrowParens: "always",
     bracketSameLine: true,
@@ -18,6 +21,7 @@ module.exports = {
     trailingComma: "none",
     useTabs: false,
     vueIndentScriptAndStyle: false,
+    tailwindFunctions: ["tv", "tw"],
     overrides: [
         {
             // For a detailed explanation, see https://github.com/tailwindlabs/prettier-plugin-tailwindcss/issues/214#issuecomment-1725525854
@@ -28,3 +32,5 @@ module.exports = {
         }
     ]
 };
+
+export default config;

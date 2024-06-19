@@ -85,12 +85,6 @@ export default {
                 "Eine ungültige Plattform wurde erkannt. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
         }
     },
-    material: {
-        ffpe: "Formalin-Fixiertes, Paraffin-Eingebettetes",
-        freshFrozen: "Frisch Gefroren",
-        none: "Nicht definiert",
-        other: "Andere"
-    },
     buttons: {
         createAccount: "Konto erstellen",
         dashboard: "Aktuelle Sitzung",
@@ -107,7 +101,8 @@ export default {
         storageMethod: {
             FFPE: "Formalin-fixiert, Paraffin-eingebettet",
             Frozen: "Frisch gefroren",
-            Other: "Andere"
+            Other: "Andere",
+            none: "Nicht definiert"
         },
         platform: {
             "EPIC": "EPIC",

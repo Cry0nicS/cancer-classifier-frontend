@@ -83,12 +83,6 @@ export default {
             invalid: "An invalid platform has been detected. Please try again or contact support."
         }
     },
-    material: {
-        ffpe: "Formalin-Fixed, Paraffin-Embedded",
-        freshFrozen: "Fresh Frozen",
-        none: "Not defined",
-        other: "Other"
-    },
     buttons: {
         createAccount: "Create an account",
         dashboard: "Current session",
@@ -103,9 +97,10 @@ export default {
     // API
     api: {
         storageMethod: {
-            FFPE: "Formalin-Fixed, Paraffin-Embedded",
+            FFPE: "FFPE",
             Frozen: "Fresh Frozen",
-            Other: "Other"
+            Other: "Other",
+            none: "Not defined"
         },
         platform: {
             "EPIC": "EPIC",

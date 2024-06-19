@@ -7,6 +7,6 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     const localePath = useLocalePath();
 
     if (!to.query.sessionId) {
-        return navigateTo({path: localePath("/services/history"), replace: true});
+        return navigateTo({path: localePath("/services/history")}, {replace: true, external: true});
     }
 });

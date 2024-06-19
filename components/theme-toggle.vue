@@ -9,9 +9,8 @@ const colorMode = useColorMode();
         placeholder="..."
         tag="span">
         <UiButton
-            size="icon-sm"
             variant="ghost"
-            class="h-auto w-auto"
+            class="w-auto p-0 hover:bg-transparent"
             :title="$t('common.toggleTheme')"
             @click="colorMode = colorMode === 'dark' ? 'light' : 'dark'">
             <span class="sr-only">{{ $t("common.toggleTheme") }}</span>

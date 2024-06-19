@@ -10,11 +10,14 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
     // Redirect the user to the home (login) page if they are not authenticated.
     if (!user && to.path !== localePath("/")) {
-        return navigateTo({
-            path: localePath("/"),
-            query: {
-                redirect: to.fullPath
-            }
-        });
+        return navigateTo(
+            {
+                path: localePath("/"),
+                query: {
+                    redirect: to.fullPath
+                }
+            },
+            {external: true}
+        );
     }
 });

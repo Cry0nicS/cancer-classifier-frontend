@@ -9,6 +9,6 @@ export default defineNuxtRouteMiddleware(async (_to, _from) => {
 
     // Redirect the user to a dedicated page if they are authenticated.
     if (user) {
-        return navigateTo({path: localePath("/services/upload"), replace: true});
+        return navigateTo({path: localePath("/services/upload")}, {replace: true, external: true});
     }
 });

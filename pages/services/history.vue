@@ -83,7 +83,7 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                 v-for="userCollection in userCollections"
                 :key="userCollection.id"
                 class="mt-8 w-full">
-                <div class="mt-8 overflow-x-auto rounded-md border pb-4">
+                <div class="overflow-x-auto rounded-md border pb-4">
                     <UiTable class="w-full table-auto">
                         <UiTableCaption>
                             <NuxtLink
@@ -119,6 +119,14 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                                 <UiTableHead>
                                     {{ t("history.table.columns.method") }}
                                 </UiTableHead>
+                                <UiTableHead
+                                    v-if="
+                                        userCollection.status === UPLOAD_STATUS.PredictionSuccessful
+                                    ">
+                                    <span class="font-bold">
+                                        {{ t("results.table.columns.prediction") }}
+                                    </span>
+                                </UiTableHead>
                             </UiTableRow>
                         </UiTableHeader>
                         <UiTableBody class="last:border-b">
@@ -147,8 +155,16 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                                         {{ t(`api.storageMethod.${file.material}`) }}
                                     </template>
                                     <template v-else>
-                                        {{ t("material.none") }}
+                                        {{ t("api.storageMethod.none") }}
                                     </template>
+                                </UiTableCell>
+                                <UiTableCell
+                                    v-if="
+                                        userCollection.status === UPLOAD_STATUS.PredictionSuccessful
+                                    ">
+                                    <span class="font-bold">
+                                        {{ t(`api.predictionResult.${file.prediction}`) }}
+                                    </span>
                                 </UiTableCell>
                             </UiTableRow>
                         </UiTableBody>

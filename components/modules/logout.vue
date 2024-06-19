@@ -23,7 +23,7 @@ const logoutUser = async () => {
         });
 
         // Redirect to a dedicated page.
-        return await navigateTo({path: localePath("/"), replace: true});
+        return navigateTo({path: localePath("/")}, {external: true, replace: true});
     } catch (error) {
         useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),

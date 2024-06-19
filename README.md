@@ -95,4 +95,3 @@ As an alternative, you can also use [npm-check-updates](https://github.com/raine
 ## TODOs
 
 -   [ ] Update `prettier` to ESM-only. See [#3066](https://github.com/prettier/prettier-vscode/issues/3066)
--   [ ] Update `CSpell` to ESM-only. See [#4402](https://github.com/streetsidesoftware/cspell/issues/4402)

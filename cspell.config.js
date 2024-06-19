@@ -1,4 +1,7 @@
-module.exports = /** @type {import("@cspell/cspell-types").FileSettings} */ ({
+/**
+ * @type {import("@cspell/cspell-types").FileSettings}
+ */
+const config = {
     version: "0.2",
     files: ["**/*.{html,js,json,jsx,md,scss,ts,tsx,vue}", "/.*.{ts,tsx,js,jsx,vue}"],
     ignorePaths: [
@@ -37,4 +40,6 @@ module.exports = /** @type {import("@cspell/cspell-types").FileSettings} */ ({
             ignoreRegExpList: ["/import .*/"]
         }
     ]
-});
+};
+
+export default config;

@@ -119,7 +119,10 @@ const uploadFiles = async () => {
         });
 
         // Redirect to the dashboard page.
-        return navigateTo({path: localePath("/services/dashboard"), replace: true});
+        return navigateTo(
+            {path: localePath("/services/dashboard")},
+            {replace: true, external: false}
+        );
     } catch (error) {
         useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),

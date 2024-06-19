@@ -31,7 +31,7 @@ const loginUser = handleSubmit(async (values, _ctx) => {
         });
 
         // Redirect to the upload page.
-        return navigateTo({path: localePath("/services/upload"), replace: true});
+        return navigateTo({path: localePath("/services/upload")}, {external: true, replace: true});
     } catch (error) {
         useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),

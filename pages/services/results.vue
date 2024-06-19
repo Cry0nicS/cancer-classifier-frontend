@@ -47,7 +47,7 @@ if (!userCollection.value) {
         description: `${t("toast.redirect")}...`
     });
 
-    navigateTo({path: localePath("/services/history"), replace: true});
+    navigateTo({path: localePath("/services/history")}, {replace: true, external: false});
 }
 </script>
 

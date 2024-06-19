@@ -67,7 +67,7 @@ if (!userCollection.value) {
         description: `${t("toast.redirect")}...`
     });
 
-    navigateTo({path: localePath("/services/upload"), replace: true});
+    navigateTo({path: localePath("/services/upload")}, {replace: true, external: false});
 }
 
 // Check if the data processing has already started for the current session.

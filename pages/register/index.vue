@@ -54,7 +54,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         });
 
         // Redirect to a dedicated page.
-        return navigateTo({path: localePath("/services/upload"), replace: true});
+        return navigateTo({path: localePath("/services/upload")}, {replace: true, external: true});
     } catch (error) {
         useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),

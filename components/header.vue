@@ -12,7 +12,7 @@ const user = useCurrentUser();
             <div class="flex min-w-[180px] items-center gap-4">
                 <div
                     v-if="user"
-                    class="basis-[90px] p-2">
+                    class="m-2 basis-[90px]">
                     <ModulesLogout />
                 </div>
                 <div class="p-2">

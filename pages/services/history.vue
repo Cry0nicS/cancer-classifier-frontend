@@ -83,7 +83,7 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                 v-for="userCollection in userCollections"
                 :key="userCollection.id"
                 class="mt-8 w-full">
-                <div class="mt-8 overflow-x-auto rounded-md border pb-4">
+                <div class="overflow-x-auto rounded-md border pb-4">
                     <UiTable class="w-full table-auto">
                         <UiTableCaption>
                             <NuxtLink

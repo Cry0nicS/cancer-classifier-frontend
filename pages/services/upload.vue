@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/* eslint-disable no-console */
 import {useSessionStorage} from "@vueuse/core";
 import type {User} from "@firebase/auth";
 import {useSeo} from "~/composables/use-seo";
@@ -81,7 +80,6 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
 };
 
 const uploadFiles = async () => {
-    console.log("Uploading files session started...");
     isSubmitting.value = true;
 
     const loading = useSonner.loading(t("toast.uploading"), {
@@ -89,12 +87,8 @@ const uploadFiles = async () => {
     });
 
     try {
-        console.log("Preparing to manually validate that files are in pairs...");
-
         // Validate that selected files are uploaded in pairs (even number).
         checkFilesInPairs(files.value);
-
-        console.log("Files are in pairs. Proceeding to upload...");
 
         const formData = new FormData();
         /**
@@ -108,8 +102,6 @@ const uploadFiles = async () => {
 
         const idToken = await user.getIdToken();
 
-        console.log("Files parsed, token retrieved. Uploading files...");
-
         // Store the upload session ID in a cookie.
         uploadSessionId.value = await $fetch("/api/upload-files", {
             method: "POST",
@@ -118,8 +110,6 @@ const uploadFiles = async () => {
             },
             body: formData
         });
-
-        console.log("Files uploaded");
 
         // Set the session state to active. Used by delete-session-id.client plugin.
         useSessionStorage(UPLOAD_SESSION_KEY, "true");
@@ -131,8 +121,6 @@ const uploadFiles = async () => {
         // Redirect to the dashboard page.
         return navigateTo({path: localePath("/services/dashboard"), replace: true});
     } catch (error) {
-        console.error("Error uploading files:", error);
-
         useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),
             id: loading

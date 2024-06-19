@@ -6,6 +6,7 @@ const config: Config = {
     rules: {
         "color-named": "never",
         "at-rule-no-unknown": null,
+        "at-rule-empty-line-before": null,
         "scss/at-rule-no-unknown": [
             true,
             {

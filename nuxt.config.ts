@@ -111,7 +111,9 @@ export default defineNuxtConfig({
         }
     },
     tailwindcss: {
-        exposeConfig: true
+        exposeConfig: true,
+        editorSupport: true,
+        cssPath: ["~/assets/main.scss", {injectPosition: "last"}]
     },
     colorMode: {
         classSuffix: "",

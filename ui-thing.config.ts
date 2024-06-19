@@ -1,7 +1,7 @@
 export default {
     theme: "green",
     tailwindCSSLocation: "assets/main.scss",
-    tailwindConfigLocation: "tailwind.config.js",
+    tailwindConfigLocation: "tailwind.config.ts",
     componentsLocation: "components/Ui",
     composablesLocation: "composables",
     utilsLocation: "utils",

@@ -6,7 +6,7 @@ module.exports = /** @type {import("@cspell/cspell-types").FileSettings} */ ({
         "assets/",
         "package.json",
         "nuxt.config.ts",
-        "tailwind.config.js"
+        "tailwind.config.ts"
     ],
     import: ["@cspell/dict-de-de/cspell-ext.json", "@cspell/dict-lorem-ipsum/cspell-ext.json"],
     language: "en,de",

@@ -1,8 +1,8 @@
+import type {Config} from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import animatePlugin from "tailwindcss-animate";
 
-/** @type {import('tailwindcss').Config} */
-export default {
+export default <Partial<Config>>{
     darkMode: "class",
     content: [
         "./components/**/*.{js,vue,ts}",

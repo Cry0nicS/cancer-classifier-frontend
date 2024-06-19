@@ -40,8 +40,7 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
     try {
         // Authenticate the user with email and password.
         await sendPasswordResetEmail(auth!, values.email, {
-            // TODO: Implement a proper URL. Used in the email by firebase to redirect the user.
-            url: "http://localhost:3000/"
+            url: "https://classifier.tgc-research.de"
         });
 
         useSonner.success(t("toast.instructionsSent"), {

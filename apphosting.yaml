@@ -1,3 +1,14 @@
+# Advanced configuration for App Hosting on Firebase.
+# See https://firebase.google.com/docs/app-hosting/configure for more details.
+
+# Settings for Cloud Run
+runConfig:
+    minInstances: 0
+    maxInstances: 2
+    concurrency: 100
+    cpu: 1
+    memoryMiB: 1024
+
 # Environment variables and secrets
 env:
     -   variable: FIREBASE_API_KEY

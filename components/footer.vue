@@ -10,13 +10,13 @@ const slots = useSlots();
 
         <nav
             v-if="slots.links"
-            class="flex flex-col gap-6 md:flex-row xl:gap-4">
+            class="flex flex-col items-center gap-6 md:flex-row xl:gap-4">
             <slot name="links" />
         </nav>
 
         <div
             v-if="slots.social"
-            class="flex flex-row gap-3">
+            class="flex flex-row items-center gap-3">
             <slot name="social" />
         </div>
     </UiContainer>

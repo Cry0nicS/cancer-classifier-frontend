@@ -1,3 +1,6 @@
+import {uuidv4} from "@firebase/util";
+import type {CookieRef} from "#app";
+
 /**
  * Composable to retrieve session IDs.
  *
@@ -6,6 +9,19 @@
  */
 export const useSessionId = () => {
     const {t} = useI18n();
+
+    /**
+     * Creates a new upload session ID, stores it in the cookie and returns it.
+     * Upload session ID is used to track the user's current and active upload session.
+     *
+     * @returns {CookieRef<string>} The upload session ID cookie reference.
+     */
+    const createUploadSessionId = (): CookieRef<string> => {
+        const uploadSessionId = useCookie<string>("uploadSessionId");
+        uploadSessionId.value = uuidv4();
+
+        return uploadSessionId;
+    };
 
     /**
      * Get the upload session ID from the cookie.
@@ -43,8 +59,18 @@ export const useSessionId = () => {
         return route.query.sessionId as string;
     };
 
+    /**
+     * Remove the upload session ID from the cookie.
+     */
+    const deleteUploadSessionId = (): void => {
+        const uploadSessionId = useCookie("uploadSessionId");
+        uploadSessionId.value = null;
+    };
+
     return {
+        createUploadSessionId,
         getUploadSessionId,
-        getQueryParamSessionId
+        getQueryParamSessionId,
+        deleteUploadSessionId
     };
 };

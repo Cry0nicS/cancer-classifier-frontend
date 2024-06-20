@@ -24,8 +24,9 @@ useSeo(
 );
 
 const user = (await getCurrentUser()) as User;
-// Fetch current session ID for navigation purposes.
-const uploadSessionId = useCookie("uploadSessionId");
+const idToken = await user.getIdToken();
+// Create a new upload session ID. Required for batch upload.
+const uploadSessionId = useSessionId().createUploadSessionId();
 const files = ref<File[]>([]);
 const isSubmitting = ref(false);
 const {extractErrorMessage} = useErrorMessage();
@@ -70,53 +71,51 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
     try {
         await validateFiles(selectedFiles);
         checkFileLimit(selectedFiles);
-
         return true;
     } catch (error) {
         useSonner.error(extractErrorMessage(error), {description: t("errors.tryAgain")});
-
         return false;
     }
 };
 
-const uploadFiles = async () => {
-    isSubmitting.value = true;
+const uploadFiles = async (files: File[]): Promise<void> => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file));
 
-    const loading = useSonner.loading(t("toast.uploading"), {
-        description: `${t("toast.wait")}...`
+    await $fetch("/api/upload-files-session", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${idToken}`
+        },
+        body: formData,
+        params: {
+            upload_session_id: uploadSessionId.value
+        }
     });
+};
+
+const uploadFilesInBatch = async () => {
+    isSubmitting.value = true;
+    const loading = useSonner.loading(t("toast.uploading"), {description: `${t("toast.wait")}...`});
 
     try {
         // Validate that selected files are uploaded in pairs (even number).
         checkFilesInPairs(files.value);
 
-        const formData = new FormData();
-        /**
-         * The append method of FormData cannot take an array as its second argument.
-         * It requires a Blob (which includes File objects).
-         * Therefore, each file must be appended to the formData object individually.
-         */
-        files.value.forEach((file) => {
-            formData.append("files", file);
-        });
+        // Sort files by file name.
+        files.value.sort((a, b) => a.name.localeCompare(b.name));
 
-        const idToken = await user.getIdToken();
+        // Upload files in batches of 2.
+        for (let i = 0; i < files.value.length; i += 2) {
+            const batch = files.value.slice(i, i + 2);
 
-        // Store the upload session ID in a cookie.
-        uploadSessionId.value = await $fetch("/api/upload-files", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${idToken}`
-            },
-            body: formData
-        });
+            await uploadFiles(batch);
+        }
 
         // Set the session state to active. Used by delete-session-id.client plugin.
         useSessionStorage(UPLOAD_SESSION_KEY, "true");
 
-        useSonner.success(t("toast.uploadSuccess"), {
-            id: loading
-        });
+        useSonner.success(t("toast.uploadSuccess"), {id: loading});
 
         // Redirect to the dashboard page.
         return navigateTo(
@@ -128,9 +127,10 @@ const uploadFiles = async () => {
             description: t("errors.tryAgain"),
             id: loading
         });
+    } finally {
+        useSonner.dismiss(loading);
+        isSubmitting.value = false;
     }
-
-    isSubmitting.value = false;
 };
 </script>
 
@@ -185,7 +185,7 @@ const uploadFiles = async () => {
             <div class="mx-auto mt-14 flex w-full max-w-[600px] items-center justify-center">
                 <form
                     class="mx-auto w-full"
-                    @submit.prevent="uploadFiles">
+                    @submit.prevent="uploadFilesInBatch">
                     <fieldset
                         class="grid gap-5"
                         :disabled="isSubmitting">

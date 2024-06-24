@@ -36,3 +36,5 @@ nuxt.run.xml
 # Sonar
 .sonar
 .scannerwork
+
+.idea

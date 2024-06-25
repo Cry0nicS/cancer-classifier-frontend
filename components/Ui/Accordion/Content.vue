@@ -2,8 +2,11 @@
     <AccordionContent
         v-bind="reactiveOmit(props, 'content', 'class')"
         :class="styles({class: props.class})">
-        <div class="pb-4 pt-0">
-            <slot>{{ content }}</slot>
+        <div class="whitespace-pre-line pb-4 pt-0">
+            <MDC
+                v-if="content"
+                :value="content" />
+            <slot v-else />
         </div>
     </AccordionContent>
 </template>

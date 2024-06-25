@@ -14,7 +14,6 @@ definePageMeta({
 
 const {t, locale} = useI18n();
 const localePath = useLocalePath();
-const uploadSessionId = useCookie<string>("uploadSessionId");
 
 useSeo(
     t("history.seo.title"),
@@ -54,26 +53,6 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                         :to="localePath('/services/upload')">
                         {{ t(`buttons.upload`) }}
                     </NuxtLink>
-                    <UiTooltip
-                        v-if="uploadSessionId"
-                        disable-closing-trigger>
-                        <template #trigger>
-                            <UiTooltipTrigger as-child>
-                                <NuxtLink
-                                    :to="localePath('/services/dashboard')"
-                                    class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80">
-                                    <Icon
-                                        name="lucide:layout-dashboard"
-                                        size="30px" />
-                                </NuxtLink>
-                            </UiTooltipTrigger>
-                        </template>
-                        <template #content>
-                            <UiTooltipContent>
-                                <p>{{ t("buttons.dashboard") }}</p>
-                            </UiTooltipContent>
-                        </template>
-                    </UiTooltip>
                 </div>
             </div>
             <div class="mt-12">
@@ -170,19 +149,6 @@ const {data: userCollections} = useCollection<UserCollection>(userCollectionsQue
                         </UiTableBody>
                     </UiTable>
                 </div>
-            </div>
-            <div
-                v-if="uploadSessionId"
-                class="mt-8 flex flex-col justify-end gap-2 md:flex-row">
-                <NuxtLink
-                    class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:mb-2 md:mb-0"
-                    :to="localePath('/services/dashboard')">
-                    <Icon
-                        name="lucide:square-arrow-out-up-right"
-                        class="mr-2"
-                        size="18px" />
-                    {{ t(`buttons.dashboard`) }}
-                </NuxtLink>
             </div>
         </div>
     </UiContainer>

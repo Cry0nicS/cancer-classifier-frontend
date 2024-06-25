@@ -15,7 +15,6 @@ definePageMeta({
 const {t, locale} = useI18n();
 const localePath = useLocalePath();
 const sessionId = useSessionId().getQueryParamSessionId();
-const uploadSessionId = useCookie<string>("uploadSessionId");
 
 useSeo(
     t("results.seo.title"),
@@ -64,26 +63,6 @@ if (!userCollection.value) {
                         :to="localePath('/services/upload')">
                         {{ t(`buttons.upload`) }}
                     </NuxtLink>
-                    <UiTooltip
-                        v-if="uploadSessionId"
-                        disable-closing-trigger>
-                        <template #trigger>
-                            <UiTooltipTrigger as-child>
-                                <NuxtLink
-                                    :to="localePath('/services/dashboard')"
-                                    class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground ring-offset-background transition-colors hover:bg-secondary/80">
-                                    <Icon
-                                        name="lucide:layout-dashboard"
-                                        size="30px" />
-                                </NuxtLink>
-                            </UiTooltipTrigger>
-                        </template>
-                        <template #content>
-                            <UiTooltipContent>
-                                <p>{{ t("buttons.dashboard") }}</p>
-                            </UiTooltipContent>
-                        </template>
-                    </UiTooltip>
                     <UiTooltip disable-closing-trigger>
                         <template #trigger>
                             <UiTooltipTrigger as-child>

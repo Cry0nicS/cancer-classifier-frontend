@@ -21,7 +21,17 @@ export default {
     account: {
         email: "E-Mail",
         name: "Name",
-        password: "Passwort"
+        password: "Passwort",
+        aboutMe: "Über mich",
+        aboutMePlaceholder: "Erzählen Sie uns etwas über sich selbst.",
+        charactersLeft: "{count} / {max} Zeichen übrig",
+        verification: {
+            title: "Kontoverifizierung",
+            subtitle: "Ihr Konto wurde erstellt und wird derzeit von unserem Team überprüft.",
+            info: "Dieser Prozess kann bis zu 24 Stunden dauern. Sobald Ihr Konto verifiziert ist, können Sie alle Funktionen unserer Website nutzen.",
+            urgent: "Wenn Sie diesen Prozess beschleunigen müssen, senden Sie uns bitte eine E-Mail an",
+            email: "support{'@'}tgc-research.de"
+        }
     },
     login: {
         title: "Mit bestehendem Konto anmelden"
@@ -50,7 +60,8 @@ export default {
     },
     errors: {
         unexpectedError: "Ein unerwarteter Fehler ist aufgetreten.",
-        tryAgain: "Bitte erneut versuchen."
+        tryAgain: "Bitte erneut versuchen.",
+        accountDisabled: "Ihr Konto wurde nicht aktiviert."
     },
     validation: {
         name: {
@@ -67,6 +78,10 @@ export default {
             required: "Bitte geben Sie ein Passwort ein.",
             short: "Ihr Passwort ist zu kurz. Es sollte mindestens 8 Zeichen lang sein.",
             weak: "Ihr Passwort ist zu schwach. Bitte verwenden Sie ein stärkeres Passwort mit einer Mischung aus Buchstaben, Zahlen und Symbolen."
+        },
+        aboutMe: {
+            required: "Bitte geben Sie eine kurze Beschreibung über sich selbst ein.",
+            long: "Ihre Beschreibung ist zu lang. Sie sollte nicht länger als 1000 Zeichen sein."
         },
         file: {
             failure: "Ausgewählte Dateien konnten nicht hinzugefügt werden.",

@@ -2,9 +2,11 @@
 import {toTypedSchema} from "@vee-validate/yup";
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {useForm} from "vee-validate";
+import {doc, serverTimestamp, setDoc} from "firebase/firestore";
 import {useFirebaseAuth, useSeo} from "#imports";
 import {RegisterSchema} from "~/utils/validations";
 import {useErrorMessage} from "~/composables/use-error-message";
+import {USER_ROLE} from "~/types/constants";
 
 definePageMeta({
     middleware: ["already-logged-in"]
@@ -14,6 +16,14 @@ definePageMeta({
 const {t} = useI18n();
 const localePath = useLocalePath();
 const {extractErrorMessage} = useErrorMessage();
+
+// Fields used for displayed character count for aboutMe field.
+const maxAboutMeLength = 1000;
+const aboutMe = ref("");
+// Computed property to calculate remaining characters
+const remainingCharacters = computed(() => {
+    return maxAboutMeLength - aboutMe.value.length;
+});
 
 useSeo(
     t("register.seo.title"),
@@ -26,6 +36,7 @@ useSeo(
 
 // Retrieves the Firebase authentication instance for use in creating and managing user authentication.
 const auth = useFirebaseAuth();
+const db = useFirestore();
 
 // Initialize and configured form validation based on Yup validation schema.
 const {handleSubmit, isSubmitting} = useForm({
@@ -48,6 +59,14 @@ const registerUser = handleSubmit(async (values, _ctx) => {
 
         // Update the user profile to set the display name.
         await updateProfile(userCredential.user, {displayName: values.name});
+
+        // Set the user document in the Firestore database.
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+            role: USER_ROLE.User,
+            aboutMe: values.aboutMe,
+            isDisabled: true,
+            createdAt: serverTimestamp()
+        });
 
         useSonner.success(t(`toast.accountCreated`), {
             id: loading
@@ -97,6 +116,19 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                     name="password"
                     :label="t('account.password')"
                     hint="Min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit" />
+                <UiVeeTextarea
+                    v-model="aboutMe"
+                    icon="lucide:file-text"
+                    name="aboutMe"
+                    :rows="8"
+                    :hint="
+                        t('account.charactersLeft', {
+                            count: remainingCharacters,
+                            max: maxAboutMeLength
+                        })
+                    "
+                    :label="t('account.aboutMe')"
+                    :placeholder="t('account.aboutMePlaceholder')" />
                 <UiButton
                     type="submit"
                     class="w-full">

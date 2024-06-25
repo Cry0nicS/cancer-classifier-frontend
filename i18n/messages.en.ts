@@ -21,7 +21,18 @@ export default {
     account: {
         email: "Email",
         name: "Name",
-        password: "Password"
+        password: "Password",
+        aboutMe: "About me",
+        aboutMePlaceholder: "Tell us something about yourself",
+        charactersLeft: "{count} / {max} characters left",
+        verification: {
+            title: "Account Verification",
+            subtitle:
+                "Your account has been created and is currently being validated by our staff.",
+            info: "This process can take up to 24 hours. Once your account is validated, you will be able to use all the functions of our website.",
+            urgent: "If you need to expedite this process, please email us at",
+            email: "support{'@'}tgc-research.de"
+        }
     },
     login: {
         title: "Log in with an existing account"
@@ -50,7 +61,8 @@ export default {
     },
     errors: {
         unexpectedError: "An unexpected error occurred.",
-        tryAgain: "Please try again."
+        tryAgain: "Please try again.",
+        accountDisabled: "Your account has not been activated."
     },
     validation: {
         name: {
@@ -66,6 +78,10 @@ export default {
             required: "Please enter a password.",
             short: "Your password is too short. It should be at least 8 characters.",
             weak: "Your password is too weak. Please use a stronger password that includes a mix of letters, numbers, and symbols."
+        },
+        aboutMe: {
+            long: "Your description is too long. It should be no more than 1000 characters.",
+            required: "Please enter a description."
         },
         file: {
             failure: "Selected files could not be added.",

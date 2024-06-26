@@ -1,7 +1,10 @@
+## TGC Ventures UG Legal Information
+
 ### Information According to § 5 TMG
 
 **Company:**
 TGC Ventures UG (limited liability)
+
 **Address:**
 Mauer 2
 96450 Coburg

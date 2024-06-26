@@ -338,5 +338,41 @@ export default {
                 binomial_prediction: "Binomial Prediction"
             }
         }
+    },
+    // -- Privacy
+    privacy: {
+        seo: {
+            title: "Policy | Secure Cancer Classifier Tools",
+            description:
+                "Discover how we protect and manage your data with our comprehensive privacy policy. Learn about our secure handling of .idat files and personal information while using our cancer classification tools on our dedicated platform.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "Our privacy policy"
+    },
+    // -- Contact
+    contact: {
+        seo: {
+            title: "Contact Us | TGC Ventures UG",
+            description:
+                "Reach out to TGC Ventures UG for inquiries or feedback. Contact us via email for prompt support. We look forward to assisting you with your questions and providing the information you need.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "Contact Us"
+    },
+    // -- Imprint
+    imprint: {
+        seo: {
+            title: "Imprint | Legal Notice of TGC Ventures UG",
+            description:
+                " Access the official legal notice (Impressum) of TGC Ventures UG. Find comprehensive contact details, registration information, and responsibility for content as required under German law.",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "Legal Notice"
     }
 };

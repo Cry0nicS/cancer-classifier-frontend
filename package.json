@@ -41,6 +41,7 @@
         "@antfu/eslint-config": "^2.21.1",
         "@cspell/dict-de-de": "^4.0.0",
         "@cspell/dict-lorem-ipsum": "^4.0.0",
+        "@nuxt/content": "^2.13.0",
         "@nuxt/devtools": "latest",
         "@nuxtjs/color-mode": "^3.4.1",
         "@nuxtjs/i18n": "^8.3.1",

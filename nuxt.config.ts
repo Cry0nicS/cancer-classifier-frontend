@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     modules: [
         "@morev/vue-transitions/nuxt",
+        "@nuxt/content",
         "@nuxt/image",
         "@nuxtjs/color-mode",
         "@nuxtjs/i18n",
@@ -67,6 +68,18 @@ export default defineNuxtConfig({
         // Disable custom route with page components.
         customRoutes: "config",
         pages: {
+            "legal/imprint": {
+                de: "/legal/impressum",
+                en: "/legal/imprint"
+            },
+            "legal/contact": {
+                de: "/legal/kontakt",
+                en: "/legal/contact"
+            },
+            "legal/privacy": {
+                de: "/legal/datenschutz",
+                en: "/legal/privacy"
+            },
             "register/index": {
                 de: "/registrieren",
                 en: "/register"

@@ -72,14 +72,16 @@ const accordionItems: AccordionItem[] = range(1, 7).map((index) => ({
                 </NuxtLink>
             </div>
         </div>
-        <ModulesFaq
-            :title="t('home.faq.title')"
-            background-color="transparent"
-            class="my-10 border-2"
-            :accordion-items="accordionItems">
-            <template #content>
-                <p class="mt-6 text-muted-foreground">{{ t("home.faq.description") }}</p>
-            </template>
-        </ModulesFaq>
+        <ClientOnly>
+            <ModulesFaq
+                :title="t('home.faq.title')"
+                background-color="transparent"
+                class="my-10 border-2"
+                :accordion-items="accordionItems">
+                <template #content>
+                    <p class="mt-6 text-muted-foreground">{{ t("home.faq.description") }}</p>
+                </template>
+            </ModulesFaq>
+        </ClientOnly>
     </UiContainer>
 </template>

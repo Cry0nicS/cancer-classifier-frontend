@@ -13,7 +13,7 @@ useSeo(
     "summary_large_image"
 );
 
-const content = await usePageContent(
+const {data: content} = await usePageContent(
     "legal/privacy",
     locale.value as Locale
 ).fetchLocalizedContent();

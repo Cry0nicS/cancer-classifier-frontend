@@ -11,11 +11,9 @@ export function usePageContent(pageName: string, locale: Locale) {
     const route = useRoute();
 
     const fetchLocalizedContent = async () => {
-        const {data: pageData} = await useAsyncData(`nuxt-content:${route.fullPath}`, () =>
+        return useAsyncData(`nuxt-content:${route.fullPath}`, () =>
             queryContent(`/${locale}/${pageName}`).findOne()
         );
-
-        return pageData;
     };
 
     return {fetchLocalizedContent};

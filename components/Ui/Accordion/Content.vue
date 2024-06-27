@@ -4,6 +4,7 @@
         :class="styles({class: props.class})">
         <div class="whitespace-pre-line pb-4 pt-0">
             <MDC
+                class="markdown"
                 v-if="content"
                 :value="content" />
             <slot v-else />

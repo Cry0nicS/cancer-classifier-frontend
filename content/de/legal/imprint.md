@@ -33,6 +33,6 @@ Deutschland
 ### Streitschlichtung
 Die Europäische Kommission bietet eine Plattform zur Online-Streitbeilegung (OS) an, die Sie hier finden: [https://ec.europa.eu/consumers/odr](https://ec.europa.eu/consumers/odr).
 
-**Kontakt E-Mail:** Siehe oben im Impressum.
+**Kontakt E-Mail:** [info@tgc-ventures.de](mailto:info@tgc-ventures.de)
 
 **Hinweis:** Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.

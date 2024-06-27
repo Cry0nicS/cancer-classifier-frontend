@@ -35,6 +35,6 @@ We employ robust security measures to protect your data from unauthorized access
 We may update this policy from time to time. Any changes will be posted on this page with an updated revision date.
 
 ## Contact Us
-If you have any questions about this privacy policy or our treatment of your data, please contact us at [Contact Information].
+If you have any questions about this privacy policy or our treatment of your data, please contact us at [Contact Information](/legal/contact).
 
 Thank you for trusting us with your data. We are committed to protecting your privacy and ensuring the highest level of security for your information.

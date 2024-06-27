@@ -34,6 +34,6 @@ Germany
 ### Dispute Resolution
 The European Commission provides a platform for online dispute resolution (ODR) available here: [https://ec.europa.eu/consumers/odr](https://ec.europa.eu/consumers/odr).
 
-**Contact Email:** See above in the Legal Notice.
+**Contact Email:** [info@tgc-ventures.de](mailto:info@tgc-ventures.de)
 
 **Note:** We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board.

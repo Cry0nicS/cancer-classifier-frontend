@@ -25,7 +25,9 @@ const {data: content} = await usePageContent(
             <h1 class="my-8 text-center text-2xl font-semibold lg:text-3xl">
                 {{ t("privacy.title") }}
             </h1>
-            <ContentRenderer :value="content as any" />
+            <ContentRenderer
+                class="markdown"
+                :value="content as any" />
         </div>
     </UiContainer>
 </template>

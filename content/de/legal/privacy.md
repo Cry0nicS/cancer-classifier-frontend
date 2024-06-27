@@ -35,6 +35,6 @@ Wir setzen strenge Sicherheitsmaßnahmen ein, um Ihre Daten vor unbefugtem Zugri
 Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit einem aktualisierten Überarbeitungsdatum veröffentlicht.
 
 ## Kontaktieren Sie uns
-Wenn Sie Fragen zu dieser Datenschutzrichtlinie oder unserer Behandlung Ihrer Daten haben, kontaktieren Sie uns bitte unter [Kontaktinformationen].
+Wenn Sie Fragen zu dieser Datenschutzrichtlinie oder unserer Behandlung Ihrer Daten haben, kontaktieren Sie uns bitte unter [Kontaktinformationen](/de/legal/kontakt).
 
 Vielen Dank, dass Sie uns Ihr Vertrauen schenken. Wir sind verpflichtet, Ihre Privatsphäre zu schützen und die höchste Sicherheitsstufe für Ihre Informationen zu gewährleisten.

@@ -10,7 +10,8 @@ export default <Partial<Config>>{
         "./layouts/**/*.vue",
         "./nuxt.config.{js,ts}",
         "./pages/**/*.vue",
-        "./plugins/**/*.{js,ts}"
+        "./plugins/**/*.{js,ts}",
+        "./content/**/*.md"
     ],
     safelist: [
         {

@@ -31,16 +31,17 @@ export default defineNuxtConfig({
     css: ["~/assets/main.scss"],
     devtools: {enabled: true},
     modules: [
+        "@morev/vue-transitions/nuxt",
         "@nuxt/image",
-        "@nuxtjs/i18n",
-        "@nuxtjs/stylelint-module",
-        "@vueuse/nuxt",
-        "nuxt-vuefire",
-        "@nuxtjs/tailwindcss",
         "@nuxtjs/color-mode",
-        "nuxt-icon",
+        "@nuxtjs/i18n",
+        "@nuxtjs/mdc",
+        "@nuxtjs/stylelint-module",
+        "@nuxtjs/tailwindcss",
         "@vee-validate/nuxt",
-        "@morev/vue-transitions/nuxt"
+        "@vueuse/nuxt",
+        "nuxt-icon",
+        "nuxt-vuefire"
     ],
     postcss: {
         plugins: {

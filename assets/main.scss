@@ -5,6 +5,13 @@
 @tailwind utilities;
 
 @layer base {
+    ul,
+    ol {
+        list-style: revert;
+        margin: revert;
+        padding: revert;
+    }
+
     :root {
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;

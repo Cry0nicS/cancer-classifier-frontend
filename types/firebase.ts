@@ -1,4 +1,12 @@
-import type {Platform, StorageMethod, UploadStatus} from "~/types/constants";
+import type {Timestamp} from "@firebase/firestore";
+import type {Platform, StorageMethod, UploadStatus, UserRole} from "~/types/constants";
+
+export type UserProfile = {
+    aboutMe: string;
+    isDisabled: boolean;
+    role: UserRole;
+    createdAt: Timestamp;
+};
 
 export type UserCollection = {
     id: string;

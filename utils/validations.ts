@@ -20,7 +20,11 @@ export const RegisterSchema = (translate: ComposerTranslation) =>
             .required(translate("validation.password.required"))
             .label("Password")
             .min(8, translate("validation.password.short"))
-            .matches(passwordRules, translate("validation.password.weak"))
+            .matches(passwordRules, translate("validation.password.weak")),
+        aboutMe: string()
+            .required(translate("validation.aboutMe.required"))
+            .label("About Me")
+            .max(1000, translate("validation.aboutMe.long"))
     });
 
 export const LoginSchema = (translate: ComposerTranslation) =>

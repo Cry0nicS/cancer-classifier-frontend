@@ -71,6 +71,10 @@ export default defineNuxtConfig({
                 de: "/registrieren",
                 en: "/register"
             },
+            "register/verification": {
+                de: "/registrieren/verifizierung",
+                en: "/register/verification"
+            },
             "forgot-password/index": {
                 de: "/passwort-vergessen",
                 en: "/forgot-password"

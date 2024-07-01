@@ -58,3 +58,10 @@ export const BINOMIAL_PREDICTION = {
 } as const;
 
 export type BinomialPrediction = (typeof BINOMIAL_PREDICTION)[keyof typeof BINOMIAL_PREDICTION];
+
+export const USER_ROLE = {
+    Admin: "admin",
+    User: "user"
+};
+
+export type UserRole = (typeof USER_ROLE)[keyof typeof USER_ROLE];

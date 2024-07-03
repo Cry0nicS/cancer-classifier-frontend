@@ -21,152 +21,74 @@ jobs:
         strategy:
             matrix:
                 node-version: [18.x, 20.9.0]
-
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Cache Node.js modules
-              uses: actions/cache@v4
-              id: cache-node-modules
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-
-
-            - name: Install Dependencies
-              run: npm ci
-
-            - name: Cache node_modules
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+            -   name: Use Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v4
+                with:
+                    node-version: ${{ matrix.node-version }}
+            -   name: Cache Node.js modules
+                uses: actions/cache@v4
+                with:
+                    path: ~/.npm
+                    key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}-${{ github.sha }}
+                    restore-keys: |
+                        ${{ runner.os }}-node-
+            -   name: Install Dependencies
+                run: npm ci
 
     lint:
-        runs-on: ubuntu-latest
         needs: setup
-
+        runs-on: ubuntu-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Restore node_modules cache
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-
-            - name: Run ESLint
-              run: npm run lint
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+            -   name: Install Dependencies
+                run: npm ci
+            -   name: Run ESLint
+                run: npm run lint
 
     format-check:
-        runs-on: ubuntu-latest
         needs: setup
-
+        runs-on: ubuntu-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Restore node_modules cache
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-
-            - name: Run Prettier
-              run: npm run format-check
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+            -   name: Install Dependencies
+                run: npm ci
+            -   name: Run Prettier
+                run: npm run format-check
 
     spell-check:
-        runs-on: ubuntu-latest
         needs: setup
-
+        runs-on: ubuntu-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Restore node_modules cache
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-
-            - name: Run cSpell
-              run: npm run spell-check
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+            -   name: Install Dependencies
+                run: npm ci
+            -   name: Run cSpell
+                run: npm run spell-check
 
     style-check:
-        runs-on: ubuntu-latest
         needs: setup
-
+        runs-on: ubuntu-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Restore node_modules cache
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-
-            - name: Run Stylelint
-              run: npm run style-check
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+            -   name: Install Dependencies
+                run: npm ci
+            -   name: Run Stylelint
+                run: npm run style-check
 
     build:
+        needs: [lint, format-check, spell-check, style-check]
         runs-on: ubuntu-latest
-        needs: [setup, lint, format-check, spell-check, style-check]
-
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Restore node_modules cache
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-
-            - name: Build
-              run: npm run build
+            -   name: Checkout repository
+                uses: actions/checkout@v4
+            -   name: Install Dependencies
+                run: npm ci
+            -   name: Build
+                run: npm run build

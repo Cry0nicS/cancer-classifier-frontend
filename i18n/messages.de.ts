@@ -358,5 +358,41 @@ export default {
                 binomial_prediction: "Binomiale Vorhersage"
             }
         }
+    },
+    // -- Privacy
+    privacy: {
+        seo: {
+            title: "Datenschutzerklärung | Sichere Krebsklassifikator-Tools",
+            description:
+                " Erfahren Sie, wie wir Ihre Daten schützen und verwalten. Unsere umfassende Datenschutzrichtlinie gibt Ihnen Einblick, wie wir .idat-Dateien und persönliche Informationen sicher handhaben, während Sie unsere Tools zur Krebsklassifikation nutzen.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Datenschutzerklärung"
+    },
+    // -- Contact
+    contact: {
+        seo: {
+            title: "Kontaktieren Sie uns | TGC Ventures UG",
+            description:
+                "Kontaktieren Sie TGC Ventures UG für Anfragen oder Feedback. Schreiben Sie uns eine E-Mail für schnelle Unterstützung. Wir freuen uns darauf, Ihnen bei Ihren Fragen zu helfen und die benötigten Informationen zu liefern.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Kontaktieren Sie uns"
+    },
+    // -- Imprint
+    imprint: {
+        seo: {
+            title: "Impressum | Rechtliche Hinweise der TGC Ventures UG",
+            description:
+                "Greifen Sie auf das offizielle Impressum der TGC Ventures UG zu. Finden Sie umfassende Kontaktinformationen, Registrierungsinformationen und Angaben zur Inhaltsverantwortung gemäß deutschem Recht.",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Impressum"
     }
 };

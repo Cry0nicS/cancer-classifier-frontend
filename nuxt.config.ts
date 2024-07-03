@@ -31,6 +31,7 @@ export default defineNuxtConfig({
     css: ["~/assets/main.scss"],
     devtools: {enabled: true},
     modules: [
+        "@dargmuesli/nuxt-cookie-control",
         "@morev/vue-transitions/nuxt",
         "@nuxt/image",
         "@nuxtjs/color-mode",
@@ -43,6 +44,24 @@ export default defineNuxtConfig({
         "nuxt-icon",
         "nuxt-vuefire"
     ],
+    cookieControl: {
+        locales: ["en", "de"],
+        cookies: {
+            necessary: [
+                {
+                    id: "cookieControl",
+                    name: "Strictly necessary cookies",
+                    description:
+                        "These are the cookies that are necessary for the website to function and cannot be switched off."
+                }
+            ],
+            optional: []
+        },
+        barPosition: "bottom-left",
+        closeModalOnClickOutside: true,
+        isAcceptNecessaryButtonEnabled: false,
+        isControlButtonEnabled: false
+    },
     postcss: {
         plugins: {
             "postcss-import": {},

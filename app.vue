@@ -15,6 +15,12 @@ useFavicon(favicon);
 
     <NuxtLayout>
         <NuxtLoadingIndicator />
+        <CookieControl :locale="locale">
+            <template #bar>
+                <h2>{{ $t("cookies.title") }}</h2>
+                <p>{{ $t("cookies.description") }}</p>
+            </template>
+        </CookieControl>
         <NuxtPage />
         <UiVueSonner />
     </NuxtLayout>

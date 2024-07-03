@@ -34,6 +34,11 @@ export default {
             email: "support{'@'}tgc-research.de"
         }
     },
+    cookies: {
+        title: "Cookie policy",
+        description:
+            "We only use strictly necessary cookies to ensure the correct display and functionality of this website. We are committed to respecting your privacy, thus we do not track your activity or sell your data. We do not use cookies for any other purposes beyond those essential to the operation of the website. You can adjust your cookie preferences at any time using the cookie button that will appear after a selection has been made on this banner."
+    },
     login: {
         title: "Log in with an existing account"
     },

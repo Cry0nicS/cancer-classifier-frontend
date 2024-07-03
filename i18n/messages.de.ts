@@ -33,6 +33,11 @@ export default {
             email: "support{'@'}tgc-research.de"
         }
     },
+    cookies: {
+        title: "Cookie-Richtlinie",
+        description:
+            "Wir verwenden ausschließlich unbedingt notwendige Cookies, um die korrekte Anzeige und Funktionalität dieser Website zu gewährleisten. Wir sind verpflichtet, Ihre Privatsphäre zu respektieren, daher verfolgen wir Ihre Aktivitäten nicht und verkaufen Ihre Daten nicht. Wir verwenden Cookies nicht für andere Zwecke, die über die für den Betrieb der Website unerlässlichen hinausgehen. Sie können Ihre Cookie-Einstellungen jederzeit über die Cookie-Schaltfläche anpassen, die nach einer Auswahl auf diesem Banner erscheint."
+    },
     login: {
         title: "Mit bestehendem Konto anmelden"
     },

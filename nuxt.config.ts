@@ -161,5 +161,9 @@ export default defineNuxtConfig({
     },
     build: {
         transpile: ["vue-sonner"]
+    },
+    compatibilityDate: {
+        default: "2024-07-03",
+        firebase: "2024-07-03"
     }
 });

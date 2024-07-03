@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {range} from "@antfu/utils";
-import type {User} from "@firebase/auth";
 import {useSeo} from "~/composables/use-seo";
 import type {AccordionItem} from "~/components/Ui/Accordion/Accordion.vue";
 
@@ -12,7 +11,7 @@ const {t} = useI18n();
 const localePath = useLocalePath();
 
 // Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
-const user = (await getCurrentUser()) as User | null;
+const user = useCurrentUser();
 
 useSeo(
     t("home.seo.title"),
@@ -34,26 +33,7 @@ const accordionItems: AccordionItem[] = range(1, 7).map((index) => ({
 <template>
     <UiContainer class="flex min-h-screen flex-col">
         <div
-            v-if="!user"
-            class="grid w-screen grid-cols-1 items-center justify-center py-16 xl:w-auto xl:grid-cols-12">
-            <div class="col-span-5 flex items-center justify-center text-center">
-                <div class="w-full max-w-[340px]">
-                    <h1 class="text-3xl font-semibold lg:text-4xl">
-                        {{ t("home.noUser.title") }}
-                    </h1>
-                    <p class="mt-5 text-muted-foreground">
-                        {{ t("home.noUser.description") }}
-                    </p>
-                </div>
-            </div>
-            <div class="col-span-7 flex items-center justify-center">
-                <div class="my-10">
-                    <ModulesLogin />
-                </div>
-            </div>
-        </div>
-        <div
-            v-else
+            v-if="user"
             class="flex min-h-[400px] flex-col items-center justify-center lg:min-h-[600px]">
             <div class="w-full max-w-[340px] text-center">
                 <Icon
@@ -70,6 +50,25 @@ const accordionItems: AccordionItem[] = range(1, 7).map((index) => ({
                     class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     {{ t("buttons.getStarted") }}
                 </NuxtLink>
+            </div>
+        </div>
+        <div
+            v-else
+            class="grid w-screen grid-cols-1 items-center justify-center py-16 xl:w-auto xl:grid-cols-12">
+            <div class="col-span-5 flex items-center justify-center text-center">
+                <div class="w-full max-w-[340px]">
+                    <h1 class="text-3xl font-semibold lg:text-4xl">
+                        {{ t("home.noUser.title") }}
+                    </h1>
+                    <p class="mt-5 text-muted-foreground">
+                        {{ t("home.noUser.description") }}
+                    </p>
+                </div>
+            </div>
+            <div class="col-span-7 flex items-center justify-center">
+                <div class="my-10">
+                    <ModulesLogin />
+                </div>
             </div>
         </div>
         <ClientOnly>

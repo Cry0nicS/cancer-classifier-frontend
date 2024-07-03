@@ -29,9 +29,6 @@ const loginUser = handleSubmit(async (values, _ctx) => {
         useSonner.success(t("toast.signInSuccess"), {
             id: loading
         });
-
-        // Redirect to the upload page.
-        return navigateTo({path: localePath("/services/upload")}, {external: true, replace: true});
     } catch (error) {
         useSonner.error(extractErrorMessage(error), {
             description: t("errors.tryAgain"),

@@ -60,10 +60,6 @@ export default defineNuxtConfig({
     image: {
         formats: ["avif", "webp", "gif"]
     },
-    content: {
-        defaultLocale: "en",
-        locales: ["en", "de"]
-    },
     i18n: {
         locales: ["de", "en"],
         defaultLocale: "en",

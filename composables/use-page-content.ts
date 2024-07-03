@@ -12,7 +12,7 @@ export function usePageContent(pageName: string, locale: Locale) {
 
     const fetchLocalizedContent = async () => {
         return useAsyncData(`nuxt-content:${route.fullPath}`, () =>
-            queryContent(`/${pageName}`).locale(locale).findOne()
+            queryContent(`/${locale}/${pageName}`).findOne()
         );
     };
 

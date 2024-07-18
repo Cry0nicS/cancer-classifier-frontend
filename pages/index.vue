@@ -35,7 +35,7 @@ const accordionItems: AccordionItem[] = range(1, 7).map((index) => ({
         <div
             v-if="user"
             class="flex min-h-[400px] flex-col items-center justify-center lg:min-h-[600px]">
-            <div class="w-full max-w-[340px] text-center">
+            <div class="w-full text-center sm:w-[400px] md:w-[470px]">
                 <Icon
                     class="size-10"
                     name="lucide:key-round" />
@@ -45,11 +45,26 @@ const accordionItems: AccordionItem[] = range(1, 7).map((index) => ({
                 <h3 class="mt-10 text-xl text-muted-foreground lg:text-2xl">
                     {{ t("home.user.description") }}
                 </h3>
-                <NuxtLink
-                    :to="localePath('/services/upload')"
-                    class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    {{ t("buttons.getStarted") }}
-                </NuxtLink>
+                <div class="flex flex-col justify-center gap-2 md:flex-row">
+                    <NuxtLink
+                        :external="true"
+                        :to="localePath('/services/upload')"
+                        class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                        <Icon
+                            name="lucide:rocket"
+                            size="17px" />
+                        {{ t("buttons.getStarted") }}
+                    </NuxtLink>
+                    <NuxtLink
+                        :external="true"
+                        :to="localePath('/services/history')"
+                        class="mt-10 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                        <Icon
+                            name="lucide:history"
+                            size="17px" />
+                        {{ t("buttons.history") }}
+                    </NuxtLink>
+                </div>
             </div>
         </div>
         <div

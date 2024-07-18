@@ -1,40 +1,38 @@
 import {doc, getDoc} from "firebase/firestore";
-import type {UserProfile} from "~/types/firebase";
 
 /**
- * Middleware to check user authentication and account status.
- * Redirects authenticated users with enabled accounts to their desired page.
- * Redirects authenticated users with disabled accounts to the registration/verification page.
- * Unauthenticated users are redirected to the registration page.
+ * Middleware for controlling access to the verification page.
+ * Only logged-in users without a Firebase document and with `isDisabled` set to false
+ * can access the verification page. Unauthenticated users are redirected to the home page.
  */
 export default defineNuxtRouteMiddleware(async (to, _from) => {
     // Only run the middleware on the client side.
     if (import.meta.server) return;
 
-    const localePath = useLocalePath();
-    // Get the (authenticated) user from Firebase.
+    const nuxtApp = useNuxtApp();
+    const t = nuxtApp.$i18n.t;
+    let targetPath = nuxtApp.$localePath("/");
+
     const user = await getCurrentUser();
     const db = useFirestore();
-    let targetPath = localePath("/register");
 
-    // Check if the user is authenticated
-    if (user) {
-        // Get the user document reference from Firestore.
+    // Redirect unauthenticated users to the login page.
+    if (!user) {
+        targetPath = nuxtApp.$localePath("/");
+    }
+
+    try {
         const docRef = await getDoc(doc(db, "users", user.uid));
 
-        // Check if the user profile (Firebase document) exists.
-        if (docRef.exists()) {
-            const userProfile = docRef.data() as UserProfile;
-
-            // Check if the user's account is disabled
-            if (userProfile.isDisabled) {
-                // Redirect disabled users to the verification page.
-                targetPath = localePath(to.path);
-            } else {
-                // Allow access to the target page for enabled users.
-                targetPath = localePath("/services/upload");
-            }
+        // If the user's document does not exist or `isDisabled` is true, allow access.
+        if (!docRef.exists() || docRef.data().isDisabled !== false) {
+            return; // Continue to the verification page.
         }
+    } catch (error) {
+        return createError({
+            statusCode: 500,
+            statusMessage: `${t("errors.unexpectedError")} ${t("errors.tryAgain")}`
+        });
     }
 
     if (to.path !== targetPath) {

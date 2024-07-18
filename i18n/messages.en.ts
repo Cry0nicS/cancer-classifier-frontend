@@ -159,7 +159,8 @@ export default {
         title: "Forgot your password?",
         submit: "Reset password",
         emailSent: "Check your inbox.",
-        instructions: "An email with instructions has been sent to your email address."
+        instructions:
+            "An email with instructions to reset your password has been sent to your email address."
     },
     // -- Register
     register: {
@@ -187,10 +188,10 @@ export default {
         },
         user: {
             title: "Welcome back, {name}",
-            description: "You can upload your files and use our services here."
+            description: "You can use our services, upload new files, or check previous sessions."
         },
         noUser: {
-            title: "Welcome to our project",
+            title: "PAAD vs iCCA classifier",
             description: "Please sign in or create an account to use our services."
         },
         faq: {

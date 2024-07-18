@@ -28,29 +28,5 @@ const localePath = useLocalePath();
                 </template>
             </ThemeToggle>
         </template>
-
-        <template #social>
-            <a
-                href="https://www.facebook.com"
-                title="Facebook">
-                <Icon
-                    class="size-8"
-                    name="mdi:facebook" />
-            </a>
-            <a
-                href="https://www.instagram.com"
-                title="Instagram">
-                <Icon
-                    class="size-8"
-                    name="mdi:instagram" />
-            </a>
-            <a
-                href="https://www.youtube.com/"
-                title="Youtube">
-                <Icon
-                    class="size-8"
-                    name="mdi:youtube" />
-            </a>
-        </template>
     </Footer>
 </template>

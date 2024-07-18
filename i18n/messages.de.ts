@@ -160,7 +160,8 @@ export default {
         title: "Passwort vergessen?",
         submit: "Passwort zurücksetzen",
         emailSent: "Überprüfen Sie Ihren Posteingang.",
-        instructions: "Eine E-Mail mit Anweisungen wurde an Ihre E-Mail-Adresse gesendet."
+        instructions:
+            "Eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an Ihre E-Mail-Adresse gesendet."
     },
     // -- Registrieren
     register: {
@@ -189,10 +190,10 @@ export default {
         user: {
             title: "Willkommen zurück, {name}",
             description:
-                "Sie können Ihre Dateien hier hochladen und unsere Dienstleistungen nutzen."
+                "Sie können unsere Dienstleistungen nutzen, neue Dateien hochladen oder frühere Sitzungen überprüfen"
         },
         noUser: {
-            title: "Willkommen zu unserem Projekt",
+            title: "PAAD vs. iCCA Klassifikator",
             description:
                 "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienstleistungen zu nutzen."
         },

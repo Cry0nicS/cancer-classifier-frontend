@@ -1,9 +1,9 @@
 import {doc, getDoc} from "firebase/firestore";
 
 /**
- * Middleware for the verification page.
- * Only logged-in users without a Firebase document and `isDisabled` set to false,
- * can access the verification page.
+ * Middleware for controlling access to the verification page.
+ * Only logged-in users without a Firebase document and with `isDisabled` set to false
+ * can access the verification page. Unauthenticated users are redirected to the home page.
  */
 export default defineNuxtRouteMiddleware(async (to, _from) => {
     // Only run the middleware on the client side.

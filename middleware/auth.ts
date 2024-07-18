@@ -2,10 +2,10 @@ import {doc, getDoc} from "firebase/firestore";
 import type {UserProfile} from "~/types/firebase";
 
 /**
- * This middleware is used to check if the user is authenticated or not.
- * Only authenticated users can access the protected routes.
- * If the user is not authenticated, they are redirected to the home page.
- * If the user is authenticated but their account is disabled, they are redirected to the verification page.
+ * Middleware for controlling access to protected routes.
+ * Only authenticated users can access these routes.
+ * Unauthenticated users are redirected to the home page.
+ * Authenticated users with disabled accounts are redirected to the verification page.
  */
 export default defineNuxtRouteMiddleware(async (to, _from) => {
     // Only run the middleware on the client side.

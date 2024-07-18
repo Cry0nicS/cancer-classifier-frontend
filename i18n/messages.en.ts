@@ -159,7 +159,8 @@ export default {
         title: "Forgot your password?",
         submit: "Reset password",
         emailSent: "Check your inbox.",
-        instructions: "An email with instructions has been sent to your email address."
+        instructions:
+            "An email with instructions to reset your password has been sent to your email address."
     },
     // -- Register
     register: {

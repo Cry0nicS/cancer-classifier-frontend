@@ -160,7 +160,8 @@ export default {
         title: "Passwort vergessen?",
         submit: "Passwort zurücksetzen",
         emailSent: "Überprüfen Sie Ihren Posteingang.",
-        instructions: "Eine E-Mail mit Anweisungen wurde an Ihre E-Mail-Adresse gesendet."
+        instructions:
+            "Eine E-Mail mit Anweisungen zum Zurücksetzen Ihres Passworts wurde an Ihre E-Mail-Adresse gesendet."
     },
     // -- Registrieren
     register: {

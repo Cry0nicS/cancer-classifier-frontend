@@ -191,7 +191,7 @@ export default {
             description: "You can use our services, upload new files, or check previous sessions."
         },
         noUser: {
-            title: "Welcome to our project",
+            title: "PAAD vs iCCA classifier",
             description: "Please sign in or create an account to use our services."
         },
         faq: {

@@ -193,7 +193,7 @@ export default {
                 "Sie können unsere Dienstleistungen nutzen, neue Dateien hochladen oder frühere Sitzungen überprüfen"
         },
         noUser: {
-            title: "Willkommen zu unserem Projekt",
+            title: "PAAD vs. iCCA Klassifikator",
             description:
                 "Bitte melden Sie sich an oder erstellen Sie ein Konto, um unsere Dienstleistungen zu nutzen."
         },

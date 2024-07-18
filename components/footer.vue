@@ -6,7 +6,7 @@ const slots = useSlots();
     <UiContainer
         as="footer"
         class="flex flex-col items-center justify-between gap-7 border-t-2 py-12 md:flex-row">
-        <p class="text-muted-foreground">&copy; {{ new Date().getFullYear() }}</p>
+        <p class="text-muted-foreground">&copy; {{ new Date().getFullYear() }} TGC</p>
 
         <nav
             v-if="slots.links"

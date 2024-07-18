@@ -28,7 +28,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
         if (!user) {
             // If the user is not logged in, redirect to the register page
-            return handleRedirect("/login");
+            return handleRedirect("/");
         }
 
         const docRef = await getDoc(doc(db, "users", user.uid));

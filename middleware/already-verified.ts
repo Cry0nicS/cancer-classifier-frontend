@@ -18,7 +18,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
     // Redirect unauthenticated users to the login page.
     if (!user) {
-        targetPath = nuxtApp.$localePath("/login");
+        targetPath = nuxtApp.$localePath("/");
     }
 
     try {

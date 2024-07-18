@@ -113,21 +113,25 @@ pre {
     h1 {
         @apply text-2xl font-semibold;
         @apply lg:text-3xl;
+        @apply my-8;
     }
 
     h2 {
         @apply text-xl;
         @apply lg:text-2xl;
+        @apply my-6;
     }
 
     h3 {
         @apply text-lg text-muted-foreground;
         @apply lg:text-xl;
+        @apply my-5;
     }
 
     h4 {
         @apply text-base;
         @apply lg:text-lg;
+        @apply my-5;
     }
 
     ul {

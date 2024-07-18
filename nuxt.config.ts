@@ -110,6 +110,12 @@ export default defineNuxtConfig({
             }
         }
     },
+    routeRules: {
+        "/": {prerender: true},
+        "/legal": {isr: true},
+        "/register/**": {prerender: true},
+        "/services/**": {swr: true}
+    },
     vuefire: {
         auth: {
             enabled: true,

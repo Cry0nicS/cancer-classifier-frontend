@@ -30,7 +30,7 @@ export const RegisterSchema = (translate: ComposerTranslation) =>
 export const LoginSchema = (translate: ComposerTranslation) =>
     object({
         email: string()
-            .required(translate("validation.name.required"))
+            .required(translate("validation.email.required"))
             .label("Email")
             .email(translate("validation.email.invalid")),
         password: string().required(translate("validation.password.required")).label("Password")
@@ -39,7 +39,7 @@ export const LoginSchema = (translate: ComposerTranslation) =>
 export const ForgotPasswordSchema = (translate: ComposerTranslation) =>
     object({
         email: string()
-            .required(translate("validation.name.required"))
+            .required(translate("validation.email.required"))
             .label("Email")
             .email(translate("validation.email.invalid"))
     });

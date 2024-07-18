@@ -188,7 +188,7 @@ export default {
         },
         user: {
             title: "Welcome back, {name}",
-            description: "You can upload your files and use our services here."
+            description: "You can use our services, upload new files, or check previous sessions."
         },
         noUser: {
             title: "Welcome to our project",

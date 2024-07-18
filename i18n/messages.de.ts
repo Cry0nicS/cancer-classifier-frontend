@@ -190,7 +190,7 @@ export default {
         user: {
             title: "Willkommen zurück, {name}",
             description:
-                "Sie können Ihre Dateien hier hochladen und unsere Dienstleistungen nutzen."
+                "Sie können unsere Dienstleistungen nutzen, neue Dateien hochladen oder frühere Sitzungen überprüfen"
         },
         noUser: {
             title: "Willkommen zu unserem Projekt",

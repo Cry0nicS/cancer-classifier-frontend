@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {collection, orderBy, query} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
-import type {User} from "@firebase/auth";
+import {uuidv4} from "@firebase/util";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {formatDate} from "~/utils/helpers";
@@ -25,19 +25,20 @@ useSeo(
 );
 
 // Set up Firebase Auth and Firestore
-useFirebaseAuth();
-const user = (await getCurrentUser()) as User;
+const _auth = useFirebaseAuth();
 const db = useFirestore();
+const user = useCurrentUser();
 
-const userCollectionsQuery = query(
-    collection(db, user.uid as string),
-    orderBy("sessionStartedAt", "desc")
+const {data: userCollections} = useCollection<UserCollection>(
+    () =>
+        user.value
+            ? query(collection(db, user.value.uid as string), orderBy("sessionStartedAt", "desc"))
+            : null,
+    {
+        once: true,
+        ssrKey: user.value ? user.value.uid : uuidv4()
+    }
 );
-
-const {data: userCollections} = useCollection<UserCollection>(userCollectionsQuery, {
-    once: true,
-    ssrKey: user.uid
-});
 </script>
 
 <template>

@@ -24,7 +24,7 @@ const envVarsConfig = {
 };
 
 export default defineNuxtConfig({
-    ssr: false,
+    ssr: true,
     alias: {
         assets: "/<rootDir>/assets"
     },
@@ -109,6 +109,10 @@ export default defineNuxtConfig({
                 en: "/services/results"
             }
         }
+    },
+    routeRules: {
+        "/services/upload": {ssr: false},
+        "/legal/**": {ssr: false}
     },
     vuefire: {
         auth: {

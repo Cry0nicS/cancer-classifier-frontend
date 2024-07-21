@@ -85,7 +85,11 @@ const uploadFiles = async (files: File[]): Promise<void> => {
     await $fetch("/api/upload-files-session", {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${idToken}`
+            "Authorization": `Bearer ${idToken}`,
+            "Content-Security-Policy": "default-src 'none'",
+            "X-Frame-Options": "DENY",
+            "X-Content-Type-Options": "nosniff",
+            "Content-Disposition": `attachment; filename="${files[0].name}"`
         },
         body: formData,
         params: {

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useSessionStorage} from "@vueuse/core";
-import type {User} from "@firebase/auth";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 import {useErrorMessage} from "~/composables/use-error-message";
@@ -23,8 +22,8 @@ useSeo(
     true
 );
 
-const user = (await getCurrentUser()) as User;
-const idToken = await user.getIdToken();
+const user = useCurrentUser();
+const idToken = ref<string | null>(null);
 // Create a new upload session ID. Required for batch upload.
 const uploadSessionId = useSessionId().createUploadSessionId();
 const files = ref<File[]>([]);
@@ -85,7 +84,7 @@ const uploadFiles = async (files: File[]): Promise<void> => {
     await $fetch("/api/upload-files-session", {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${idToken}`
+            Authorization: `Bearer ${idToken.value}`
         },
         body: formData,
         params: {
@@ -132,6 +131,12 @@ const uploadFilesInBatch = async () => {
         isSubmitting.value = false;
     }
 };
+
+watchEffect(async () => {
+    if (user.value) {
+        idToken.value = await user.value.getIdToken();
+    }
+});
 </script>
 
 <template>

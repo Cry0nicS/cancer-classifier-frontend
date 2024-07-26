@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
-import type {User} from "@firebase/auth";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {useSessionId} from "~/composables/use-session-id";
@@ -26,28 +25,25 @@ useSeo(
 );
 
 // Set up Firebase Auth and Firestore
-useFirebaseAuth();
-const user = (await getCurrentUser()) as User;
+const _auth = useFirebaseAuth();
 const db = useFirestore();
+const user = useCurrentUser();
 
-const {data: userCollection, promise} = useDocument<UserCollection>(
-    () => doc(db, user.uid, sessionId),
+const {data: userCollection} = useDocument<UserCollection>(
+    () => (user.value ? doc(db, user.value.uid, sessionId) : null),
     {
         once: true,
         ssrKey: sessionId
     }
 );
-// Await the promise to resolve before checking and mutating the user collection.
-await promise.value;
-await nextTick();
 
-if (!userCollection.value) {
-    useSonner.loading(t("toast.noData"), {
-        description: `${t("toast.redirect")}...`
-    });
+const sessionStartedAtComputed = computed(() => userCollection.value?.sessionStartedAt);
 
-    navigateTo({path: localePath("/services/history")}, {replace: true, external: false});
-}
+const computedSessionStartedAt = computed(() =>
+    sessionStartedAtComputed.value
+        ? formatDate(sessionStartedAtComputed.value, locale as unknown as Locale)
+        : null
+);
 </script>
 
 <template>
@@ -55,7 +51,7 @@ if (!userCollection.value) {
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ t("results.title", {name: user.displayName}) }}
+                    {{ t("results.title", {name: user?.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <NuxtLink
@@ -88,7 +84,7 @@ if (!userCollection.value) {
                     <UiTableCaption>
                         {{
                             t("results.table.caption", {
-                                date: formatDate(userCollection!.sessionStartedAt, locale as Locale)
+                                date: computedSessionStartedAt
                             })
                         }}
                     </UiTableCaption>
@@ -115,7 +111,7 @@ if (!userCollection.value) {
                     </UiTableHeader>
                     <UiTableBody class="last:border-b">
                         <UiTableRow
-                            v-for="(file, index) in userCollection!.file_list"
+                            v-for="(file, index) in userCollection?.file_list"
                             :key="index">
                             <UiTableCell>
                                 <span>{{ file.baseName }}</span>

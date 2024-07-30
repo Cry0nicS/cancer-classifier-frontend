@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {doc} from "firebase/firestore";
+import {collection, doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
-import type {User} from "@firebase/auth";
 import type {UserCollection} from "~/types/firebase";
 import {formatDate} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
@@ -41,11 +40,11 @@ useSeo(
 );
 
 // Setting up Firebase Auth and Firestore
-useFirebaseAuth();
-const user = (await getCurrentUser()) as User;
-const idToken = await user.getIdToken();
+const _auth = useFirebaseAuth()!;
 const db = useFirestore();
-const fileList = ref<FileList[]>([]);
+const user = useCurrentUser();
+const idToken = ref<string | null>(null);
+
 const isProcessingStarted = ref(false);
 const isProcessingComplete = ref(false);
 const isPredictionStarted = ref(false);
@@ -54,33 +53,20 @@ const notificationId = ref<string>(t("toast.wait"));
 const {extractErrorMessage} = useErrorMessage();
 
 // Fetch the data from Firebase in real-time for the active session.
-const {data: userCollection, promise} = useDocument<UserCollection>(() =>
-    doc(db, user.uid, uploadSessionId)
+const {data: userCollection} = useDocument<UserCollection>(() =>
+    user.value ? doc(collection(db, user.value.uid), uploadSessionId) : null
 );
 
-// Await the promise to resolve before checking and mutating the user collection.
-await promise.value;
-await nextTick();
-
-if (!userCollection.value) {
-    useSonner.loading(t("toast.noData"), {
-        description: `${t("toast.redirect")}...`
-    });
-
-    navigateTo({path: localePath("/services/upload")}, {replace: true, external: false});
-}
-
-// Check if the data processing has already started for the current session.
-// Relevant when the user navigates away and back to the page.
-progressStatus(userCollection.value!.status);
-
 // Create a list of files to be used in the form.
-fileList.value =
-    userCollection.value!.file_list.map((file) => ({
-        baseName: file.baseName,
-        platform: file.platform,
-        material: file.material ?? ""
-    })) ?? [];
+const fileList = computed((): FileList[] => {
+    return (
+        userCollection.value?.file_list.map((file) => ({
+            baseName: file.baseName,
+            platform: file.platform,
+            material: file.material ?? ""
+        })) ?? []
+    );
+});
 
 const startPreProcessing = async () => {
     useSonner.loading(t("toast.sendData"), {
@@ -96,7 +82,7 @@ const startPreProcessing = async () => {
             {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${idToken}`
+                    Authorization: `Bearer ${idToken.value}`
                 },
                 body: fileList.value
             }
@@ -111,7 +97,7 @@ const startPreProcessing = async () => {
             await $fetch(`/api/start-preprocessing?upload_session_id=${uploadSessionId}`, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${idToken}`
+                    Authorization: `Bearer ${idToken.value}`
                 }
             });
         }
@@ -128,7 +114,7 @@ const startPrediction = async () => {
         await $fetch(`/api/start-prediction?upload_session_id=${uploadSessionId}`, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${idToken}`
+                Authorization: `Bearer ${idToken.value}`
             }
         });
     } catch (error) {
@@ -179,11 +165,28 @@ function progressStatus(status: UploadStatus): void {
     }
 }
 
+const sessionStartedAtComputed = computed(() => userCollection.value?.sessionStartedAt);
+
+const computedSessionStartedAt = computed(() =>
+    sessionStartedAtComputed.value
+        ? formatDate(sessionStartedAtComputed.value, locale as unknown as Locale)
+        : null
+);
+
 watch(
-    () => userCollection.value!.status,
-    (newStatus: UploadStatus) => {
-        progressStatus(newStatus);
-    }
+    [() => user.value, () => userCollection.value?.status],
+    async ([newUser, newStatus], [oldUser, oldStatus]) => {
+        // Check if the user has changed and is defined
+        if (newUser && newUser !== oldUser) {
+            idToken.value = await newUser.getIdToken();
+        }
+
+        // Handle the status change.
+        if (newStatus && newStatus !== oldStatus) {
+            progressStatus(newStatus);
+        }
+    },
+    {immediate: true} // This ensures the watcher runs immediately on setup
 );
 </script>
 
@@ -192,7 +195,7 @@ watch(
         <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
-                    {{ t("dashboard.title", {name: user.displayName}) }}
+                    {{ t("dashboard.title", {name: user?.displayName}) }}
                 </h1>
                 <div class="flex flex-col justify-center gap-2 md:flex-row">
                     <NuxtLink
@@ -274,21 +277,16 @@ watch(
                             </UiTableHeader>
                             <UiTableBody class="last:border-b">
                                 <UiTableRow
-                                    v-for="(file, index) in userCollection!.file_list"
+                                    v-for="(file, index) in userCollection?.file_list"
                                     :key="index">
                                     <UiTableCell class="font-medium">
                                         <span>{{ file.baseName }}</span>
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{ t(`api.uploadStatus.${userCollection!.status}`) }}
+                                        {{ t(`api.uploadStatus.${userCollection?.status}`) }}
                                     </UiTableCell>
                                     <UiTableCell>
-                                        {{
-                                            formatDate(
-                                                userCollection!.sessionStartedAt,
-                                                locale as Locale
-                                            )
-                                        }}
+                                        {{ computedSessionStartedAt }}
                                     </UiTableCell>
                                     <UiTableCell>
                                         {{ t(`api.platform.${file.platform}`) }}
@@ -317,7 +315,7 @@ watch(
                                         </fieldset>
                                     </UiTableCell>
                                 </UiTableRow>
-                                <UiTableRow v-if="!userCollection!.sample_sheet_EPIC">
+                                <UiTableRow v-if="!userCollection?.sample_sheet_EPIC">
                                     <!-- eslint-disable vue/attribute-hyphenation -->
                                     <UiTableCell
                                         colSpan="5"

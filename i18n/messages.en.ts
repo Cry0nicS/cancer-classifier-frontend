@@ -357,7 +357,7 @@ export default {
             imageAlt:
                 "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
-        title: "Our privacy policy"
+        title: "Data Privacy Policy"
     },
     // -- Contact
     contact: {

@@ -4,7 +4,9 @@ export default {
             "Verflochtene DNA-Stränge, die Teil des kreisförmigen Designs bilden, zentriert mit dem App-Namen in einer klaren, lesbaren Schrift. Das Farbschema umfasst Blautöne und Grautöne, die ein professionelles und vertrauenswürdiges Bild vermitteln, das für eine medizinische Anwendung geeignet ist. Das Logo kombiniert visuelle Elemente der Wissenschaft und Medizin und symbolisiert den Fokus der App auf DNA-Methylierungsprofile zur Krebs-Klassifikation."
     },
     footer: {
+        aboutUs: "Über uns",
         contact: "Kontakt",
+        eula: "EULA",
         imprint: "Impressum",
         privacy: "Datenschutz"
     },
@@ -147,6 +149,17 @@ export default {
     },
 
     // Seiten
+    // -- Ueber uns
+    aboutUs: {
+        seo: {
+            title: "Über uns",
+            description:
+                "Erfahren Sie mehr über das Team hinter den auf unserer Website verfügbaren Forschungsmodellen und -werkzeugen. Unsere Mission ist es, die Forschungsgemeinschaft mit zugänglichen und zuverlässigen Werkzeugen zu unterstützen.",
+            image: "/og-image.webp",
+            imageAlt: "Forschungsteam arbeitet an Modellen"
+        },
+        title: "Über uns"
+    },
     // -- Passwort vergessen
     forgotPassword: {
         seo: {
@@ -175,7 +188,15 @@ export default {
         },
         title: "Konto erstellen",
         submit: "Jetzt registrieren",
-        signIn: "Anmelden"
+        signIn: "Anmelden",
+        disclaimer: {
+            title: "Haftungsausschluss",
+            privacyText: "Durch die Registrierung stimmen Sie unserer {privacy} und {eula} zu.",
+            privacyUrl: "Datenschutzrichtlinie",
+            eulaUrl: "Endbenutzer-Lizenzvertrag (EULA)",
+            purpose:
+                "Sie sind sich bewusst, dass der Klassifikator nur ein Forschungstool ist und nicht für diagnostische Zwecke verwendet werden sollte."
+        }
     },
     // -- Startseite
     home: {
@@ -201,66 +222,32 @@ export default {
             title: "Häufig gestellte Fragen",
             description: "Überprüfen Sie diese Fragen für Informationen zu unserem Service.",
             item1: {
-                title: "Wie ist der Arbeitsablauf des Krebs-Klassifikators?",
+                title: "Was ist der Krebs-Klassifikator?",
                 content:
-                    "**Unser Krebs-Klassifikator verarbeitet `.idat`-Dateien und klassifiziert sie in eine von vier Kategorien: PAAD, iCCA, Normal Bile oder No Match.**\n\n" +
-                    "Der Vorhersage-Workflow umfasst die folgenden vier Schritte:\n\n" +
-                    "1. **Hochladen von `.idat`-Dateien:**\n" +
-                    "   - Der Klassifikator akzeptiert Dateien, die von den Plattformen 450k, EPIC und EPICv2 generiert wurden.\n" +
-                    "   - Er kann bis zu 8 Proben gleichzeitig verarbeiten, was insgesamt 16 Dateien erfordert (jeweils `_Red` und `_Grn` für jede Probe).\n" +
-                    "   - Stellen Sie sicher, dass Ihre Dateinamen diesem Format folgen: `*_XXXXXX_Red.idat` oder `*_XXXXXX_Grn.idat`. Zum Beispiel wäre ein korrekter Dateiname `OPTIONAL_NAME_206702460068_R03C01_Red.idat`.\n\n" +
-                    "2. **Angeben des Probenspeichertyps:**\n" +
-                    "   - Geben Sie an, ob die Probe in FFPE oder Fresh Frozen gelagert wurde. Diese Information ist entscheidend, um die Modellgenauigkeit zu verbessern, da die Materiallagerung einen signifikanten Batch-Effekt auf die DNA-Methylierungsdaten hat.\n\n" +
-                    "3. **Auf die Vorhersage warten:**\n" +
-                    "   - Der Vorhersageprozess kann bis zu 10 Minuten dauern. Bitte haben Sie Geduld, während das Modell die Analyse durchführt.\n\n" +
-                    "4. **Ergebnisse überprüfen:**\n" +
-                    "   - Sobald die Analyse abgeschlossen ist, erhalten Sie das Vorhersageetikett zusammen mit den Wahrscheinlichkeitsscores für jede Klasse. Diese detaillierte Ausgabe hilft, das Vertrauen des Klassifikators in seine Vorhersagen zu verstehen.\n" +
-                    "   - Zögern Sie nicht, unser Support-Team zu kontaktieren, wenn Sie weitere Fragen haben oder Unterstützung bei dem Prozess benötigen."
+                    "Der Krebs-Klassifikator ist ein auf genomweiten DNA-Methylierung basierender neuronaler Netzwerk-Klassifikator, der zwischen pankreatischem Duktaladenokarzinom primären und metastatischen Ursprungs, intrahepatischem Cholangiokarzinom und normalem Gallengewebe unterscheiden kann.\n\n" +
+                    "Die Klassifikation mittels Methylierungsprofilierung ist nur für Forschungszwecke vorgesehen. Dieses Tool wurde nicht überprüft oder klinisch validiert und darf nicht für diagnostische Zwecke verwendet werden. Benutzer sollten sich bei gesundheitlichen Bedenken oder Erkrankungen an einen qualifizierten Gesundheitsdienstleister wenden. Die Entwickler des Krebs-Klassifikators lehnen jegliche Verantwortung für den Missbrauch dieses Tools für diagnostische Zwecke ab."
             },
             item2: {
-                title: "Welche Dateien akzeptiert der Klassifikator?",
+                title: "Wie erstelle ich ein Konto?",
                 content:
-                    "Der Klassifikator arbeitet durch zwei Hauptpipelines: die Vorverarbeitungspipeline und die Vorhersagepipeline.\n\n" +
-                    "**Vorverarbeitungspipeline:**\n\n" +
-                    "   - Die Vorverarbeitungspipeline liest die `.idat`-Dateien, extrahiert Beta-Werte und normalisiert diese Werte mithilfe von FunNorm und BMIQ.\n" +
-                    "   - Aus den normalisierten Beta-Werten werden die relevanten CpGs extrahiert, die von der Vorhersagepipeline verwendet werden, und weitergeleitet.\n\n" +
-                    "**Vorhersagepipeline:**\n\n" +
-                    "   Die Vorhersagepipeline umfasst drei Schritte:\n\n" +
-                    "1. **Batch-Effekt-Normalisierung:**\n" +
-                    "   - Dies erfolgt mithilfe von reCombat, um Batch-Effekte auszugleichen.\n\n" +
-                    "2. **Binomialer Klassifikator:**\n" +
-                    "   - Ein neuronales Netzwerk-Ensemble, das darauf trainiert ist zu bestimmen, ob die bereitgestellte Probe PAAD, iCCA, normales Gallengewebe oder ein anderes Gewebe ist.\n" +
-                    "   - Proben, die nicht mit PAAD, iCCA oder normalem Gallengewebe übereinstimmen, werden als 'No Match' gekennzeichnet.\n\n" +
-                    "3. **PAAD / iCCA / Normal Bile Klassifikator:**\n" +
-                    "   - Ein neuronales Netzwerk, das Wahrscheinlichkeitsscores für die drei Klassen PAAD, iCCA und normales Gallengewebe zuweist.\n" +
-                    "   - Damit eine Klasse das endgültige Etikett wird, muss ihr Score über 80% liegen. Wenn keine der drei Klassen diese Schwelle erreicht, wird das Etikett 'No Match' zugewiesen.\n\n" +
-                    "Dieser detaillierte Prozess gewährleistet die genaue Klassifizierung der Proben und liefert sowohl Vorhersageetiketten als auch Wahrscheinlichkeitsscores für eine bessere Interpretierbarkeit.\n\n" +
-                    "Für weitere Informationen verweisen wir auf unsere Publikationen."
+                    "Um ein Konto zu erstellen, müssen Sie Ihren Namen, Ihre E-Mail-Adresse und Ihr Passwort angeben. Geben Sie außerdem eine kurze Beschreibung über sich selbst an, um den Missbrauch des Klassifikators zu verhindern. Beachten Sie, dass Ihr Konto erst aktiv wird, wenn es von einem Teammitglied genehmigt wurde.\n\n" +
+                    "Dieser Service wird kostenlos angeboten."
             },
             item3: {
-                title: "Publikationen",
+                title: "Wie funktioniert der Krebs-Klassifikator?",
                 content:
-                    "Der Klassifikator basiert sich auf den folgenden Publikationen:\n" +
-                    "  - DNA-Methylierungsbasierter Klassifikator unterscheidet intrahepatische Pankreatobiliärtumore\n" +
-                    "  - [Hier verfügbar](https://www.sciencedirect.com/science/article/pii/S2352396423002220)"
-            },
-            item4: {
-                title: "Wer sind wir und warum machen wir das?",
-                content:
-                    "  - Diese Website wurde von **Dr. Dragomir** und **T.G. Calina** eingerichtet, um Zugang zu den in ihrer Forschung veröffentlichten Modellen zu bieten. Unser Ziel ist es, diese Werkzeuge anderen Forschern zugänglich zu machen, die daran interessiert sind, sie auszuprobieren. Wir glauben, dass unser Werkzeug in spezifischen Fällen sehr nützlich sein kann und wollen seine Nutzung vereinfachen.\n" +
-                    "  - Die Website wird von **T.G. Calina** als Hobbyprojekt gehostet und entwickelt und ist nicht mit einer Institution verbunden. Derzeit sind die Infrastrukturkosten niedrig genug, um in den kostenlosen Bereich unseres Cloud-Service-Providers zu fallen. Deshalb kann die Vorhersagepipeline langsam sein und die Anzahl der gleichzeitig verarbeiteten Proben ist begrenzt.\n" +
-                    "  - Zukünftig werden eventuelle Kostensteigerungen aufgrund höheren Verkehrs privat von **T.G. Calina** gedeckt. Es gibt keine kommerziellen Interessen; dies ist ein pro-bono Einsatz zur Unterstützung der Forschungsgemeinschaft.\n" +
-                    "  - Wir überprüfen potenzielle Benutzer, bevor wir den Zugang zum Werkzeug gewähren, um Ressourcenmissbrauch zu verhindern und sicherzustellen, dass die Benutzer die vom Werkzeug erzeugten Ergebnisse verstehen.\n"
-            },
-            item5: {
-                title: "Wie lange dauert der Vorhersageprozess?",
-                content:
-                    "Der Vorhersageprozess kann bis zu 10 Minuten dauern. Bitte haben Sie Geduld, während das Modell die Analyse durchführt."
-            },
-            item6: {
-                title: "Welche Unterstützung ist verfügbar, wenn ich Fragen habe?",
-                content:
-                    "Zögern Sie nicht, unser Support-Team zu kontaktieren, wenn Sie weitere Fragen haben oder Unterstützung bei dem Prozess benötigen. Wir sind hier, um Ihnen zu helfen, den Krebs-Klassifikator effektiv zu verstehen und zu nutzen."
+                    "Der Krebs-Klassifikator verarbeitet `.idat`-Dateien und kategorisiert sie in eine von vier Gruppen: PAAD, iCCA, normales Gallengewebe oder keine Übereinstimmung. Der Workflow umfasst zwei Hauptpipelines: die Vorverarbeitungspipeline und die Vorhersagepipeline.\n\n" +
+                    "**Vorverarbeitungspipeline:**\n\n" +
+                    "- Die Vorverarbeitungspipeline liest die `.idat`-Dateien, extrahiert Betawerte und normalisiert diese Werte mit FunNorm und BMIQ.\n\n" +
+                    "- Aus den normalisierten Betawerten werden die relevanten CpGs extrahiert, die von der Vorhersagepipeline verwendet werden, und weitergeleitet.\n\n" +
+                    "**Vorhersagepipeline:**\n\n" +
+                    "1. **Batch-Effekt-Normalisierung:**\n" +
+                    "   - Passt Batch-Effekte mit reCombat an.\n\n" +
+                    "2. **Binomialer Klassifikator:**\n" +
+                    "   - Ein neuronales Netzwerkensemble bestimmt, ob die Probe PAAD, iCCA, normales Gallengewebe oder ein anderes Gewebe ist. Proben, die nicht mit PAAD, iCCA oder normalem Gallengewebe übereinstimmen, werden als 'Keine Übereinstimmung' gekennzeichnet.\n\n" +
+                    "3. **PAAD / iCCA / normaler Gallenklassifikator:**\n" +
+                    "   - Weist den drei Klassen PAAD, iCCA und normales Gallengewebe Wahrscheinlichkeitswerte zu. Damit eine Klasse das endgültige Label ist, muss ihr Wert über 80 % liegen. Wenn keine der Klassen diesen Schwellenwert erreicht, wird das Label 'Keine Übereinstimmung' zugewiesen.\n\n" +
+                    "Für weitere Informationen siehe unsere Publikationen."
             }
         }
     },
@@ -358,6 +345,11 @@ export default {
                 nnScoreiCCA: "NN Score iCCA",
                 binomial_prediction: "Binomiale Vorhersage"
             }
+        },
+        disclaimer: {
+            title: "Haftungsausschluss",
+            description:
+                "Die vom Krebs-Klassifikator erzeugten Ergebnisse sind ausschließlich für Forschungszwecke bestimmt und dürfen nicht für diagnostische Zwecke verwendet werden."
         }
     },
     // -- Privacy
@@ -371,6 +363,17 @@ export default {
                 "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
         title: "Datenschutzerklärung"
+    },
+    // -- EULA
+    eula: {
+        seo: {
+            title: "EULA | Nutzungsbedingungen für Krebsklassifikator-Tools",
+            description: "Endbenutzer-Lizenzvertrag (EULA)",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Endbenutzer-Lizenzvertrag (EULA)"
     },
     // -- Contact
     contact: {

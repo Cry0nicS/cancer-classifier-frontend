@@ -187,7 +187,14 @@ export default {
         },
         title: "Konto erstellen",
         submit: "Jetzt registrieren",
-        signIn: "Anmelden"
+        signIn: "Anmelden",
+        disclaimer: {
+            title: "Haftungsausschluss",
+            privacyText: "Durch die Registrierung stimmen Sie unserer {url} zu.",
+            privacyUrl: "Datenschutzrichtlinie",
+            purpose:
+                "Sie sind sich bewusst, dass der Klassifikator nur ein Forschungstool ist und nicht für diagnostische Zwecke verwendet werden sollte."
+        }
     },
     // -- Startseite
     home: {

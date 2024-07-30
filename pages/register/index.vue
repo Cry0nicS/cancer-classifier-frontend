@@ -81,6 +81,12 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         });
     }
 });
+
+const privacyText = computed(() => {
+    const url = `<NuxtLink class="text-blue-600 hover:underline" to="${localePath("/legal/privacy")}">${t("register.disclaimer.privacyUrl")}</NuxtLink>`;
+
+    return t("register.disclaimer.privacyText", {url});
+});
 </script>
 
 <template>
@@ -129,6 +135,19 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                     "
                     :label="t('account.aboutMe')"
                     :placeholder="t('account.aboutMePlaceholder')" />
+                <div class="rounded-md border border-input p-4">
+                    <h3 class="text-xl text-muted-foreground lg:text-2xl">
+                        ⚠ {{ t("register.disclaimer.title") }}
+                    </h3>
+                    <ul class="mt-2 list-inside list-disc">
+                        <li>
+                            <output v-html="privacyText" />
+                        </li>
+                        <li>
+                            {{ t("register.disclaimer.purpose") }}
+                        </li>
+                    </ul>
+                </div>
                 <UiButton
                     type="submit"
                     class="w-full">

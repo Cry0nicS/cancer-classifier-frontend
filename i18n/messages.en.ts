@@ -186,7 +186,14 @@ export default {
         },
         title: "Create an account",
         submit: "Register now",
-        signIn: "Sign in"
+        signIn: "Sign in",
+        disclaimer: {
+            title: "Disclaimer",
+            privacyText: "By registering, you agree to our {url}.",
+            privacyUrl: "Privacy Policy",
+            purpose:
+                "You are aware that the Classifier is a research tool only and should not be used for diagnostic purposes."
+        }
     },
     // -- Index
     home: {

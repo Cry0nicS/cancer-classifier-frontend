@@ -142,6 +142,14 @@ const computedSessionStartedAt = computed(() =>
                     </UiTableBody>
                 </UiTable>
             </div>
+            <div class="mt-12">
+                <h3 class="text-xl text-muted-foreground lg:text-2xl">
+                    ⚠ {{ t("results.disclaimer.title") }}
+                </h3>
+                <p>
+                    {{ t("results.disclaimer.description") }}
+                </p>
+            </div>
         </div>
     </UiContainer>
 </template>

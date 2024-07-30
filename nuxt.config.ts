@@ -111,10 +111,7 @@ export default defineNuxtConfig({
         }
     },
     routeRules: {
-        "/": {ssr: true},
-        "/legal": {ssr: false},
-        "/register/**": {ssr: true},
-        "/services/**": {ssr: true}
+        "/legal/**": {ssr: false}
     },
     vuefire: {
         auth: {

@@ -9,14 +9,17 @@ const localePath = useLocalePath();
 
     <Footer>
         <template #links>
-            <NuxtLink :to="localePath('/legal/contact')">
-                {{ $t("footer.contact") }}
+            <NuxtLink :to="localePath('/about-us')">
+                {{ $t("footer.aboutUs") }}
             </NuxtLink>
             <NuxtLink :to="localePath('/legal/imprint')">
                 {{ $t("footer.imprint") }}
             </NuxtLink>
             <NuxtLink :to="localePath('/legal/privacy')">
                 {{ $t("footer.privacy") }}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/legal/contact')">
+                {{ $t("footer.contact") }}
             </NuxtLink>
             <LanguageToggle />
             <ThemeToggle>

@@ -4,6 +4,7 @@ export default {
             "Intertwined DNA strands forming part of the circular design, centered with the app name in a clean, readable font. The color scheme includes shades of blue and gray, conveying a professional and trustworthy image suitable for a medical application. The logo combines visual elements of science and medicine, symbolizing the app's focus on DNA methylation profiles for cancer classification."
     },
     footer: {
+        aboutUs: "About us",
         contact: "Contact",
         imprint: "Imprint",
         privacy: "Privacy"

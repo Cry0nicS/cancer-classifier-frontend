@@ -4,6 +4,7 @@ export default {
             "Verflochtene DNA-Stränge, die Teil des kreisförmigen Designs bilden, zentriert mit dem App-Namen in einer klaren, lesbaren Schrift. Das Farbschema umfasst Blautöne und Grautöne, die ein professionelles und vertrauenswürdiges Bild vermitteln, das für eine medizinische Anwendung geeignet ist. Das Logo kombiniert visuelle Elemente der Wissenschaft und Medizin und symbolisiert den Fokus der App auf DNA-Methylierungsprofile zur Krebs-Klassifikation."
     },
     footer: {
+        aboutUs: "Über uns",
         contact: "Kontakt",
         imprint: "Impressum",
         privacy: "Datenschutz"

@@ -1,40 +1,28 @@
 ## Einführung
-Willkommen auf unserer Datenschutzrichtlinienseite! Hier bei [Website-Name], betrieben von Dr. Dragomir und T.G. Calina, sind wir verpflichtet, die Privatsphäre und Sicherheit unserer Nutzer zu schützen. Diese Richtlinie beschreibt, wie wir Ihre persönlichen und wissenschaftlichen Daten handhaben und sichern, wenn Sie unsere Krebsklassifikator-Tools verwenden.
+Der Krebs-Klassifikator ("Software") ist bestrebt, Ihre Privatsphäre zu schützen. Diese Richtlinie erläutert, wie wir Ihre persönlichen Daten erfassen, verwenden und schützen.
 
-## Datenerhebung
-Wir sammeln und verarbeiten Daten, die ausschließlich für den Betrieb unseres Krebsklassifikators notwendig sind, einschließlich:
+## Datenerfassung
+Wir erfassen oder verarbeiten keine personenbezogenen Daten durch die Nutzung der Software. Benutzer können .idat-Dateien zur Analyse einreichen, die ausschließlich für den Klassifikationsprozess verwendet werden.
 
-- **Hochladen von .idat-Dateien:** Wir akzeptieren .idat-Dateien, die von den Plattformen 450k, EPIC und EPICv2 für die Krebsklassifikation generiert wurden.
-- **Angaben zum Probenspeichertyp:** Benutzer müssen angeben, ob die Probe in FFPE oder Fresh Frozen gelagert wurde, um die Genauigkeit des Modells zu verbessern.
+## Verwendung von Daten
+Alle eingereichten Daten werden ausschließlich für Forschungszwecke verwendet. Wir nutzen, teilen oder offenbaren keine Daten zu kommerziellen Zwecken.
 
-## Verwendung der Daten
-Die von Ihnen bereitgestellten Daten werden ausschließlich für folgende Zwecke verwendet:
+## Datensicherheit
+Wir implementieren geeignete technische und organisatorische Maßnahmen, um die Sicherheit der Datenkommunikation und -speicherung zu gewährleisten. Wir sind jedoch nicht verantwortlich für die Sicherheit der Datenkommunikation oder Übertragungsunterbrechungen aufgrund technischer Mängel auf der Benutzerseite.
 
-- **Verarbeitung und Analyse:** Zur Klassifizierung Ihrer Proben in Kategorien wie PAAD, iCCA, normales Gallengewebe oder Kein Treffer.
-- **Verbesserung der Dienste:** Zur Verbesserung der Genauigkeit und Effizienz unserer Klassifikationsmodelle basierend auf aggregierten Dateneinblicken.
+## Benutzerverantwortung
+Benutzer müssen die Einhaltung aller geltenden Datenschutzvorschriften sicherstellen und gegebenenfalls eine ordnungsgemäße Einwilligung von den betroffenen Personen einholen. Benutzer sind dafür verantwortlich, ihre eigenen technischen Voraussetzungen für den Zugriff auf die Software zu schaffen.
 
-## Datenspeicherung
-Alle Datendateien und Informationen werden sicher auf Servern unter der Kontrolle von T.G. Calina gespeichert. Der Zugriff auf diese Dateien ist streng auf autorisiertes Personal beschränkt, das an der Verwaltung und Wartung des Klassifikatordienstes beteiligt ist.
+## Dienste von Drittanbietern
+Die Software kann Komponenten enthalten, die unter Open-Source-Lizenzen lizenziert sind. Benutzer werden über die jeweiligen Komponenten und deren Lizenzen informiert.
 
-## Datenweitergabe
-Wir geben keine Daten an Dritte weiter. Alle Analysen werden intern durchgeführt, und die Ergebnisse werden direkt an den Benutzer kommuniziert, ohne externe Verbreitung.
+## Aufbewahrung von Daten
+Daten, die zur Klassifikation eingereicht werden, werden nur so lange aufbewahrt, wie es erforderlich ist, um die Analyse durchzuführen und Ergebnisse zu generieren. Benutzer können jederzeit die Löschung ihrer Daten anfordern, indem sie uns kontaktieren.
 
-## Datenaufbewahrung
-Daten werden nur so lange aufbewahrt, wie es notwendig ist, um den Klassifikationsprozess abzuschließen, danach werden sie sicher von unseren Servern gelöscht.
+## Kontaktinformationen
+Für Fragen zu dieser Richtlinie kontaktieren Sie uns bitte unter [Kontaktinformationen](/de/legal/kontakt).
 
-## Rechte der Benutzer
-Benutzer haben das Recht, Zugang zu den persönlichen Daten zu beantragen, die wir über sie speichern, und können Korrekturen, Löschungen oder Einschränkungen bei der Verarbeitung ihrer Daten verlangen. Benutzer können auch unter bestimmten Umständen der Datenverarbeitung widersprechen.
+## Änderungen dieser Richtlinie
+Wir behalten uns das Recht vor, diese Datenschutzrichtlinie jederzeit zu ändern. Änderungen werden auf dieser Seite veröffentlicht, und Ihre fortgesetzte Nutzung der Software stellt die Annahme dieser Änderungen dar.
 
-## Sicherheitsmaßnahmen
-Wir setzen strenge Sicherheitsmaßnahmen ein, um Ihre Daten vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen. Dazu gehören:
-
-- **Verschlüsselung:** Alle Daten, die an und von unserer Website übertragen werden, sind durch sichere Protokolle verschlüsselt.
-- **Zugangskontrollen:** Es werden strenge Zugangskontrollen aufrechterhalten, um sicherzustellen, dass nur notwendiges Personal Zugang zu Ihren Daten hat.
-
-## Änderungen an unserer Datenschutzrichtlinie
-Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit einem aktualisierten Überarbeitungsdatum veröffentlicht.
-
-## Kontaktieren Sie uns
-Wenn Sie Fragen zu dieser Datenschutzrichtlinie oder unserer Behandlung Ihrer Daten haben, kontaktieren Sie uns bitte unter [Kontaktinformationen](/de/legal/kontakt).
-
-Vielen Dank, dass Sie uns Ihr Vertrauen schenken. Wir sind verpflichtet, Ihre Privatsphäre zu schützen und die höchste Sicherheitsstufe für Ihre Informationen zu gewährleisten.
+Durch die Nutzung des Krebs-Klassifikators bestätigen Sie, dass Sie diese Datenschutzrichtlinie gelesen, verstanden und akzeptiert haben.

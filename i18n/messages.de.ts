@@ -6,6 +6,7 @@ export default {
     footer: {
         aboutUs: "Über uns",
         contact: "Kontakt",
+        eula: "EULA",
         imprint: "Impressum",
         privacy: "Datenschutz"
     },
@@ -190,8 +191,9 @@ export default {
         signIn: "Anmelden",
         disclaimer: {
             title: "Haftungsausschluss",
-            privacyText: "Durch die Registrierung stimmen Sie unserer {url} zu.",
+            privacyText: "Durch die Registrierung stimmen Sie unserer {privacy} und {eula} zu.",
             privacyUrl: "Datenschutzrichtlinie",
+            eulaUrl: "Endbenutzer-Lizenzvertrag (EULA)",
             purpose:
                 "Sie sind sich bewusst, dass der Klassifikator nur ein Forschungstool ist und nicht für diagnostische Zwecke verwendet werden sollte."
         }
@@ -361,6 +363,17 @@ export default {
                 "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
         title: "Datenschutzerklärung"
+    },
+    // -- EULA
+    eula: {
+        seo: {
+            title: "EULA | Nutzungsbedingungen für Krebsklassifikator-Tools",
+            description: "Endbenutzer-Lizenzvertrag (EULA)",
+            image: "/og-image.webp",
+            imageAlt:
+                "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
+        },
+        title: "Endbenutzer-Lizenzvertrag (EULA)"
     },
     // -- Contact
     contact: {

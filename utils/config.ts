@@ -35,6 +35,10 @@ export const i18nPages = {
         de: "/legal/kontakt",
         en: "/legal/contact"
     },
+    "legal/eula": {
+        de: "/legal/eula",
+        en: "/legal/eula"
+    },
     "legal/privacy": {
         de: "/legal/datenschutz",
         en: "/legal/privacy"

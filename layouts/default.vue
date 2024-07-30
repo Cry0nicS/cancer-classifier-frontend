@@ -18,6 +18,9 @@ const localePath = useLocalePath();
             <NuxtLink :to="localePath('/legal/privacy')">
                 {{ $t("footer.privacy") }}
             </NuxtLink>
+            <NuxtLink :to="localePath('/legal/eula')">
+                {{ $t("footer.eula") }}
+            </NuxtLink>
             <NuxtLink :to="localePath('/legal/contact')">
                 {{ $t("footer.contact") }}
             </NuxtLink>

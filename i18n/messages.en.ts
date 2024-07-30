@@ -6,6 +6,7 @@ export default {
     footer: {
         aboutUs: "About us",
         contact: "Contact",
+        eula: "EULA",
         imprint: "Imprint",
         privacy: "Privacy"
     },
@@ -189,8 +190,9 @@ export default {
         signIn: "Sign in",
         disclaimer: {
             title: "Disclaimer",
-            privacyText: "By registering, you agree to our {url}.",
+            privacyText: "By registering, you agree to our {privacy} and {eula}.",
             privacyUrl: "Privacy Policy",
+            eulaUrl: "End User License Agreement (EULA)",
             purpose:
                 "You are aware that the Classifier is a research tool only and should not be used for diagnostic purposes."
         }
@@ -358,6 +360,17 @@ export default {
                 "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
         title: "Data Privacy Policy"
+    },
+    // -- EULA
+    eula: {
+        seo: {
+            title: "EULA | Terms of Service for Cancer Classifier",
+            description: "End User License Agreement (EULA)",
+            image: "/og-image.webp",
+            imageAlt:
+                "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
+        },
+        title: "End User License Agreement (EULA)"
     },
     // -- Contact
     contact: {

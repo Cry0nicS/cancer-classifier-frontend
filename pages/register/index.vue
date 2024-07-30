@@ -83,9 +83,10 @@ const registerUser = handleSubmit(async (values, _ctx) => {
 });
 
 const privacyText = computed(() => {
-    const url = `<NuxtLink class="text-blue-600 hover:underline" to="${localePath("/legal/privacy")}">${t("register.disclaimer.privacyUrl")}</NuxtLink>`;
+    const privacy = `<a class="text-blue-600 hover:underline" target="_blank" href="${localePath("/legal/privacy")}">${t("register.disclaimer.privacyUrl")}</a>`;
+    const eula = `<a class="text-blue-600 hover:underline" target="_blank" href="${localePath("/legal/eula")}">${t("register.disclaimer.eulaUrl")}</a>`;
 
-    return t("register.disclaimer.privacyText", {url});
+    return t("register.disclaimer.privacyText", {privacy, eula});
 });
 </script>
 

@@ -7,7 +7,7 @@ const user = useCurrentUser();
     <UiNavbar class="border-0">
         <UiContainer class="flex h-[70px] items-center justify-between border-b-2">
             <div>
-                <Logo :size="56" />
+                <Logo :height="40" />
             </div>
             <div class="flex min-w-[180px] items-center gap-4">
                 <div

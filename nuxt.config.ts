@@ -3,6 +3,7 @@ import {envVarsConfig, i18nPages, routeRules} from "./utils/config";
 
 export default defineNuxtConfig({
     ssr: true,
+    site: {indexable: false}, // Disable indexing until the website is ready.
     alias: {
         assets: "/<rootDir>/assets"
     },
@@ -15,6 +16,7 @@ export default defineNuxtConfig({
         "@nuxtjs/color-mode",
         "@nuxtjs/i18n",
         "@nuxtjs/mdc",
+        "@nuxtjs/robots",
         "@nuxtjs/stylelint-module",
         "@nuxtjs/tailwindcss",
         "@vee-validate/nuxt",

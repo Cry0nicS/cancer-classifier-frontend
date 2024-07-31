@@ -4,6 +4,18 @@ import {envVarsConfig, i18nPages, routeRules} from "./utils/config";
 export default defineNuxtConfig({
     ssr: true,
     site: {indexable: false}, // Disable indexing until the website is ready.
+    app: {
+        head: {
+            script: [
+                {
+                    hid: "newrelic",
+                    src: "newrelic.js",
+                    defer: true,
+                    type: "text/javascript"
+                }
+            ]
+        }
+    },
     alias: {
         assets: "/<rootDir>/assets"
     },

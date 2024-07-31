@@ -4,19 +4,21 @@
  *
  * Props:
  *  - height (optional): Specifies the height of the logo in pixels. If not provided, defaults to 85 pixels.
+ *  - width (optional): Specifies the width of the logo in pixels. If not provided, it will not be set, allowing the height to control the size based on aspect ratio.
  *  - color (optional): Determines the color of the logo.
  *
- * The component dynamically calculates the logo's width based on the provided height to maintain a consistent aspect ratio of 32:17.
+ * The component dynamically calculates the logo's width based on the provided height to maintain a consistent aspect ratio, unless a specific width is provided.
  *
- * @displayName logo
+ * @displayName Logo
  */
 interface LogoProps {
-    size?: number;
+    height?: number;
+    width?: number;
     color?: string;
 }
 
-const {size, color} = withDefaults(defineProps<LogoProps>(), {
-    size: 85,
+const {height, width, color} = withDefaults(defineProps<LogoProps>(), {
+    height: 85,
     color: "transparent"
 });
 
@@ -26,10 +28,10 @@ const localePath = useLocalePath();
 <template>
     <NuxtLink :to="localePath('/')">
         <NuxtImg
-            :height="size"
-            :width="size"
+            :height="height"
+            v-bind="{width: width || undefined}"
             :class="`fill-${color}`"
-            src="/logo.webp"
+            src="/logo.png"
             loading="lazy" />
 
         <span class="sr-only">{{ $t("logo.altText") }}</span>

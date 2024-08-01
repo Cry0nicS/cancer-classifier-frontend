@@ -13,15 +13,16 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     const t = nuxtApp.$i18n.t;
     let targetPath = nuxtApp.$localePath("/");
 
-    const user = await getCurrentUser();
     const db = useFirestore();
 
-    // Redirect unauthenticated users to the login page.
-    if (!user) {
-        targetPath = nuxtApp.$localePath("/");
-    }
-
     try {
+        const user = await getCurrentUser();
+
+        // Redirect unauthenticated users to the login page.
+        if (!user) {
+            targetPath = nuxtApp.$localePath("/");
+        }
+
         const docRef = await getDoc(doc(db, "users", user.uid));
 
         // If the user's document does not exist or `isDisabled` is true, allow access.
@@ -29,6 +30,8 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
             return; // Continue to the verification page.
         }
     } catch (error) {
+        useRollbar().error(error);
+
         return createError({
             statusCode: 500,
             statusMessage: `${t("errors.unexpectedError")} ${t("errors.tryAgain")}`

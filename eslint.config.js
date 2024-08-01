@@ -7,7 +7,7 @@ export default antfu(
         vue: true,
         jsonc: true,
         extends: ["prettier"],
-        ignores: ["components/Ui/**", ".coderabbit.yaml", ".github/**"]
+        ignores: ["components/Ui/**", ".coderabbit.yaml", ".github/**", "public/newrelic.js"]
     },
     {
         files: ["**/*.vue"],

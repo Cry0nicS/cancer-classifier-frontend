@@ -4,6 +4,18 @@ import {envVarsConfig, i18nPages, routeRules} from "./utils/config";
 export default defineNuxtConfig({
     ssr: true,
     site: {indexable: false}, // Disable indexing until the website is ready.
+    app: {
+        head: {
+            script: [
+                {
+                    hid: "newrelic",
+                    src: "newrelic.js",
+                    defer: true,
+                    type: "text/javascript"
+                }
+            ]
+        }
+    },
     alias: {
         assets: "/<rootDir>/assets"
     },
@@ -22,6 +34,7 @@ export default defineNuxtConfig({
         "@vee-validate/nuxt",
         "@vueuse/nuxt",
         "nuxt-icon",
+        "nuxt-rollbar",
         "nuxt-vuefire"
     ],
     postcss: {
@@ -105,5 +118,21 @@ export default defineNuxtConfig({
     compatibilityDate: {
         default: "2024-07-03",
         firebase: "2024-07-03"
+    },
+    rollbar: {
+        clientAccessToken: envVarsConfig.rollbarClientAccessToken,
+        serverAccessToken: envVarsConfig.rollbarServerAccessToken,
+        mode: "all",
+        config: {
+            captureIp: "anonymize",
+            captureUncaught: true,
+            captureUnhandledRejections: true,
+            captureUsername: true,
+            captureDeviceInfo: true,
+            addErrorContext: true,
+            payload: {
+                environment: envVarsConfig.appEnv
+            }
+        }
     }
 });

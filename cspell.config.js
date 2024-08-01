@@ -9,7 +9,8 @@ const config = {
         "assets/",
         "package.json",
         "nuxt.config.ts",
-        "tailwind.config.ts"
+        "tailwind.config.ts",
+        "public/**"
     ],
     import: ["@cspell/dict-de-de/cspell-ext.json", "@cspell/dict-lorem-ipsum/cspell-ext.json"],
     language: "en,de",

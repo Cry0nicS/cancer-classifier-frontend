@@ -76,3 +76,12 @@ export const i18nPages = {
         en: "/services/results"
     }
 };
+
+export const nitroPrerenderRoutes = [
+    "/about-us",
+    "/legal/contact",
+    "/legal/eula",
+    "/legal/imprint",
+    "/legal/privacy",
+    "/register/verification"
+];

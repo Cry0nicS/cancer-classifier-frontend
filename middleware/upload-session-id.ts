@@ -11,6 +11,8 @@ export default defineNuxtRouteMiddleware(async (_to, _from) => {
         // Attempt to get the uploadSessionId from the cookie
         uploadSessionId = useCookie("uploadSessionId").value;
     } catch (error) {
+        useRollbar().error(error);
+
         // Redirect to the upload page with an error message or handle as appropriate
         return navigateTo({path: localePath("/services/upload")}, {replace: true, external: true});
     }

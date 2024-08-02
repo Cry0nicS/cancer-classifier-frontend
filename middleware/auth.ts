@@ -39,6 +39,8 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
             return handleRedirect("/register/verification");
         }
     } catch (error) {
+        useRollbar().error(error);
+
         return createError({
             statusCode: 500,
             statusMessage: `${t("errors.unexpectedError")} ${t("errors.tryAgain")}`

@@ -1,6 +1,7 @@
 import {from} from "env-var";
 
 const envVars = from({
+    APP_ENV: process.env.APP_ENV,
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
     FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
@@ -8,10 +9,13 @@ const envVars = from({
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
-    API_URL: process.env.API_URL
+    API_URL: process.env.API_URL,
+    ROLLBAR_CLIENT_ACCESS_TOKEN: process.env.ROLLBAR_CLIENT_ACCESS_TOKEN,
+    ROLLBAR_SERVER_ACCESS_TOKEN: process.env.ROLLBAR_SERVER_ACCESS_TOKEN
 });
 
 export const envVarsConfig = {
+    appEnv: envVars.get("APP_ENV").required().asString(),
     firebaseApiKey: envVars.get("FIREBASE_API_KEY").required().asString(),
     firebaseAuthDomain: envVars.get("FIREBASE_AUTH_DOMAIN").required().asString(),
     firebaseProjectId: envVars.get("FIREBASE_PROJECT_ID").required().asString(),
@@ -19,7 +23,9 @@ export const envVarsConfig = {
     firebaseMessagingSenderId: envVars.get("FIREBASE_MESSAGING_SENDER_ID").required().asString(),
     firebaseAppId: envVars.get("FIREBASE_APP_ID").required().asString(),
     firebaseMeasurementId: envVars.get("FIREBASE_MEASUREMENT_ID").required().asString(),
-    apiUrl: envVars.get("API_URL").required().asUrlString()
+    apiUrl: envVars.get("API_URL").required().asUrlString(),
+    rollbarClientAccessToken: envVars.get("ROLLBAR_CLIENT_ACCESS_TOKEN").required().asString(),
+    rollbarServerAccessToken: envVars.get("ROLLBAR_SERVER_ACCESS_TOKEN").required().asString()
 };
 
 export const i18nPages = {

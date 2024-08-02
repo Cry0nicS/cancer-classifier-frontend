@@ -60,6 +60,7 @@
         "lint-staged": "^15.2.7",
         "nuxt": "^3.12.4",
         "nuxt-icon": "^0.6.10",
+        "nuxt-rollbar": "^0.2.2",
         "nuxt-vuefire": "^1.0.3",
         "postcss": "^8.4.40",
         "postcss-html": "^1.7.0",

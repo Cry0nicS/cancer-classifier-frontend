@@ -72,7 +72,9 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
         checkFileLimit(selectedFiles);
         return true;
     } catch (error) {
-        useSonner.error(extractErrorMessage(error), {description: t("errors.tryAgain")});
+        const message = extractErrorMessage(error);
+        useRollbar().error(error, {message});
+        useSonner.error(message, {description: t("errors.tryAgain")});
         return false;
     }
 };
@@ -81,16 +83,24 @@ const uploadFiles = async (files: File[]): Promise<void> => {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
 
-    await $fetch("/api/upload-files-session", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${idToken.value}`
-        },
-        body: formData,
-        params: {
-            upload_session_id: uploadSessionId.value
-        }
-    });
+    try {
+        await $fetch("/api/upload-files-session", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${idToken.value}`
+            },
+            body: formData,
+            params: {
+                upload_session_id: uploadSessionId.value
+            }
+        });
+    } catch (error) {
+        const message = extractErrorMessage(error);
+        useRollbar().error(error, {message});
+        useSonner.error(message, {description: t("errors.tryAgain")});
+
+        throw error;
+    }
 };
 
 const uploadFilesInBatch = async () => {
@@ -122,7 +132,9 @@ const uploadFilesInBatch = async () => {
             {replace: true, external: false}
         );
     } catch (error) {
-        useSonner.error(extractErrorMessage(error), {
+        const message = extractErrorMessage(error);
+        useRollbar().error(error, {message});
+        useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: loading
         });

@@ -1,15 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {envVarsConfig, i18nPages, routeRules} from "./utils/config";
+import {envVarsConfig, i18nPages, nitroPrerenderRoutes} from "./utils/config";
 
 export default defineNuxtConfig({
-    ssr: true,
+    ssr: false,
     site: {indexable: false}, // Disable indexing until the website is ready.
     app: {
         head: {
             script: [
                 {
                     hid: "newrelic",
-                    src: "newrelic.js",
+                    src: "/assets/scripts/newrelic.js",
                     defer: true,
                     type: "text/javascript"
                 }
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
         typeCheck: true
     },
     image: {
-        formats: ["avif", "webp", "gif"]
+        formats: ["avif", "webp", "gif", "png"]
     },
     i18n: {
         locales: ["de", "en"],
@@ -62,7 +62,6 @@ export default defineNuxtConfig({
         customRoutes: "config",
         pages: i18nPages
     },
-    routeRules,
     vuefire: {
         auth: {
             enabled: true,
@@ -116,12 +115,11 @@ export default defineNuxtConfig({
         transpile: ["vue-sonner"]
     },
     compatibilityDate: {
-        default: "2024-07-03",
-        firebase: "2024-07-03"
+        default: "2024-08-02",
+        firebase: "2024-08-02"
     },
     rollbar: {
         clientAccessToken: envVarsConfig.rollbarClientAccessToken,
-        serverAccessToken: envVarsConfig.rollbarServerAccessToken,
         mode: "all",
         config: {
             captureIp: "anonymize",
@@ -130,9 +128,15 @@ export default defineNuxtConfig({
             captureUsername: true,
             captureDeviceInfo: true,
             addErrorContext: true,
+            enabled: envVarsConfig.appEnv !== "development",
             payload: {
                 environment: envVarsConfig.appEnv
             }
+        }
+    },
+    nitro: {
+        prerender: {
+            routes: nitroPrerenderRoutes
         }
     }
 });

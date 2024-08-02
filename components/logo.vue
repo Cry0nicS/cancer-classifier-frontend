@@ -11,6 +11,8 @@
  *
  * @displayName Logo
  */
+import {useColorMode} from "@vueuse/core";
+
 interface LogoProps {
     height?: number;
     width?: number;
@@ -23,6 +25,11 @@ const {height, width, color} = withDefaults(defineProps<LogoProps>(), {
 });
 
 const localePath = useLocalePath();
+
+const colorMode = useColorMode();
+const logoUrl = computed(() =>
+    colorMode.value === "dark" ? "/logo_text_light.png" : "/logo_text_dark.png"
+);
 </script>
 
 <template>
@@ -31,8 +38,7 @@ const localePath = useLocalePath();
             :height="height"
             v-bind="{width: width || undefined}"
             :class="`fill-${color}`"
-            src="/logo.png"
-            loading="lazy" />
+            :src="logoUrl" />
 
         <span class="sr-only">{{ $t("logo.altText") }}</span>
     </NuxtLink>

@@ -86,16 +86,14 @@ const accordionItems: AccordionItem[] = range(1, 4).map((index) => ({
                 </div>
             </div>
         </div>
-        <ClientOnly>
-            <ModulesFaq
-                :title="t('home.faq.title')"
-                background-color="transparent"
-                class="my-10 border-2"
-                :accordion-items="accordionItems">
-                <template #content>
-                    <p class="mt-6 text-muted-foreground">{{ t("home.faq.description") }}</p>
-                </template>
-            </ModulesFaq>
-        </ClientOnly>
+        <ModulesFaq
+            :title="t('home.faq.title')"
+            background-color="transparent"
+            class="my-10 border-2"
+            :accordion-items="accordionItems">
+            <template #content>
+                <p class="mt-6 text-muted-foreground">{{ t("home.faq.description") }}</p>
+            </template>
+        </ModulesFaq>
     </UiContainer>
 </template>

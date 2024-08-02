@@ -9,7 +9,7 @@ export default defineNuxtConfig({
             script: [
                 {
                     hid: "newrelic",
-                    src: "newrelic.js",
+                    src: "/assets/scripts/newrelic.js",
                     defer: true,
                     type: "text/javascript"
                 }
@@ -116,8 +116,8 @@ export default defineNuxtConfig({
         transpile: ["vue-sonner"]
     },
     compatibilityDate: {
-        default: "2024-07-03",
-        firebase: "2024-07-03"
+        default: "2024-08-02",
+        firebase: "2024-08-02"
     },
     rollbar: {
         clientAccessToken: envVarsConfig.rollbarClientAccessToken,

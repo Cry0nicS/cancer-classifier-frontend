@@ -31,10 +31,7 @@ const user = useCurrentUser();
 
 const {data: userCollection} = useDocument<UserCollection>(
     () => (user.value ? doc(db, user.value.uid, sessionId) : null),
-    {
-        once: true,
-        ssrKey: sessionId
-    }
+    {once: true}
 );
 
 const sessionStartedAtComputed = computed(() => userCollection.value?.sessionStartedAt);

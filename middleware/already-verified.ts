@@ -6,9 +6,6 @@ import {doc, getDoc} from "firebase/firestore";
  * can access the verification page. Unauthenticated users are redirected to the home page.
  */
 export default defineNuxtRouteMiddleware(async (to, _from) => {
-    // Only run the middleware on the client side.
-    if (import.meta.server) return;
-
     const nuxtApp = useNuxtApp();
     const t = nuxtApp.$i18n.t;
     let targetPath = nuxtApp.$localePath("/");

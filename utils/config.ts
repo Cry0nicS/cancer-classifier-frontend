@@ -79,6 +79,7 @@ export const i18nPages = {
 
 export const nitroPrerenderRoutes = [
     "/about-us",
+    "/forgot-password",
     "/legal/contact",
     "/legal/eula",
     "/legal/imprint",

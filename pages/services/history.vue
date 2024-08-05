@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {collection, orderBy, query} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
+import {uuidv4} from "@firebase/util";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {formatDate} from "~/utils/helpers";
@@ -33,7 +34,11 @@ const {data: userCollections} = useCollection<UserCollection>(
         user.value
             ? query(collection(db, user.value.uid as string), orderBy("sessionStartedAt", "desc"))
             : null,
-    {once: true}
+    {
+        once: true,
+        // See https://github.com/vuejs/vuefire/issues/1315
+        ssrKey: uuidv4()
+    }
 );
 </script>
 

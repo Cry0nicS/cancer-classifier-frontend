@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {collection, doc} from "firebase/firestore";
+import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
+import {uuidv4} from "@firebase/util";
 import type {UserCollection} from "~/types/firebase";
 import {formatDate} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
@@ -53,8 +54,12 @@ const notificationId = ref<string>(t("toast.wait"));
 const {extractErrorMessage} = useErrorMessage();
 
 // Fetch the data from Firebase in real-time for the active session.
-const {data: userCollection} = useDocument<UserCollection>(() =>
-    user.value ? doc(collection(db, user.value.uid), uploadSessionId) : null
+const {data: userCollection} = useDocument<UserCollection>(
+    () => (user.value ? doc(db, user.value.uid, uploadSessionId) : null),
+    {
+        // See https://github.com/vuejs/vuefire/issues/1315
+        ssrKey: uuidv4()
+    }
 );
 
 // Create a list of files to be used in the form.

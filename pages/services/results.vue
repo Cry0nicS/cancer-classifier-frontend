@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {doc} from "firebase/firestore";
 import {useDocument, useFirebaseAuth} from "vuefire";
+import {uuidv4} from "@firebase/util";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {useSessionId} from "~/composables/use-session-id";
@@ -31,7 +32,11 @@ const user = useCurrentUser();
 
 const {data: userCollection} = useDocument<UserCollection>(
     () => (user.value ? doc(db, user.value.uid, sessionId) : null),
-    {once: true}
+    {
+        once: true,
+        // See https://github.com/vuejs/vuefire/issues/1315
+        ssrKey: uuidv4()
+    }
 );
 
 const sessionStartedAtComputed = computed(() => userCollection.value?.sessionStartedAt);

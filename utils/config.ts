@@ -10,8 +10,7 @@ const envVars = from({
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     API_URL: process.env.API_URL,
-    ROLLBAR_CLIENT_ACCESS_TOKEN: process.env.ROLLBAR_CLIENT_ACCESS_TOKEN,
-    ROLLBAR_SERVER_ACCESS_TOKEN: process.env.ROLLBAR_SERVER_ACCESS_TOKEN
+    ROLLBAR_CLIENT_ACCESS_TOKEN: process.env.ROLLBAR_CLIENT_ACCESS_TOKEN
 });
 
 export const envVarsConfig = {
@@ -24,8 +23,7 @@ export const envVarsConfig = {
     firebaseAppId: envVars.get("FIREBASE_APP_ID").required().asString(),
     firebaseMeasurementId: envVars.get("FIREBASE_MEASUREMENT_ID").required().asString(),
     apiUrl: envVars.get("API_URL").required().asUrlString(),
-    rollbarClientAccessToken: envVars.get("ROLLBAR_CLIENT_ACCESS_TOKEN").required().asString(),
-    rollbarServerAccessToken: envVars.get("ROLLBAR_SERVER_ACCESS_TOKEN").required().asString()
+    rollbarClientAccessToken: envVars.get("ROLLBAR_CLIENT_ACCESS_TOKEN").required().asString()
 };
 
 export const i18nPages = {
@@ -77,8 +75,4 @@ export const i18nPages = {
         de: "/dienstleistungen/ergebnisse",
         en: "/services/results"
     }
-};
-
-export const routeRules = {
-    "/legal/**": {ssr: false}
 };

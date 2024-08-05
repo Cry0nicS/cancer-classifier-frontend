@@ -8,9 +8,6 @@ import type {UserProfile} from "~/types/firebase";
  * Authenticated users with disabled accounts are redirected to the verification page.
  */
 export default defineNuxtRouteMiddleware(async (to, _from) => {
-    // Only run the middleware on the client side.
-    if (import.meta.server) return;
-
     const nuxtApp = useNuxtApp();
     const t = nuxtApp.$i18n.t;
 

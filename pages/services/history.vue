@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {collection, orderBy, query} from "firebase/firestore";
 import {useFirebaseAuth} from "vuefire";
-import {uuidv4} from "@firebase/util";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {formatDate} from "~/utils/helpers";
@@ -34,10 +33,7 @@ const {data: userCollections} = useCollection<UserCollection>(
         user.value
             ? query(collection(db, user.value.uid as string), orderBy("sessionStartedAt", "desc"))
             : null,
-    {
-        once: true,
-        ssrKey: user.value ? user.value.uid : uuidv4()
-    }
+    {once: true}
 );
 </script>
 

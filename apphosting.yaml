@@ -44,6 +44,3 @@ env:
     -   variable: ROLLBAR_CLIENT_ACCESS_TOKEN
         secret: ROLLBAR_CLIENT_ACCESS_TOKEN
 
-    -   variable: ROLLBAR_SERVER_ACCESS_TOKEN
-        secret: ROLLBAR_SERVER_ACCESS_TOKEN
-

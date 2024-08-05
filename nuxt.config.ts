@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {envVarsConfig, i18nPages, routeRules} from "./utils/config";
+import {envVarsConfig, i18nPages} from "./utils/config";
 
 export default defineNuxtConfig({
-    ssr: true,
+    ssr: false,
     site: {indexable: false}, // Disable indexing until the website is ready.
     app: {
         head: {
@@ -51,7 +51,7 @@ export default defineNuxtConfig({
         typeCheck: true
     },
     image: {
-        formats: ["avif", "webp", "gif"]
+        formats: ["avif", "webp", "gif", "png"]
     },
     i18n: {
         locales: ["de", "en"],
@@ -62,7 +62,6 @@ export default defineNuxtConfig({
         customRoutes: "config",
         pages: i18nPages
     },
-    routeRules,
     vuefire: {
         auth: {
             enabled: true,
@@ -121,7 +120,6 @@ export default defineNuxtConfig({
     },
     rollbar: {
         clientAccessToken: envVarsConfig.rollbarClientAccessToken,
-        serverAccessToken: envVarsConfig.rollbarServerAccessToken,
         mode: "all",
         config: {
             captureIp: "anonymize",
@@ -130,6 +128,7 @@ export default defineNuxtConfig({
             captureUsername: true,
             captureDeviceInfo: true,
             addErrorContext: true,
+            enabled: envVarsConfig.appEnv !== "development",
             payload: {
                 environment: envVarsConfig.appEnv
             }

@@ -33,17 +33,13 @@ const logoUrl = computed(() =>
 </script>
 
 <template>
-    <ColorScheme
-        placeholder="Logo"
-        tag="span">
-        <NuxtLink :to="localePath('/')">
-            <NuxtImg
-                :height="height"
-                v-bind="{width: width || undefined}"
-                :class="`fill-${color}`"
-                :src="logoUrl" />
+    <NuxtLink :to="localePath('/')">
+        <NuxtImg
+            :height="height"
+            v-bind="{width: width || undefined}"
+            :class="`fill-${color}`"
+            :src="logoUrl" />
 
-            <span class="sr-only">{{ $t("logo.altText") }}</span>
-        </NuxtLink>
-    </ColorScheme>
+        <span class="sr-only">{{ $t("logo.altText") }}</span>
+    </NuxtLink>
 </template>

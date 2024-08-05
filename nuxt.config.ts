@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import {envVarsConfig, i18nPages} from "./utils/config";
+import {envVarsConfig, i18nPages, nitroPrerenderRoutes} from "./utils/config";
 
 export default defineNuxtConfig({
     ssr: false,
@@ -132,6 +132,11 @@ export default defineNuxtConfig({
             payload: {
                 environment: envVarsConfig.appEnv
             }
+        }
+    },
+    nitro: {
+        prerender: {
+            routes: nitroPrerenderRoutes
         }
     }
 });

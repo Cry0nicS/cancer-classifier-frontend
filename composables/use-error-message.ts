@@ -15,6 +15,8 @@ export function useErrorMessage() {
             message = error.data?.detail || error.message;
         } else if (error instanceof Error) {
             message = error.message;
+        } else if (typeof error === "string") {
+            message = error;
         }
 
         return message;

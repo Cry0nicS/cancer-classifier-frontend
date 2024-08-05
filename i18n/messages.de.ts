@@ -103,6 +103,7 @@ export default {
         }
     },
     buttons: {
+        goBack: "Zur Startseite",
         createAccount: "Konto erstellen",
         dashboard: "Aktuelle Sitzung",
         getStarted: "Erste Schritte",

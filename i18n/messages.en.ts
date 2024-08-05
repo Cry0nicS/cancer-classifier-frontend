@@ -102,6 +102,7 @@ export default {
         }
     },
     buttons: {
+        goBack: "Return to home page",
         createAccount: "Create an account",
         dashboard: "Current session",
         getStarted: "Get started",

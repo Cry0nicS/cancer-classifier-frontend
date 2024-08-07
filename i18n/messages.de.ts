@@ -265,8 +265,65 @@ export default {
         title: "Hallo, {name}",
         dropzone: {
             title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie sie hierher.",
-            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 16 Dateien.',
+            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 8 Paare, 16 Dateien.',
             submit: "Dateien hochladen"
+        },
+        processSteps: {
+            title: "Schritt-für-Schritt-Anleitung",
+            step1: {
+                order: "1",
+                icon: "iconamoon:number-1-bold",
+                title: "Hochladen von `.idat`-Dateien",
+                status: "upload-pending",
+                description:
+                    "Laden Sie für jede Probe sowohl die roten als auch die grünen `.idat`-Dateien hoch.\n" +
+                    "\n" +
+                    "Stellen Sie sicher, dass die Dateinamen diesem Format entsprechen: *\\_XXXXXX\\_**Red**.idat und *\\_XXXXXX\\_**Grn**.idat.\n" +
+                    "(z.B. NAME_206702460068_R03C01_Red.idat)\n" +
+                    "\n" +
+                    "Stellen Sie sicher, dass Ihre `.idat`-Dateien von den `450k`, `EPIC` oder `EPICv2` Arrays erstellt wurden."
+            },
+            step2: {
+                order: "2",
+                icon: "iconamoon:number-2-bold",
+                title: "Probenlagerungstyp angeben",
+                status: "upload-finished",
+                description:
+                    "Geben Sie an, ob Ihre Proben in FFPE oder frisch gefroren gelagert wurden.\n" +
+                    "\n" +
+                    "Dieser Schritt ist entscheidend, da der Lagerungstyp die DNA-Methylierungsdaten erheblich beeinflusst und somit die Genauigkeit des Modells beeinflusst."
+            },
+            step3: {
+                order: "3",
+                icon: "iconamoon:number-3-bold",
+                title: "Dateianalyse",
+                status: "preprocessing-running",
+                description:
+                    "Der Prozess liest `.idat`-Dateien, extrahiert Beta-Werte und normalisiert sie mit FunNorm und BMIQ.\n" +
+                    "\n" +
+                    "Die Analyse dauert bis zu 5 Minuten. Bitte haben Sie während dieser Zeit Geduld."
+            },
+            step4: {
+                order: "4",
+                icon: "iconamoon:number-4-bold",
+                title: "Vorhersagealgorithmus",
+                status: "prediction-running",
+                description:
+                    "Aus den normalisierten Beta-Werten werden die relevanten CpGs extrahiert und der Vorhersagealgorithmus wird angewendet.\n" +
+                    "\n" +
+                    "Die Analyse dauert bis zu 5 Minuten. Bitte haben Sie während dieser Zeit Geduld."
+            },
+            step5: {
+                order: "5",
+                icon: "iconamoon:number-5-bold",
+                title: "Ergebnisse überprüfen",
+                status: "prediction-successful",
+                description:
+                    "Sobald die Analyse abgeschlossen ist, werden Sie zur Ergebnisseite weitergeleitet.\n" +
+                    "Sie erhalten das Vorhersageetikett zusammen mit den Wahrscheinlichkeitsscores für jede Klasse.\n" +
+                    "\n" +
+                    "Dieses detaillierte Ergebnis hilft, das Vertrauen des Klassifikators in seine Vorhersagen zu verstehen.\n"
+            }
         }
     },
     // -- Dashboard

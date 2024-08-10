@@ -1,11 +1,11 @@
 <script setup lang="ts">
-// Get the (authenticated) user from Firebase. Hide login form if user is already logged in.
+// Get the (authenticated) user from Firebase. Hide log out form if user is already logged in.
 const user = useCurrentUser();
 </script>
 
 <template>
-    <UiNavbar class="border-0">
-        <UiContainer class="flex h-[70px] items-center justify-between border-b-2">
+    <UiNavbar class="flex h-[70px] w-full justify-center border-0">
+        <div class="flex w-full items-center justify-between border-b-2 px-8">
             <div>
                 <Logo :height="40" />
             </div>
@@ -33,6 +33,6 @@ const user = useCurrentUser();
                     </LanguageToggle>
                 </div>
             </div>
-        </UiContainer>
+        </div>
     </UiNavbar>
 </template>

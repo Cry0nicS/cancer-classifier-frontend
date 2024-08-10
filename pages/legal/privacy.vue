@@ -20,8 +20,8 @@ const {data: content} = await usePageContent(
 </script>
 
 <template>
-    <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
+    <section class="w-full px-8 py-12">
+        <div class="flex w-full flex-col justify-between gap-5">
             <h1 class="my-8 text-center text-2xl font-semibold lg:text-3xl">
                 {{ t("privacy.title") }}
             </h1>
@@ -29,5 +29,5 @@ const {data: content} = await usePageContent(
                 class="markdown"
                 :value="content as any" />
         </div>
-    </UiContainer>
+    </section>
 </template>

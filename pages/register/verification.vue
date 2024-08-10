@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-    <UiContainer class="flex min-h-screen items-center justify-center">
+    <UiContainer class="flex h-full flex-col items-center justify-center">
         <div class="flex flex-col items-center justify-center px-4">
             <div
                 class="w-full max-w-[340px] rounded-lg bg-muted p-6 text-center shadow-lg dark:bg-accent-foreground lg:max-w-[500px]">

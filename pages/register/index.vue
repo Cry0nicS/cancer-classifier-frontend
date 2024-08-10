@@ -93,7 +93,7 @@ const privacyText = computed(() => {
 </script>
 
 <template>
-    <UiContainer class="flex min-h-screen flex-col items-center justify-center">
+    <UiContainer class="flex h-full flex-col items-center justify-center">
         <div class="w-full max-w-[340px] text-center">
             <Icon
                 class="size-10"

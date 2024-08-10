@@ -261,6 +261,9 @@ export default {
                 "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
         title: "Hello, {name}",
+        form: {
+            title: "Upload new file pairs"
+        },
         dropzone: {
             title: "Click to upload or drag & drop files.",
             subtext: 'Only ".idat" files allowed. Maximum  8 samples, 16 files.',
@@ -348,11 +351,12 @@ export default {
         },
         progress: {
             title: "Files are being processed.",
-            subtitle: "Please wait. This might take up to five minutes."
+            subtitle: "Please wait. Do not close or refresh this browser tab."
         },
         prediction: {
             title: "Prediction process started",
-            subtitle: "Please wait while we analyze your files. This may take a few minutes."
+            subtitle:
+                "Please wait while we analyze your files. Do not close or refresh this browser tab."
         }
     },
     // -- History
@@ -389,6 +393,7 @@ export default {
                 "A wide-format Open Graph image for social media, showcasing an abstract design of intertwined DNA strands and cellular structures. The color palette features various shades of blues and grays, emphasizing a clean and professional look. The image is designed to visually represent the theme of DNA methylation and cancer classification, without any text or logos, offering a purely graphical depiction."
         },
         title: "Hello, {name}",
+        subtitle: "Prediction and probability scores.",
         table: {
             caption: "Session started {date}",
             columns: {

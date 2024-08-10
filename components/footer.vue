@@ -5,7 +5,7 @@ const slots = useSlots();
 <template>
     <UiContainer
         as="footer"
-        class="flex flex-col items-center justify-between gap-7 border-t-2 py-12 md:flex-row">
+        class="flex flex-col items-center justify-between gap-7 border-t-2 px-8 py-12 md:max-h-[140px] md:flex-row">
         <p class="text-muted-foreground">&copy; {{ new Date().getFullYear() }} TGC</p>
 
         <nav

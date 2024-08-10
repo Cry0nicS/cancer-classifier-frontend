@@ -43,8 +43,8 @@ const {data: userCollections} = useCollection<UserCollection>(
 </script>
 
 <template>
-    <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
+    <section class="w-full px-8 py-12">
+        <div class="flex w-full flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
                     {{ t("history.title", {name: user?.displayName}) }}
@@ -153,5 +153,5 @@ const {data: userCollections} = useCollection<UserCollection>(
                 </div>
             </div>
         </div>
-    </UiContainer>
+    </section>
 </template>

@@ -263,6 +263,9 @@ export default {
                 "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
         title: "Hallo, {name}",
+        form: {
+            title: "Neue Dateien hochladen"
+        },
         dropzone: {
             title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie sie hierher.",
             subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 8 Paare, 16 Dateien.',
@@ -392,6 +395,7 @@ export default {
                 "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
         title: "Hallo, {name}",
+        subtitle: "Vorhersage und Wahrscheinlichkeitswerte",
         table: {
             caption: "Sitzung vom {date}",
             columns: {

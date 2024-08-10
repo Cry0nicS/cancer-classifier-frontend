@@ -31,7 +31,7 @@ const accordionItems: AccordionItem[] = range(1, 4).map((index) => ({
 </script>
 
 <template>
-    <UiContainer class="flex min-h-screen flex-col">
+    <section class="w-full px-8 py-12">
         <div
             v-if="user"
             class="flex min-h-[400px] flex-col items-center justify-center lg:min-h-[600px]">
@@ -95,5 +95,5 @@ const accordionItems: AccordionItem[] = range(1, 4).map((index) => ({
                 <p class="mt-6 text-muted-foreground">{{ t("home.faq.description") }}</p>
             </template>
         </ModulesFaq>
-    </UiContainer>
+    </section>
 </template>

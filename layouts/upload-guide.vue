@@ -10,8 +10,7 @@ const stepperStatus = useUploadStepperStatus();
 <template>
     <div class="flex min-h-screen flex-col">
         <Sidebar
-            class="fixed left-0 top-0 hidden h-full overflow-y-auto border-r py-[70px] xl:block"
-            :width="465">
+            class="fixed left-0 top-0 hidden h-full w-[400px] overflow-y-auto border-r py-[70px] xl:block">
             <div class="px-2 py-12">
                 <!-- eslint-disable vue/attribute-hyphenation -->
                 <UploadStepper :currentStatus="stepperStatus" />
@@ -19,7 +18,7 @@ const stepperStatus = useUploadStepperStatus();
             </div>
         </Sidebar>
 
-        <div class="flex grow justify-center xl:ml-[465px]">
+        <div class="flex grow justify-center xl:ml-[400px] 2xl:mx-[400px]">
             <div class="flex min-h-full w-full max-w-[1280px] flex-col">
                 <Header />
 

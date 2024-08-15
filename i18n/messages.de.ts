@@ -111,7 +111,7 @@ export default {
         logIn: "Anmelden",
         logOut: "Abmelden",
         upload: "Weitere Dateien hochladen",
-        predictions: "Vorhersagedetails"
+        predictions: "Auswertung"
     },
 
     // API
@@ -225,8 +225,9 @@ export default {
             item1: {
                 title: "Was ist der Krebs-Klassifikator?",
                 content:
-                    "Der Krebs-Klassifikator ist ein auf genomweiten DNA-Methylierung basierender neuronaler Netzwerk-Klassifikator, der zwischen pankreatischem Duktaladenokarzinom primären und metastatischen Ursprungs, intrahepatischem Cholangiokarzinom und normalem Gallengewebe unterscheiden kann.\n\n" +
-                    "Die Klassifikation mittels Methylierungsprofilierung ist nur für Forschungszwecke vorgesehen. Dieses Tool wurde nicht überprüft oder klinisch validiert und darf nicht für diagnostische Zwecke verwendet werden. Benutzer sollten sich bei gesundheitlichen Bedenken oder Erkrankungen an einen qualifizierten Gesundheitsdienstleister wenden. Die Entwickler des Krebs-Klassifikators lehnen jegliche Verantwortung für den Missbrauch dieses Tools für diagnostische Zwecke ab."
+                    "Der Krebs-Klassifikator ist ein auf DNA-Methylierung basierender neuronal network-Klassifikator, der zwischen pankreatischem Duktaladenokarzinom (primären und metastatisch), intrahepatischem Cholangiokarzinom und normalem Gallengewebe unterscheiden kann.\n\n" +
+                    "Die Klassifikation mittels Methylierungsprofilierung ist nur für Forschungszwecke vorgesehen. Dieses Tool wurde nicht überprüft oder klinisch validiert und darf nicht für diagnostische Zwecke verwendet werden. Benutzer sollten sich bei gesundheitlichen Bedenken oder Erkrankungen an einen qualifizierten Gesundheitsdienstleister wenden.\n\n" +
+                    "Die Entwickler des Krebs-Klassifikators lehnen jegliche Verantwortung für den Missbrauch dieses Tools für diagnostische Zwecke ab."
             },
             item2: {
                 title: "Wie erstelle ich ein Konto?",
@@ -246,7 +247,7 @@ export default {
                     "   - Passt Batch-Effekte mit reCombat an.\n\n" +
                     "2. **Binomialer Klassifikator:**\n" +
                     "   - Ein neuronales Netzwerkensemble bestimmt, ob die Probe PAAD, iCCA, normales Gallengewebe oder ein anderes Gewebe ist. Proben, die nicht mit PAAD, iCCA oder normalem Gallengewebe übereinstimmen, werden als 'Keine Übereinstimmung' gekennzeichnet.\n\n" +
-                    "3. **PAAD / iCCA / normaler Gallenklassifikator:**\n" +
+                    "3. **PAAD / iCCA / normale Galle Klassifizierung:**\n" +
                     "   - Weist den drei Klassen PAAD, iCCA und normales Gallengewebe Wahrscheinlichkeitswerte zu. Damit eine Klasse das endgültige Label ist, muss ihr Wert über 80 % liegen. Wenn keine der Klassen diesen Schwellenwert erreicht, wird das Label 'Keine Übereinstimmung' zugewiesen.\n\n" +
                     "Für weitere Informationen siehe unsere Publikationen."
             }

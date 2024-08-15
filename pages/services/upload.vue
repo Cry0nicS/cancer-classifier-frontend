@@ -3,11 +3,12 @@ import {useSessionStorage} from "@vueuse/core";
 import {useSeo} from "~/composables/use-seo";
 import {DropFileSchema} from "~/utils/validations";
 import {useErrorMessage} from "~/composables/use-error-message";
-import {UPLOAD_SESSION_KEY} from "~/types/constants";
+import {UPLOAD_SESSION_KEY, UPLOAD_STATUS} from "~/types/constants";
 
 definePageMeta({
     showHeader: true,
-    middleware: ["auth"]
+    middleware: ["auth"],
+    layout: "upload-guide"
 });
 
 const {t} = useI18n();
@@ -29,6 +30,8 @@ const uploadSessionId = useSessionId().createUploadSessionId();
 const files = ref<File[]>([]);
 const isSubmitting = ref(false);
 const {extractErrorMessage} = useErrorMessage();
+const stepperStatus = useUploadStepperStatus();
+stepperStatus.value = UPLOAD_STATUS.UploadPending;
 
 function formatFileSize(fileSize: number) {
     const units = ["B", "KB", "MB", "GB", "TB"];
@@ -152,8 +155,8 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
+    <section class="w-full px-8 py-12">
+        <div class="flex w-full flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
                     {{ t("upload.title", {name: user?.displayName}) }}
@@ -179,9 +182,11 @@ watchEffect(async () => {
                     </UiTooltip>
                 </div>
             </div>
-            <div class="mx-auto mt-14 flex w-full max-w-[600px] items-center justify-center">
+            <div class="mt-12 flex w-full max-w-[600px] flex-col">
+                <h2 class="mb-8 text-xl font-medium">{{ t("upload.form.title") }}</h2>
+
                 <form
-                    class="mx-auto w-full"
+                    class="w-full"
                     @submit.prevent="uploadFilesInBatch">
                     <fieldset
                         class="grid gap-5"
@@ -234,7 +239,7 @@ watchEffect(async () => {
                 </form>
             </div>
         </div>
-    </UiContainer>
+    </section>
 </template>
 
 <style lang="scss" scoped>

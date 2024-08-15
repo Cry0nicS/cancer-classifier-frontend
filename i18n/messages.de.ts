@@ -103,6 +103,7 @@ export default {
         }
     },
     buttons: {
+        goBack: "Zur Startseite",
         createAccount: "Konto erstellen",
         dashboard: "Aktuelle Sitzung",
         getStarted: "Erste Schritte",
@@ -110,7 +111,7 @@ export default {
         logIn: "Anmelden",
         logOut: "Abmelden",
         upload: "Weitere Dateien hochladen",
-        predictions: "Vorhersagedetails"
+        predictions: "Auswertung"
     },
 
     // API
@@ -224,8 +225,9 @@ export default {
             item1: {
                 title: "Was ist der Krebs-Klassifikator?",
                 content:
-                    "Der Krebs-Klassifikator ist ein auf genomweiten DNA-Methylierung basierender neuronaler Netzwerk-Klassifikator, der zwischen pankreatischem Duktaladenokarzinom primären und metastatischen Ursprungs, intrahepatischem Cholangiokarzinom und normalem Gallengewebe unterscheiden kann.\n\n" +
-                    "Die Klassifikation mittels Methylierungsprofilierung ist nur für Forschungszwecke vorgesehen. Dieses Tool wurde nicht überprüft oder klinisch validiert und darf nicht für diagnostische Zwecke verwendet werden. Benutzer sollten sich bei gesundheitlichen Bedenken oder Erkrankungen an einen qualifizierten Gesundheitsdienstleister wenden. Die Entwickler des Krebs-Klassifikators lehnen jegliche Verantwortung für den Missbrauch dieses Tools für diagnostische Zwecke ab."
+                    "Der Krebs-Klassifikator ist ein auf DNA-Methylierung basierender neuronal network-Klassifikator, der zwischen pankreatischem Duktaladenokarzinom (primären und metastatisch), intrahepatischem Cholangiokarzinom und normales Gallenepithel unterscheiden kann.\n\n" +
+                    "Die Klassifikation mittels Methylierungsprofilierung ist nur für Forschungszwecke vorgesehen. Dieses Tool wurde nicht überprüft oder klinisch validiert und darf nicht für diagnostische Zwecke verwendet werden. Benutzer sollten sich bei gesundheitlichen Bedenken oder Erkrankungen an einen qualifizierten Gesundheitsdienstleister wenden.\n\n" +
+                    "Die Entwickler des Krebs-Klassifikators lehnen jegliche Verantwortung für den Missbrauch dieses Tools für diagnostische Zwecke ab."
             },
             item2: {
                 title: "Wie erstelle ich ein Konto?",
@@ -236,17 +238,17 @@ export default {
             item3: {
                 title: "Wie funktioniert der Krebs-Klassifikator?",
                 content:
-                    "Der Krebs-Klassifikator verarbeitet `.idat`-Dateien und kategorisiert sie in eine von vier Gruppen: PAAD, iCCA, normales Gallengewebe oder keine Übereinstimmung. Der Workflow umfasst zwei Hauptpipelines: die Vorverarbeitungspipeline und die Vorhersagepipeline.\n\n" +
-                    "**Vorverarbeitungspipeline:**\n\n" +
-                    "- Die Vorverarbeitungspipeline liest die `.idat`-Dateien, extrahiert Betawerte und normalisiert diese Werte mit FunNorm und BMIQ.\n\n" +
-                    "- Aus den normalisierten Betawerten werden die relevanten CpGs extrahiert, die von der Vorhersagepipeline verwendet werden, und weitergeleitet.\n\n" +
-                    "**Vorhersagepipeline:**\n\n" +
+                    "Der Krebs-Klassifikator verarbeitet `.idat`-Dateien und kategorisiert sie in eine von vier Gruppen: PAAD, iCCA,  normales Gallenepithel oder keine Übereinstimmung. Der Workflow umfasst zwei Pipelines: die Pre-Processing Pipeline und die Prediction Pipeline.\n\n" +
+                    "**Pre-Processing Pipeline:**\n\n" +
+                    "- Diese Pipeline liest BetawertenDateien, extrahiert die Betawerte und normalisiert diese Werte mit FunNorm und BMIQ.\n\n" +
+                    "- Aus den normalisierten Betawerten werden die relevanten CpGs extrahiert, die von der Prediction Pipeline verwendet werden, und weitergeleitet.\n\n" +
+                    "**Prediction Pipeline:**\n\n" +
                     "1. **Batch-Effekt-Normalisierung:**\n" +
-                    "   - Passt Batch-Effekte mit reCombat an.\n\n" +
-                    "2. **Binomialer Klassifikator:**\n" +
-                    "   - Ein neuronales Netzwerkensemble bestimmt, ob die Probe PAAD, iCCA, normales Gallengewebe oder ein anderes Gewebe ist. Proben, die nicht mit PAAD, iCCA oder normalem Gallengewebe übereinstimmen, werden als 'Keine Übereinstimmung' gekennzeichnet.\n\n" +
-                    "3. **PAAD / iCCA / normaler Gallenklassifikator:**\n" +
-                    "   - Weist den drei Klassen PAAD, iCCA und normales Gallengewebe Wahrscheinlichkeitswerte zu. Damit eine Klasse das endgültige Label ist, muss ihr Wert über 80 % liegen. Wenn keine der Klassen diesen Schwellenwert erreicht, wird das Label 'Keine Übereinstimmung' zugewiesen.\n\n" +
+                    "Passt Batch-Effekte mit reCombat an.\n\n" +
+                    "2. **Binomiale Klassifizierung:**\n" +
+                    "Ein neuronales Netzwerk bestimmt, ob die Probe PAAD, iCCA, normales Gallenepithel oder ein anderes Gewebe ist. Proben, die nicht mit PAAD, iCCA oder normales Gallenepithel übereinstimmen, werden als 'Keine Übereinstimmung' gekennzeichnet.\n\n" +
+                    "3. **PAAD / iCCA / normale Gallen Klassifizierung:**\n" +
+                    "Dieser Schritt weist den drei Klassen PAAD, iCCA und normales Gallenepithel Wahrscheinlichkeitswerte zu. Damit eine Klasse das endgültige Label bekommt, muss ihr Wert über 80 % liegen. Wenn keine der Klassen diesen Schwellenwert erreicht, wird der Probe das Label 'Keine Übereinstimmung' zugewiesen.\n\n" +
                     "Für weitere Informationen siehe unsere Publikationen."
             }
         }
@@ -262,10 +264,70 @@ export default {
                 "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
         title: "Hallo, {name}",
+        form: {
+            title: "Neue Dateien hochladen"
+        },
         dropzone: {
             title: "Klicken Sie, um Dateien hochzuladen oder ziehen Sie sie hierher.",
-            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 16 Dateien.',
+            subtext: 'Nur ".idat"-Dateien erlaubt. Maximal 8 Paare, 16 Dateien.',
             submit: "Dateien hochladen"
+        },
+        processSteps: {
+            title: "Schritt-für-Schritt-Anleitung",
+            step1: {
+                order: "1",
+                icon: "iconamoon:number-1-bold",
+                title: "Hochladen von `.idat`-Dateien",
+                status: "upload-pending",
+                description:
+                    "Laden Sie für jede Probe sowohl die roten als auch die grünen `.idat`-Dateien hoch.\n" +
+                    "\n" +
+                    "Stellen Sie sicher, dass die Dateinamen diesem Format entsprechen: *\\_XXXXXX\\_**Red**.idat und *\\_XXXXXX\\_**Grn**.idat.\n" +
+                    "(z.B. NAME_206702460068_R03C01_Red.idat)\n" +
+                    "\n" +
+                    "Stellen Sie sicher, dass Ihre `.idat`-Dateien von den `450k`, `EPIC` oder `EPICv2` Arrays erstellt wurden."
+            },
+            step2: {
+                order: "2",
+                icon: "iconamoon:number-2-bold",
+                title: "Probenlagerungstyp angeben",
+                status: "upload-finished",
+                description:
+                    "Geben Sie an, ob Ihre Proben in FFPE oder frisch gefroren gelagert wurden.\n" +
+                    "\n" +
+                    "Dieser Schritt ist entscheidend, da der Lagerungstyp die DNA-Methylierungsdaten erheblich beeinflusst und somit die Genauigkeit des Modells beeinflusst."
+            },
+            step3: {
+                order: "3",
+                icon: "iconamoon:number-3-bold",
+                title: "Dateianalyse",
+                status: "preprocessing-running",
+                description:
+                    "Der Prozess liest `.idat`-Dateien, extrahiert Beta-Werte und normalisiert sie mit FunNorm und BMIQ.\n" +
+                    "\n" +
+                    "Die Analyse dauert bis zu 5 Minuten. Bitte haben Sie während dieser Zeit Geduld."
+            },
+            step4: {
+                order: "4",
+                icon: "iconamoon:number-4-bold",
+                title: "Vorhersagealgorithmus",
+                status: "prediction-running",
+                description:
+                    "Aus den normalisierten Beta-Werten werden die relevanten CpGs extrahiert und der Vorhersagealgorithmus wird angewendet.\n" +
+                    "\n" +
+                    "Die Analyse dauert bis zu 5 Minuten. Bitte haben Sie während dieser Zeit Geduld."
+            },
+            step5: {
+                order: "5",
+                icon: "iconamoon:number-5-bold",
+                title: "Ergebnisse überprüfen",
+                status: "prediction-successful",
+                description:
+                    "Sobald die Analyse abgeschlossen ist, werden Sie zur Ergebnisseite weitergeleitet.\n" +
+                    "Sie erhalten das Vorhersageetikett zusammen mit den Wahrscheinlichkeitsscores für jede Klasse.\n" +
+                    "\n" +
+                    "Dieses detaillierte Ergebnis hilft, das Vertrauen des Klassifikators in seine Vorhersagen zu verstehen.\n"
+            }
         }
     },
     // -- Dashboard
@@ -334,6 +396,7 @@ export default {
                 "Ein breitformatiges Open-Graph-Bild für soziale Medien, das ein abstraktes Design aus verflochtenen DNA-Strängen und Zellstrukturen zeigt. Die Farbpalette umfasst verschiedene Blautöne und Grautöne, die einen sauberen und professionellen Look betonen. Das Bild ist so gestaltet, dass es das Thema DNA-Methylierung und Krebs-Klassifikation visuell repräsentiert, ohne Text oder Logos und bietet eine rein grafische Darstellung."
         },
         title: "Hallo, {name}",
+        subtitle: "Vorhersage und Wahrscheinlichkeitswerte",
         table: {
             caption: "Sitzung vom {date}",
             columns: {
@@ -345,11 +408,6 @@ export default {
                 nnScoreiCCA: "NN Score iCCA",
                 binomial_prediction: "Binomiale Vorhersage"
             }
-        },
-        disclaimer: {
-            title: "Haftungsausschluss",
-            description:
-                "Die vom Krebs-Klassifikator erzeugten Ergebnisse sind ausschließlich für Forschungszwecke bestimmt und dürfen nicht für diagnostische Zwecke verwendet werden."
         }
     },
     // -- Privacy

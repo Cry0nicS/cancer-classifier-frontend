@@ -24,7 +24,8 @@ type FileList = {
 
 definePageMeta({
     showHeader: true,
-    middleware: ["auth", "upload-session-id"]
+    middleware: ["auth", "upload-session-id"],
+    layout: "upload-guide"
 });
 
 const {t, locale} = useI18n();
@@ -52,6 +53,8 @@ const isPredictionStarted = ref(false);
 const isPredictionComplete = ref(false);
 const notificationId = ref<string>(t("toast.wait"));
 const {extractErrorMessage} = useErrorMessage();
+const stepperStatus = useUploadStepperStatus();
+stepperStatus.value = UPLOAD_STATUS.UploadFinished;
 
 // Fetch the data from Firebase in real-time for the active session.
 const {data: userCollection} = useDocument<UserCollection>(
@@ -138,6 +141,7 @@ function progressStatus(status: UploadStatus): void {
     switch (status) {
         case UPLOAD_STATUS.PreRunning:
             isProcessingStarted.value = true;
+            stepperStatus.value = UPLOAD_STATUS.PreRunning;
             useSonner.loading(t("toast.preStart"), {
                 description: t("toast.wait"),
                 id: notificationId.value
@@ -153,6 +157,7 @@ function progressStatus(status: UploadStatus): void {
             break;
         case UPLOAD_STATUS.PredictionRunning:
             isPredictionStarted.value = true;
+            stepperStatus.value = UPLOAD_STATUS.PredictionRunning;
             useSonner.loading(t("toast.predictionStart"), {
                 description: t("toast.wait"),
                 id: notificationId.value
@@ -160,6 +165,7 @@ function progressStatus(status: UploadStatus): void {
             break;
         case UPLOAD_STATUS.PredictionSuccessful:
             isPredictionComplete.value = true;
+            stepperStatus.value = UPLOAD_STATUS.PredictionSuccessful;
             useSonner.success(t("toast.predictionSuccessful"), {
                 description: `${t("toast.redirect")}...`,
                 duration: 2000,
@@ -200,8 +206,8 @@ watch(
 </script>
 
 <template>
-    <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
+    <section class="w-full px-8 py-12">
+        <div class="flex w-full flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
                     {{ t("dashboard.title", {name: user?.displayName}) }}
@@ -234,7 +240,7 @@ watch(
             </div>
             <div
                 v-if="isProcessingStarted && !isProcessingComplete"
-                class="mt-8 bg-secondary p-10">
+                class="mt-8 w-full bg-secondary p-10">
                 <h2 class="text-xl font-medium">{{ t("dashboard.progress.title") }}</h2>
                 <span>{{ t("dashboard.progress.subtitle") }}</span>
                 <ModulesProgressBar
@@ -244,7 +250,7 @@ watch(
             </div>
             <div
                 v-if="isPredictionStarted && !isPredictionComplete"
-                class="mt-8 bg-secondary p-10">
+                class="mt-8 w-full bg-secondary p-10">
                 <h2 class="text-xl font-medium">{{ t("dashboard.prediction.title") }}</h2>
                 <span>{{ t("dashboard.prediction.subtitle") }}</span>
                 <ModulesProgressBar
@@ -258,7 +264,7 @@ watch(
                 <h2 class="text-xl font-medium">Your predictions are now ready</h2>
             </div>
             <div class="mt-8 w-full">
-                <span>{{ t("dashboard.table.title") }}</span>
+                <h2 class="mb-8 text-xl font-medium">{{ t("dashboard.table.title") }}</h2>
                 <div class="mt-8 overflow-x-auto rounded-md border pb-4">
                     <form @submit.prevent="startPreProcessing">
                         <UiTable class="w-full table-auto">
@@ -339,5 +345,5 @@ watch(
                 </div>
             </div>
         </div>
-    </UiContainer>
+    </section>
 </template>

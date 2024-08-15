@@ -6,6 +6,7 @@ import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {useSessionId} from "~/composables/use-session-id";
 import type {Locale} from "~/types/constants";
+import {usePageContent} from "~/composables/use-page-content";
 
 definePageMeta({
     showHeader: true,
@@ -46,11 +47,16 @@ const computedSessionStartedAt = computed(() =>
         ? formatDate(sessionStartedAtComputed.value, locale as unknown as Locale)
         : null
 );
+
+const {data: content} = await usePageContent(
+    "services/results",
+    locale.value as Locale
+).fetchLocalizedContent();
 </script>
 
 <template>
-    <UiContainer class="min-h-screen py-10">
-        <div class="mx-auto flex w-full max-w-[1000px] flex-col justify-between gap-5">
+    <section class="w-full px-8 py-12">
+        <div class="flex w-full flex-col justify-between gap-5">
             <div class="flex w-full flex-row justify-between">
                 <h1 class="text-2xl font-semibold lg:text-3xl">
                     {{ t("results.title", {name: user?.displayName}) }}
@@ -81,7 +87,8 @@ const computedSessionStartedAt = computed(() =>
                     </UiTooltip>
                 </div>
             </div>
-            <div class="mt-12">
+            <div class="mt-12 flex flex-col">
+                <h2 class="mb-8 text-xl font-medium">{{ t("results.subtitle") }}</h2>
                 <UiTable class="w-full table-auto">
                     <UiTableCaption>
                         {{
@@ -145,13 +152,10 @@ const computedSessionStartedAt = computed(() =>
                 </UiTable>
             </div>
             <div class="mt-12">
-                <h3 class="text-xl text-muted-foreground lg:text-2xl">
-                    ⚠ {{ t("results.disclaimer.title") }}
-                </h3>
-                <p>
-                    {{ t("results.disclaimer.description") }}
-                </p>
+                <ContentRenderer
+                    class="markdown"
+                    :value="content as any" />
             </div>
         </div>
-    </UiContainer>
+    </section>
 </template>

@@ -1,10 +1,24 @@
 <script setup lang="ts">
+import Sidebar from "~/components/modules/sidebar.vue";
+import UploadStepper from "~/components/modules/upload-stepper.vue";
+import {useUploadStepperStatus} from "~/composables/states";
+
 const localePath = useLocalePath();
+const stepperStatus = useUploadStepperStatus();
 </script>
 
 <template>
     <div class="flex min-h-screen flex-col">
-        <div class="flex grow justify-center">
+        <Sidebar
+            class="fixed left-0 top-0 hidden h-full w-[400px] overflow-y-auto border-r py-[70px] xl:block">
+            <div class="px-2 py-12">
+                <!-- eslint-disable vue/attribute-hyphenation -->
+                <UploadStepper :currentStatus="stepperStatus" />
+                <!-- eslint-enable vue/attribute-hyphenation -->
+            </div>
+        </Sidebar>
+
+        <div class="flex grow justify-center xl:ml-[400px] 2xl:mx-[400px]">
             <div class="flex min-h-full w-full max-w-[1280px] flex-col">
                 <Header />
 

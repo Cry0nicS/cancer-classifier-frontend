@@ -6,6 +6,7 @@ import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {useSessionId} from "~/composables/use-session-id";
 import type {Locale} from "~/types/constants";
+import {usePageContent} from "~/composables/use-page-content";
 
 definePageMeta({
     showHeader: true,
@@ -46,6 +47,11 @@ const computedSessionStartedAt = computed(() =>
         ? formatDate(sessionStartedAtComputed.value, locale as unknown as Locale)
         : null
 );
+
+const {data: content} = await usePageContent(
+    "services/results",
+    locale.value as Locale
+).fetchLocalizedContent();
 </script>
 
 <template>
@@ -146,12 +152,9 @@ const computedSessionStartedAt = computed(() =>
                 </UiTable>
             </div>
             <div class="mt-12">
-                <h3 class="text-xl text-muted-foreground lg:text-2xl">
-                    ⚠ {{ t("results.disclaimer.title") }}
-                </h3>
-                <p>
-                    {{ t("results.disclaimer.description") }}
-                </p>
+                <ContentRenderer
+                    class="markdown"
+                    :value="content as any" />
             </div>
         </div>
     </section>

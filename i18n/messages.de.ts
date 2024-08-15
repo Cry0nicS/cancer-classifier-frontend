@@ -407,11 +407,6 @@ export default {
                 nnScoreiCCA: "NN Score iCCA",
                 binomial_prediction: "Binomiale Vorhersage"
             }
-        },
-        disclaimer: {
-            title: "Haftungsausschluss",
-            description:
-                "Die vom Krebs-Klassifikator erzeugten Ergebnisse sind ausschließlich für Forschungszwecke bestimmt und dürfen nicht für diagnostische Zwecke verwendet werden."
         }
     },
     // -- Privacy

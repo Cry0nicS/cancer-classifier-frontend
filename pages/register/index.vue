@@ -68,6 +68,22 @@ const registerUser = handleSubmit(async (values, _ctx) => {
             createdAt: serverTimestamp()
         });
 
+        // This hack is done to avoid blocking the user creation process if the internal email fails.
+        try {
+            await $fetch("/api/email/account-created", {
+                method: "POST",
+                body: {
+                    userName: values.name,
+                    userDescription: values.aboutMe,
+                    userEmail: values.email,
+                    userId: userCredential.user.uid
+                }
+            });
+        } catch (error) {
+            // Log the error to Rollbar, since it is currently not possible to do it on the server side.
+            useRollbar().error(error);
+        }
+
         useSonner.success(t(`toast.accountCreated`), {
             id: loading
         });

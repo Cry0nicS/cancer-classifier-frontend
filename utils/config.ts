@@ -10,7 +10,13 @@ const envVars = from({
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     API_URL: process.env.API_URL,
-    ROLLBAR_CLIENT_ACCESS_TOKEN: process.env.ROLLBAR_CLIENT_ACCESS_TOKEN
+    ROLLBAR_CLIENT_ACCESS_TOKEN: process.env.ROLLBAR_CLIENT_ACCESS_TOKEN,
+    MAIL_SMTP: process.env.MAIL_SMTP,
+    MAIL_PORT: process.env.MAIL_PORT,
+    MAIL_USERNAME: process.env.MAIL_USERNAME,
+    MAIL_PASSWORD: process.env.MAIL_PASSWORD,
+    MAIL_ADMIN_ADDRESS: process.env.MAIL_ADMIN_ADDRESS,
+    USER_ACCOUNT_VALIDATION_URL: process.env.USER_ACCOUNT_VALIDATION_URL
 });
 
 export const envVarsConfig = {
@@ -23,7 +29,13 @@ export const envVarsConfig = {
     firebaseAppId: envVars.get("FIREBASE_APP_ID").required().asString(),
     firebaseMeasurementId: envVars.get("FIREBASE_MEASUREMENT_ID").required().asString(),
     apiUrl: envVars.get("API_URL").required().asUrlString(),
-    rollbarClientAccessToken: envVars.get("ROLLBAR_CLIENT_ACCESS_TOKEN").required().asString()
+    rollbarClientAccessToken: envVars.get("ROLLBAR_CLIENT_ACCESS_TOKEN").required().asString(),
+    mailSmtp: envVars.get("MAIL_SMTP").required().asString(),
+    mailPort: envVars.get("MAIL_PORT").required().asIntPositive(),
+    mailUsername: envVars.get("MAIL_USERNAME").required().asString(),
+    mailPassword: envVars.get("MAIL_PASSWORD").required().asString(),
+    mailAdminAddress: envVars.get("MAIL_ADMIN_ADDRESS").required().asEmailString(),
+    userAccountValidationUrl: envVars.get("USER_ACCOUNT_VALIDATION_URL").required().asUrlString()
 };
 
 export const i18nPages = {

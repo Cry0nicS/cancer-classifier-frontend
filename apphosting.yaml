@@ -44,3 +44,21 @@ env:
     -   variable: ROLLBAR_CLIENT_ACCESS_TOKEN
         secret: ROLLBAR_CLIENT_ACCESS_TOKEN
 
+    -   variable: MAIL_SMTP
+        secret: MAIL_SMTP
+
+    -   variable: MAIL_PORT
+        secret: MAIL_PORT
+
+    -   variable: MAIL_USERNAME
+        secret: MAIL_USERNAME
+
+    -   variable: MAIL_PASSWORD
+        secret: MAIL_PASSWORD
+
+    -   variable: MAIL_ADMIN_ADDRESS
+        secret: MAIL_ADMIN_ADDRESS
+
+    -   variable: USER_ACCOUNT_VALIDATION_URL
+        secret: USER_ACCOUNT_VALIDATION_URL
+

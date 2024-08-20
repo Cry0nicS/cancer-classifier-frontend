@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import vue from "@vitejs/plugin-vue";
 import {envVarsConfig, i18nPages, nitroPrerenderRoutes} from "./utils/config";
 
 export default defineNuxtConfig({
@@ -109,7 +110,14 @@ export default defineNuxtConfig({
         ]
     },
     runtimeConfig: {
-        apiUrl: envVarsConfig.apiUrl
+        appEnv: envVarsConfig.appEnv,
+        apiUrl: envVarsConfig.apiUrl,
+        mailSmtp: envVarsConfig.mailSmtp,
+        mailPort: envVarsConfig.mailPort,
+        mailUsername: envVarsConfig.mailUsername,
+        mailPassword: envVarsConfig.mailPassword,
+        mailAdminAddress: envVarsConfig.mailAdminAddress,
+        userAccountValidationUrl: envVarsConfig.userAccountValidationUrl
     },
     build: {
         transpile: ["vue-sonner"]
@@ -137,6 +145,10 @@ export default defineNuxtConfig({
     nitro: {
         prerender: {
             routes: nitroPrerenderRoutes
+        },
+        rollupConfig: {
+            // @ts-expect-error See https://vuemail.net/getting-started/nuxt-nitro .
+            plugins: [vue()]
         }
     }
 });

@@ -53,7 +53,10 @@ export default defineEventHandler(async (event) => {
 
         await transporter.sendMail(mailOptions);
     } catch (error) {
-        return createError(error as Error);
+        throw createError({
+            statusMessage: "Failed to send email",
+            data: {details: error}
+        });
     }
 
     return {message: "Email sent"};

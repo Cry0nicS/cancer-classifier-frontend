@@ -15,7 +15,7 @@ definePageMeta({
 // Import the useI18n composable to access the translation function.
 const {t} = useI18n();
 const localePath = useLocalePath();
-const {extractErrorMessage} = useErrorMessage();
+const {extractErrorMessage, extractErrorDetails} = useErrorMessage();
 
 // Fields used for displayed character count for aboutMe field.
 const maxAboutMeLength = 1000;
@@ -81,7 +81,11 @@ const registerUser = handleSubmit(async (values, _ctx) => {
             });
         } catch (error) {
             // Log the error to Rollbar, since it is currently not possible to do it on the server side.
-            useRollbar().error(error);
+            const message = extractErrorMessage(error);
+            useRollbar().error(error, {
+                message,
+                details: extractErrorDetails(error)
+            });
         }
 
         useSonner.success(t(`toast.accountCreated`), {

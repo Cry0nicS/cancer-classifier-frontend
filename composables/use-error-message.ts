@@ -12,7 +12,7 @@ export function useErrorMessage() {
         let message = t("errors.unexpectedError");
 
         if (error instanceof FetchError) {
-            message = error.data?.detail || error.message;
+            message = error.data?.detail || error.statusMessage;
         } else if (error instanceof Error) {
             message = error.message;
         } else if (typeof error === "string") {
@@ -22,5 +22,17 @@ export function useErrorMessage() {
         return message;
     };
 
-    return {extractErrorMessage};
+    const extractErrorDetails = (error: unknown) => {
+        const message = "No details available";
+
+        if (error instanceof FetchError) {
+            return error.data;
+        } else if (typeof error === "string") {
+            return error;
+        }
+
+        return message;
+    };
+
+    return {extractErrorMessage, extractErrorDetails};
 }

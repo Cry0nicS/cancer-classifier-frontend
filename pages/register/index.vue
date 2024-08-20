@@ -70,7 +70,7 @@ const registerUser = handleSubmit(async (values, _ctx) => {
 
         // This hack is done to avoid blocking the user creation process if the internal email fails.
         try {
-            await $fetch("/api/email/account-created", {
+            await $fetch("/api/register/email-notification", {
                 method: "POST",
                 body: {
                     userName: values.name,

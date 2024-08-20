@@ -8,7 +8,7 @@
 - **Match for normal tissue** when >= 0.6
 
 - **No match for carcinomas** when < 0.8
-- **No match for normal tissue** when < 0.6
+- **No match for normal tissue** when < 0.5
 
 *`No match` scores could potentially still be relevant if the tumor purity or DNA quality are low.*
 

@@ -8,7 +8,7 @@
 - **Übereinstimmung für normales Gewebe**, wenn >= 0.6
 
 - **Keine Übereinstimmung für Karzinome**, wenn < 0.8
-- **Keine Übereinstimmung für normales Gewebe**, wenn < 0.6
+- **Keine Übereinstimmung für normales Gewebe**, wenn < 0.5
 
 *Keine Übereinstimmungswerte könnten trotzdem relevant sein, wenn die Tumorreinheit oder die DNA-Qualität niedrig sind.*
 

@@ -9,6 +9,7 @@ const envVars = from({
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
+    GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
     API_URL: process.env.API_URL,
     ROLLBAR_CLIENT_ACCESS_TOKEN: process.env.ROLLBAR_CLIENT_ACCESS_TOKEN,
     MAIL_SMTP: process.env.MAIL_SMTP,
@@ -28,6 +29,10 @@ export const envVarsConfig = {
     firebaseMessagingSenderId: envVars.get("FIREBASE_MESSAGING_SENDER_ID").required().asString(),
     firebaseAppId: envVars.get("FIREBASE_APP_ID").required().asString(),
     firebaseMeasurementId: envVars.get("FIREBASE_MEASUREMENT_ID").required().asString(),
+    googleApplicationCredentials: envVars
+        .get("GOOGLE_APPLICATION_CREDENTIALS")
+        .required()
+        .asString(),
     apiUrl: envVars.get("API_URL").required().asUrlString(),
     rollbarClientAccessToken: envVars.get("ROLLBAR_CLIENT_ACCESS_TOKEN").required().asString(),
     mailSmtp: envVars.get("MAIL_SMTP").required().asString(),
@@ -39,6 +44,9 @@ export const envVarsConfig = {
 };
 
 export const i18nPages = {
+    "admin/manage-users": {
+        en: "/admin/manage-users"
+    },
     "about-us": {
         de: "/ueber-uns",
         en: "/about-us"

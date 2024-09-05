@@ -23,7 +23,7 @@ useSeo(
 
 // Fetch the FAQ items from translations.
 const accordionItems: AccordionItem[] = range(1, 4).map((index) => ({
-    id: useId(),
+    id: useId() as string,
     value: `item-${index}`,
     title: t(`home.faq.item${index}.title`),
     content: t(`home.faq.item${index}.content`)

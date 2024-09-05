@@ -112,6 +112,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         appEnv: envVarsConfig.appEnv,
         apiUrl: envVarsConfig.apiUrl,
+        googleApplicationCredentials: envVarsConfig.googleApplicationCredentials,
         mailSmtp: envVarsConfig.mailSmtp,
         mailPort: envVarsConfig.mailPort,
         mailUsername: envVarsConfig.mailUsername,
@@ -149,6 +150,9 @@ export default defineNuxtConfig({
         rollupConfig: {
             // @ts-expect-error See https://vuemail.net/getting-started/nuxt-nitro .
             plugins: [vue()]
+        },
+        experimental: {
+            openAPI: true
         }
     }
 });

@@ -12,6 +12,10 @@ export default defineEventHandler(async (event) => {
         // Proxy it.
         return proxyRequest(event, target);
     } catch (error) {
-        return createError({statusCode: 500, statusMessage: "Internal Server Error"});
+        return createError({
+            statusCode: 500,
+            statusMessage: "Internal Server Error",
+            data: {details: error}
+        });
     }
 });

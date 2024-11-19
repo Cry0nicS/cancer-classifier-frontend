@@ -36,8 +36,14 @@ export default defineNuxtConfig({
         "@vueuse/nuxt",
         "nuxt-icon",
         "nuxt-rollbar",
-        "nuxt-vuefire"
+        "nuxt-vuefire",
+        "@nuxt/eslint"
     ],
+    eslint: {
+        config: {
+            standalone: false // <--- Required for Antfu ESLint config
+        }
+    },
     postcss: {
         plugins: {
             "postcss-import": {},

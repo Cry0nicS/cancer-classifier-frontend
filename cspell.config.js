@@ -11,7 +11,8 @@ const config = {
         "nuxt.config.ts",
         "tailwind.config.ts",
         "public/**",
-        "content/en/about-us.md"
+        "content/en/about-us.md",
+        "content/de/about-us.md"
     ],
     import: ["@cspell/dict-de-de/cspell-ext.json", "@cspell/dict-lorem-ipsum/cspell-ext.json"],
     language: "en,de",

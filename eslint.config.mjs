@@ -10,9 +10,9 @@ export default withNuxt(
             vue: true,
             jsonc: true,
             ignores: [
+                "components/Ui/**",
                 ".coderabbit.yaml",
                 ".github/**",
-                "app/components/ui/**",
                 "public/assets/scripts/**"
             ]
         },
@@ -66,6 +66,13 @@ export default withNuxt(
                         ignore: ["^README\\.md$"]
                     }
                 ]
+            }
+        },
+        {
+            // TODO: Re-enable theses rules when they are fixed.
+            rules: {
+                "ts/consistent-type-definitions": "off", // Fixed rule name
+                "perfectionist/sort-imports": "off"
             }
         }
     )

@@ -13,16 +13,15 @@
  */
 import {useColorMode} from "@vueuse/core";
 
-interface LogoProps {
+const {
+    height = 85,
+    width,
+    color = "transparent"
+} = defineProps<{
     height?: number;
     width?: number;
     color?: string;
-}
-
-const {height, width, color} = withDefaults(defineProps<LogoProps>(), {
-    height: 85,
-    color: "transparent"
-});
+}>();
 
 const localePath = useLocalePath();
 

@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import {useProgressBar} from "~/composables/use-progress-bar";
 
-const {start, seconds} = withDefaults(
-    defineProps<{
-        start: boolean;
-        seconds?: number;
-    }>(),
-    {
-        start: false,
-        seconds: 10
-    }
-);
+const {start = false, seconds = 10} = defineProps<{
+    start?: boolean;
+    seconds?: number;
+}>();
 
 const {progressBarValue, startProgressBar, stopProgressBar} = useProgressBar(seconds);
 

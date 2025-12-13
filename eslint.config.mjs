@@ -8,6 +8,7 @@ export default withNuxt(
             stylistic: false,
             typescript: true,
             vue: true,
+            lessOpinionated: true,
             jsonc: true,
             ignores: [
                 "components/Ui/**",
@@ -53,7 +54,7 @@ export default withNuxt(
         },
         {
             rules: {
-                "style/ts-consistent-type-definitions": "off", // Fixed rule name
+                "ts/consistent-type-definitions": "off",
                 "ts/no-explicit-any": "error"
             }
         },

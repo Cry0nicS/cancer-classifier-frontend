@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {defineProps} from "vue";
-import {range} from "@antfu/utils";
 import {UPLOAD_STATUS} from "~/types/constants";
 import type {StepperStates, StepperStatuses, StepperStep} from "~/types/utils";
+import {range} from "lodash-es";
 
 const props = defineProps<{
     currentStatus: StepperStatuses;
@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const {t} = useI18n();
 
-const steps: StepperStep[] = range(1, 6).map((index) => ({
+const steps: StepperStep[] = range(1, 6).map((index: number) => ({
     order: Number(t(`upload.processSteps.step${index}.order`)),
     icon: t(`upload.processSteps.step${index}.icon`),
     status: t(`upload.processSteps.step${index}.status`) as StepperStatuses,

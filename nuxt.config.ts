@@ -153,7 +153,6 @@ export default defineNuxtConfig({
             routes: nitroPrerenderRoutes
         },
         rollupConfig: {
-            // @ts-expect-error See https://vuemail.net/getting-started/nuxt-nitro .
             plugins: [vue()]
         }
     }

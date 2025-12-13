@@ -25,77 +25,76 @@ on:
 jobs:
     setup:
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [18.x, 20.9.0]
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
-            -   name: Use Node.js ${{ matrix.node-version }}
-                uses: actions/setup-node@v4
-                with:
-                    node-version: ${{ matrix.node-version }}
-            -   name: Cache Node.js modules
-                uses: actions/cache@v4
-                with:
-                    path: ~/.npm
-                    key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}-${{ github.sha }}
-                    restore-keys: |
-                        ${{ runner.os }}-node-
-            -   name: Install Dependencies
-                run: npm ci
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.11.1
+                  cache: npm
+                  cache-dependency-path: package-lock.json
+            - run: npm ci --no-audit --no-fund
 
     lint:
         needs: setup
         runs-on: ubuntu-latest
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
-            -   name: Install Dependencies
-                run: npm ci
-            -   name: Run ESLint
-                run: npm run lint
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.11.1
+                  cache: npm
+                  cache-dependency-path: package-lock.json
+            - run: npm ci --no-audit --no-fund
+            - run: npm run lint
 
     format-check:
         needs: setup
         runs-on: ubuntu-latest
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
-            -   name: Install Dependencies
-                run: npm ci
-            -   name: Run Prettier
-                run: npm run format-check
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.11.1
+                  cache: npm
+                  cache-dependency-path: package-lock.json
+            - run: npm ci --no-audit --no-fund
+            - run: npm run format-check
 
     spell-check:
         needs: setup
         runs-on: ubuntu-latest
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
-            -   name: Install Dependencies
-                run: npm ci
-            -   name: Run cSpell
-                run: npm run spell-check
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.11.1
+                  cache: npm
+                  cache-dependency-path: package-lock.json
+            - run: npm ci --no-audit --no-fund
+            - run: npm run spell-check
 
     style-check:
         needs: setup
         runs-on: ubuntu-latest
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
-            -   name: Install Dependencies
-                run: npm ci
-            -   name: Run Stylelint
-                run: npm run style-check
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.11.1
+                  cache: npm
+                  cache-dependency-path: package-lock.json
+            - run: npm ci --no-audit --no-fund
+            - run: npm run style-check
 
     build:
         needs: [lint, format-check, spell-check, style-check]
         runs-on: ubuntu-latest
         steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
-            -   name: Install Dependencies
-                run: npm ci
-            -   name: Build
-                run: npm run build
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.11.1
+                  cache: npm
+                  cache-dependency-path: package-lock.json
+            - run: npm ci --no-audit --no-fund
+            - run: npm run build

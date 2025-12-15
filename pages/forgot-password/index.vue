@@ -50,7 +50,6 @@ const resetPassword = handleSubmit(async (values, _ctx) => {
         emailSent.value = true;
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: loading

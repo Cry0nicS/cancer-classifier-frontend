@@ -1,5 +1,6 @@
 import {useDateFormat, useNow} from "@vueuse/core";
-import {ISO_LOCALE, LOCALE, type Locale} from "~/types/constants";
+import {ISO_LOCALE, LOCALE} from "~/types/constants";
+import type {Locale} from "~/types/constants";
 
 /**
  * Formats a given date string into a specified format and locale.

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {range} from "@antfu/utils";
 import {useSeo} from "~/composables/use-seo";
 import type {AccordionItem} from "~/components/Ui/Accordion/Accordion.vue";
+import {range} from "lodash-es";
 
 definePageMeta({
     showHeader: false

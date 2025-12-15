@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {LOCALE, type Locale} from "~/types/constants";
+import {LOCALE} from "~/types/constants";
+import type {Locale} from "~/types/constants";
 
 const {locale} = useI18n() as unknown as {locale: Locale};
 const switchLocalePath = useSwitchLocalePath();

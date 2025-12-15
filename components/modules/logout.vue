@@ -26,7 +26,6 @@ const logoutUser = async () => {
         return navigateTo({path: localePath("/")}, {external: true, replace: true});
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: loading

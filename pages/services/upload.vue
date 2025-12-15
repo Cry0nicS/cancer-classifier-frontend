@@ -76,7 +76,6 @@ const areFilesValid = async (selectedFiles: File[]): Promise<boolean> => {
         return true;
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {description: t("errors.tryAgain")});
         return false;
     }
@@ -99,7 +98,6 @@ const uploadFiles = async (files: File[]): Promise<void> => {
         });
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {description: t("errors.tryAgain")});
 
         throw error;
@@ -136,7 +134,6 @@ const uploadFilesInBatch = async () => {
         );
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: loading

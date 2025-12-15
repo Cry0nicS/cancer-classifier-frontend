@@ -7,14 +7,8 @@ import {formatDate} from "~/utils/helpers";
 import {StorageMethodSchema} from "~/utils/validations";
 import {useSeo} from "~/composables/use-seo";
 import {useErrorMessage} from "~/composables/use-error-message";
-import {
-    type Locale,
-    type Platform,
-    STORAGE_METHOD,
-    type StorageMethod,
-    UPLOAD_STATUS,
-    type UploadStatus
-} from "~/types/constants";
+import {STORAGE_METHOD, UPLOAD_STATUS} from "~/types/constants";
+import type {Locale, Platform, StorageMethod, UploadStatus} from "~/types/constants";
 
 type FileList = {
     baseName: string;

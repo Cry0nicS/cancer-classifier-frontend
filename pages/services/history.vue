@@ -5,7 +5,8 @@ import {uuidv4} from "@firebase/util";
 import type {UserCollection} from "~/types/firebase";
 import {useSeo} from "~/composables/use-seo";
 import {formatDate} from "~/utils/helpers";
-import {type Locale, UPLOAD_STATUS} from "~/types/constants";
+import {UPLOAD_STATUS} from "~/types/constants";
+import type {Locale} from "~/types/constants";
 
 definePageMeta({
     showHeader: true,

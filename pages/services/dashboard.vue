@@ -105,7 +105,6 @@ const startPreProcessing = async () => {
         }
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: notificationId.value
@@ -123,7 +122,6 @@ const startPrediction = async () => {
         });
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: notificationId.value

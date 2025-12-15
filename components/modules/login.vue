@@ -31,7 +31,6 @@ const loginUser = handleSubmit(async (values, _ctx) => {
         });
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: loading

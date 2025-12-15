@@ -35,7 +35,6 @@ export default defineNuxtConfig({
         "@vee-validate/nuxt",
         "@vueuse/nuxt",
         "nuxt-icon",
-        "nuxt-rollbar",
         "nuxt-vuefire",
         "@nuxt/eslint"
     ],
@@ -68,6 +67,26 @@ export default defineNuxtConfig({
         // Disable custom route with page components.
         customRoutes: "config",
         pages: i18nPages
+    },
+    vite: {
+        optimizeDeps: {
+            // exclude *instead of* include
+            exclude: ["emojilib"]
+        },
+        build: {
+            // do not try to prebundle / transform this
+            commonjsOptions: {
+                include: [/node_modules/],
+                exclude: ["emojilib"]
+            },
+            rollupOptions: {
+                external: ["emojilib"]
+            }
+        },
+        ssr: {
+            external: ["emojilib"],
+            noExternal: []
+        }
     },
     vuefire: {
         auth: {
@@ -132,28 +151,17 @@ export default defineNuxtConfig({
         default: "2024-08-02",
         firebase: "2024-08-02"
     },
-    rollbar: {
-        clientAccessToken: envVarsConfig.rollbarClientAccessToken,
-        mode: "all",
-        config: {
-            captureIp: "anonymize",
-            captureUncaught: true,
-            captureUnhandledRejections: true,
-            captureUsername: true,
-            captureDeviceInfo: true,
-            addErrorContext: true,
-            enabled: envVarsConfig.appEnv !== "development",
-            payload: {
-                environment: envVarsConfig.appEnv
-            }
-        }
-    },
     nitro: {
         prerender: {
             routes: nitroPrerenderRoutes
         },
         rollupConfig: {
-            plugins: [vue()]
+            plugins: [vue()],
+            external: ["emojilib"]
+        },
+        externals: {
+            inline: [],
+            external: ["emojilib"]
         }
     }
 });

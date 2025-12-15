@@ -15,7 +15,7 @@ definePageMeta({
 // Import the useI18n composable to access the translation function.
 const {t} = useI18n();
 const localePath = useLocalePath();
-const {extractErrorMessage, extractErrorDetails} = useErrorMessage();
+const {extractErrorMessage} = useErrorMessage();
 
 // Fields used for displayed character count for aboutMe field.
 const maxAboutMeLength = 1000;
@@ -80,12 +80,8 @@ const registerUser = handleSubmit(async (values, _ctx) => {
                 }
             });
         } catch (error) {
-            // Log the error to Rollbar, since it is currently not possible to do it on the server side.
             const message = extractErrorMessage(error);
-            useRollbar().error(error, {
-                message,
-                details: extractErrorDetails(error)
-            });
+            useSonner.error(message, {description: t("errors.tryAgain")});
         }
 
         useSonner.success(t(`toast.accountCreated`), {
@@ -96,7 +92,6 @@ const registerUser = handleSubmit(async (values, _ctx) => {
         return navigateTo({path: localePath("/services/upload")}, {replace: true, external: true});
     } catch (error) {
         const message = extractErrorMessage(error);
-        useRollbar().error(error, {message});
         useSonner.error(message, {
             description: t("errors.tryAgain"),
             id: loading

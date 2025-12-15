@@ -41,9 +41,6 @@ env:
     -   variable: APP_ENV
         secret: APP_ENV
 
-    -   variable: ROLLBAR_CLIENT_ACCESS_TOKEN
-        secret: ROLLBAR_CLIENT_ACCESS_TOKEN
-
     -   variable: MAIL_SMTP
         secret: MAIL_SMTP
 

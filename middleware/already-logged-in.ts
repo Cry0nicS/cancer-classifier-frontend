@@ -3,6 +3,9 @@
  * Only authenticated users can access the protected routes.
  */
 export default defineNuxtRouteMiddleware(async (_to, _from) => {
+    const nuxtApp = useNuxtApp();
+    const t = nuxtApp.$i18n.t;
+
     try {
         // Get the (authenticated) user from Firebase.
         const user = await getCurrentUser();
@@ -16,6 +19,10 @@ export default defineNuxtRouteMiddleware(async (_to, _from) => {
             );
         }
     } catch (e) {
-        useRollbar().error(e);
+        return createError({
+            statusCode: 500,
+            statusMessage: `${t("errors.unexpectedError")} ${t("errors.tryAgain")}`,
+            data: e
+        });
     }
 });
